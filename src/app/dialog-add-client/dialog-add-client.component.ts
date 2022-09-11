@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { Client } from 'src/models/client.class';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 export interface DialogData {}
 
@@ -16,6 +17,7 @@ export class DialogAddClientComponent implements OnInit {
 
   constructor( 
     private dialogRef: MatDialogRef<DialogAddClientComponent>,
+    private firestore: AngularFirestore,
   ) { }
 
   ngOnInit(): void {
@@ -25,12 +27,19 @@ export class DialogAddClientComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  saveUser() {
+  saveClient() {
     this.loading = true;
+    // todo: verify, check if client already exists (later check via email, eg)
     // save in firestore
-    // check if client already exists (later check via email, eg)
-    //   this.closeDialog(); or ask if another client should be added
-    // });
+    this.firestore
+      .collection('clients')
+      .add(this.client.toJSON())
+      .then( (result: any) => {
+        console.log('Adding client: finished ', result);
+        this.loading = false;
+        // decide: clear inputs or close dialog or or ask if another client should be added before close
+        this.closeDialog();
+      });
   }
 
 }
