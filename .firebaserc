@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "crm-test-be666": {
+      "hosting": {
+        "simple-crm": [
+          "crm-test-be666"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "crm-test-be666"
+  }
+}
