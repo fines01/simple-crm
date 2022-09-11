@@ -1,1 +1,27 @@
-<p>client-detail works!</p>
+<mat-card class="client-detail-header">
+    <button mat-icon-button [matMenuTriggerFor]="userHeaderMenu" class="pin-right-upper-corner">
+        <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #userHeaderMenu="matMenu">
+        <button mat-menu-item (click)="openEditDialog1()">Edit</button>
+    </mat-menu>
+    <img src="./assets/img/avatar.png" class="profile-picture" alt="">
+    <div class="client-details">
+        <h2>{{ client.firstName }} {{ client.lastName }}</h2>
+        {{ client.email }}
+    </div>
+</mat-card>
+
+<mat-card class="mt-32">
+    <button mat-icon-button [matMenuTriggerFor]="addressMenu" class="pin-right-upper-corner">
+        <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #addressMenu="matMenu">
+        <button mat-menu-item (click)="openEditDialog2()">Edit</button>
+    </mat-menu>
+    <mat-card-title>Address</mat-card-title>
+    <mat-card-content>
+        {{ client.street }} <br>
+        {{ client.zipCode }} {{ client.city }}
+    </mat-card-content>
+</mat-card>
