@@ -10,10 +10,16 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { StaffComponent } from './staff/staff.component';
+import { ClientsComponent } from './clients/clients.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    DashboardComponent,
+    StaffComponent,
+    ClientsComponent
   ],
   imports: [
     BrowserModule,
