@@ -1,24 +1,58 @@
-<!-- Material Toolbar (inside sidenav container, s.t. sidenav is over toolbar if opened) -->
+<!-- Material Sidenav -->
+<mat-drawer-container class="mat-drawer-container" autosize>
+  <mat-drawer #drawer class="mat-sidenav" mode="side" [opened]="true">
+    <div class="logo-container">
+      PLATZ FüR LOGO
+      <!-- <img src="./assets/img/logo.png" class="nav-logo" alt="Simple CRM Logo"> -->
+    </div>
+
+    <ul class="menu-items">
+      <li [routerLink]="'/'">
+        <mat-icon color="accent">fact_check</mat-icon>Dashboard
+      </li>
+      <li [routerLink]="'/user'">
+        <mat-icon color="accent">group</mat-icon>User
+      </li>
+      <!-- Further Ideas: -->
+      <li>
+        <mat-icon color="accent">3p</mat-icon>Clients
+      </li>
+      <li>
+        <mat-icon color="accent">area_chart</mat-icon>Projects
+      </li>
+      <li>
+        <mat-icon color="accent">groups</mat-icon>Teams
+      </li>
+      <li>
+        <mat-icon color="accent">task</mat-icon>My Tasks
+      </li>
+      <li>
+        <mat-icon color="accent">toll</mat-icon>Admin
+      </li>
+
+    </ul>
+    <!-- <div class="drawer-content"></div> -->
+
+  </mat-drawer>
+
+  <!-- Material Toolbar (inside sidenav container, s.t. sidenav is over toolbar if opened) -->
   <mat-toolbar color="primary">
     <mat-toolbar-row>
-      <button color="accent" mat-icon-button class="" aria-label="Example icon-button with menu icon">
+      <button (click)="drawer.toggle()" color="accent" mat-icon-button class=""
+        aria-label="Example icon-button with menu icon">
         <mat-icon>menu</mat-icon>
       </button>
       <span>Simple CRM</span>
       <span class="toolbar-spacer"></span>
       <button mat-icon-button class="favorite-icon" aria-label="Example icon-button with heart icon">
-        <mat-icon  
-          #tooltip="matTooltip"
-          matTooltip="Switch to light mode"
-          [matTooltipPosition]="'above'"
-          matTooltipHideDelay="500"
-          class="lightmode-icon">
-            lightbulb
+        <mat-icon #tooltip="matTooltip" matTooltip="Switch to light mode" [matTooltipPosition]="'above'"
+          matTooltipHideDelay="500" class="lightmode-icon">
+          lightbulb
         </mat-icon>
       </button>
       <button mat-icon-button class="" aria-label="Example icon-button with share icon">
         <!-- <mat-icon>share</mat-icon> -->
-         <mat-icon>settings</mat-icon>
+        <mat-icon>settings</mat-icon>
       </button>
     </mat-toolbar-row>
     <!-- toggle-sidenav button inside toolbar -->
@@ -30,4 +64,8 @@
   </mat-toolbar>
   <!-- END toolbar -->
 
-<router-outlet></router-outlet>
+  <div class="content-container">
+    <router-outlet></router-outlet>
+  </div>
+
+</mat-drawer-container>
