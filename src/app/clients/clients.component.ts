@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Client } from 'src/models/client.class';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogAddClientComponent } from '../dialog-add-client/dialog-add-client.component';
+
 
 @Component({
   selector: 'app-clients',
@@ -7,9 +11,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ClientsComponent implements OnInit {
 
-  constructor() { }
+  user: Client = new Client(); 
+  allClients = [];
 
-  ngOnInit(): void {
+  constructor(
+    private dialog: MatDialog,
+  ) { }
+
+  ngOnInit(): void { 
+
+  }
+
+  openDialog() {
+    let dialogRef = this.dialog.open( DialogAddClientComponent);
+
+    dialogRef.afterClosed().subscribe( result => {
+      console.log('Dialog was closed');
+      // save result in variable
+    })
   }
 
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-staff',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StaffComponent implements OnInit {
 
-  constructor() { }
+  member!: any; // class staffmember
+  allMembers = [];
 
-  ngOnInit(): void {
-  }
+  constructor(
+
+  ) { }
+
+  ngOnInit(): void { }
+
+  openDialog() { }
+
 
 }

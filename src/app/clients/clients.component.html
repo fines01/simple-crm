@@ -1,1 +1,29 @@
-<p>clients works!</p>
+<mat-card>
+  <table class="client-table">
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Address</th>
+    </tr>
+    <tr *ngFor="let client of allClients" [routerLink]="['/user/' + client['userID']]">
+      <td>{{ client['firstName'] }} {{ client['lastName'] }}</td>
+      <td>{{ client['email'] }}</td>
+      <td>{{ client['zipCode'] }} {{ client['street'] }}</td>
+    </tr>
+    
+  </table>
+</mat-card>
+
+<!-- <div class="button-container"> -->
+  <button 
+    mat-fab color="primary" 
+    class="add-client-btn"
+    #tooltip="matTooltip"
+    matTooltip="Add a new client"
+    [matTooltipPosition]="'above'"
+    matTooltipHideDelay="500"
+    (click)="openDialog()">
+    <!-- [matTooltipPosition]="position.value!" -->
+        <mat-icon>add</mat-icon>
+  </button>
+<!-- </div> -->

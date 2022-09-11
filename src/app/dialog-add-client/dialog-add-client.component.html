@@ -1,0 +1,54 @@
+<div class="dialog-container">
+
+  <mat-progress-bar *ngIf="loading" mode="indeterminate" class="progress-bar"></mat-progress-bar>
+
+  <h1 mat-dialog-title>Add User</h1>
+  <div mat-dialog-content>
+    <!-- Hier NUTZER HINZUFüGEN -->
+    <div class="">
+      <mat-form-field appearance="outline" class="mr-16">
+        <mat-label>First Name</mat-label>
+        <input [(ngModel)]="client.firstName" matInput [disabled]="loading" placeholder="First Name">
+        <mat-hint>First Name</mat-hint>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Last Name</mat-label>
+        <input [(ngModel)]="client.lastName" matInput [disabled]="loading" placeholder="Last Name">
+        <mat-hint>Last Name</mat-hint>
+      </mat-form-field>
+    </div>
+     <div class="">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>E-mail</mat-label>
+        <input [(ngModel)]="client.email" matInput [disabled]="loading" placeholder="E-Mail">
+        <mat-hint>E-Mail Address</mat-hint>
+      </mat-form-field>
+    </div>
+    <div class="">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Street + House No.</mat-label>
+        <input [(ngModel)]="client.street" matInput [disabled]="loading" placeholder="Street + No.">
+        <mat-hint>Street + No.</mat-hint>
+      </mat-form-field>
+    </div>
+
+    <div class="">
+      <mat-form-field appearance="outline" class="mr-16">
+        <mat-label>Zip code</mat-label>
+        <input [(ngModel)]="client.zipCode" matInput [disabled]="loading" placeholder="Zip Code">
+        <mat-hint>Zip code</mat-hint>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>City</mat-label>
+        <input [(ngModel)]="client.city" matInput [disabled]="loading" placeholder="">
+        <mat-hint>City</mat-hint>
+      </mat-form-field>
+    </div>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="closeDialog()">Cancel</button>
+    <button mat-button (click)="saveUser()" cdkFocusInitial>Save</button>
+  </div>
+
+</div>

@@ -29,7 +29,7 @@ export class Client {
             zipCode: this.zipCode,
             city: this.city,
             email: this.email,
-            phone: this.phone;
+            phone: this.phone,
         }
     }
 

@@ -1,0 +1,54 @@
+.add-client-btn {
+  position: absolute;
+  bottom: 32px; //wie margin-bottom in content-container!
+  right: 44px; //wie m-r in content-container in app component
+}
+
+mat-card {
+  padding-left: 0;
+  padding-right: 0;
+  padding-bottom: 0;
+}
+
+.client-table {
+  width: 100%;
+  border-collapse: collapse;
+
+  tr {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+
+    &:first-child {
+      cursor: unset;
+    }
+
+    &:last-child {
+      border-bottom: 0;
+    }
+
+    td {
+      height: 48px;
+
+      &:first-child {
+        padding-left: 16px;
+      }
+    }
+
+    th {
+      height: 48px;
+      font-weight: 500;
+      font-size: 14px;
+      text-align: start;
+      // color
+
+      &:first-child {
+        padding-left: 16px;
+      }
+    }
+
+    &:hover:not(:first-child) {
+      background-color: rgba(0, 0, 0, 0.04);
+    }
+  }
+
+}
