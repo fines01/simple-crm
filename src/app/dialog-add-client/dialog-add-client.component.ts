@@ -14,6 +14,7 @@ export class DialogAddClientComponent implements OnInit {
 
   client = new Client();
   loading = false;
+  countries = ['AUT', 'CHE', 'DEU', 'CAN', 'GBR', 'USA']
 
   constructor( 
     private dialogRef: MatDialogRef<DialogAddClientComponent>,

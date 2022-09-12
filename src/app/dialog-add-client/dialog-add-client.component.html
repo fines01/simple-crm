@@ -6,43 +6,70 @@
   <div mat-dialog-content>
     <!-- Hier NUTZER HINZUFüGEN -->
     <div class="">
-      <mat-form-field appearance="outline" class="mr-16">
+      <mat-form-field appearance="outline" class="mr-16 width-50">
         <mat-label>First Name</mat-label>
         <input [(ngModel)]="client.firstName" matInput [disabled]="loading" placeholder="First Name">
         <mat-hint>First Name</mat-hint>
       </mat-form-field>
-      <mat-form-field appearance="outline">
+      <mat-form-field appearance="outline" class="width-50">
         <mat-label>Last Name</mat-label>
         <input [(ngModel)]="client.lastName" matInput [disabled]="loading" placeholder="Last Name">
         <mat-hint>Last Name</mat-hint>
       </mat-form-field>
     </div>
      <div class="">
-      <mat-form-field appearance="outline" class="full-width">
+      <mat-form-field appearance="outline" class="width-100">
         <mat-label>E-mail</mat-label>
         <input [(ngModel)]="client.email" matInput [disabled]="loading" placeholder="E-Mail">
         <mat-hint>E-Mail Address</mat-hint>
       </mat-form-field>
     </div>
     <div class="">
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Street + House No.</mat-label>
-        <input [(ngModel)]="client.street" matInput [disabled]="loading" placeholder="Street + No.">
-        <mat-hint>Street + No.</mat-hint>
+      <mat-form-field appearance="outline" class="width-100">
+        <mat-label>Phone</mat-label>
+        <input [(ngModel)]="client.phone" matInput [disabled]="loading" placeholder="phone">
+        <mat-hint>Phone number</mat-hint>
+      </mat-form-field>
+    </div>
+    <div class="">
+      <mat-form-field appearance="outline" class="width-75 mr-16">
+        <mat-label>Street</mat-label>
+        <input [(ngModel)]="client.street" matInput [disabled]="loading" placeholder="Street">
+        <mat-hint>Street</mat-hint>
+      </mat-form-field>
+       <mat-form-field appearance="outline" class="width-25">
+        <mat-label>No.</mat-label>
+        <input [(ngModel)]="client.streetNo" matInput [disabled]="loading" placeholder="No.">
+        <mat-hint>No.</mat-hint>
       </mat-form-field>
     </div>
 
     <div class="">
-      <mat-form-field appearance="outline" class="mr-16">
+      <mat-form-field appearance="outline" class="width-33 mr-16">
         <mat-label>Zip code</mat-label>
         <input [(ngModel)]="client.zipCode" matInput [disabled]="loading" placeholder="Zip Code">
         <mat-hint>Zip code</mat-hint>
       </mat-form-field>
 
-      <mat-form-field appearance="outline">
+      <mat-form-field appearance="outline" class="width-33 mr-16">
         <mat-label>City</mat-label>
-        <input [(ngModel)]="client.city" matInput [disabled]="loading" placeholder="">
+        <input [(ngModel)]="client.city" matInput [disabled]="loading" placeholder="City">
         <mat-hint>City</mat-hint>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="width-33">
+        <mat-label class="country-selector">Select Country</mat-label>
+        <!-- <input [(ngModel)]="client.countryCode" matInput [disabled]="loading" placeholder=""> -->
+        <mat-select [(ngModel)]="client.countryCode" [disabled]="loading" placeholder="Country">
+          <mat-option *ngFor="let c of countries" [value]="c">{{ c }}</mat-option>
+          
+          <!-- <mat-option value="de">DEU</mat-option>
+          <mat-option value="ch">CHE</mat-option>
+          <mat-option value="gb">GBR</mat-option>
+          <mat-option value="ca">CAN</mat-option>
+          <mat-option value="us">USA</mat-option> -->
+        </mat-select>
+        <mat-hint>Country</mat-hint>
       </mat-form-field>
     </div>
   </div>

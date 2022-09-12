@@ -9,6 +9,7 @@ import { Client } from 'src/models/client.class';
   templateUrl: './client-detail.component.html',
   styleUrls: ['./client-detail.component.scss']
 })
+
 export class ClientDetailComponent implements OnInit {
 
   clientID!: string;
