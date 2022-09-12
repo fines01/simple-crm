@@ -1,27 +1,29 @@
 <mat-card class="client-detail-header">
-    <button mat-icon-button [matMenuTriggerFor]="userHeaderMenu" class="pin-right-upper-corner">
-        <mat-icon>more_vert</mat-icon>
-    </button>
-    <mat-menu #userHeaderMenu="matMenu">
-        <button mat-menu-item (click)="openEditDialog1()">Edit</button>
-    </mat-menu>
-    <img src="./assets/img/avatar.png" class="profile-picture" alt="">
-    <div class="client-details">
-        <h2>{{ client.firstName }} {{ client.lastName }}</h2>
-        {{ client.email }}
-    </div>
+    <mat-card-content class="card-content">
+        <button mat-icon-button [matMenuTriggerFor]="userHeaderMenu" class="btn-right-upper-corner">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #userHeaderMenu="matMenu">
+            <button mat-menu-item (click)="openEditDialog1()">Edit</button>
+        </mat-menu>
+        <div class="client-details">
+            <h2 class="card-title">{{ client.firstName }} {{ client.lastName }}</h2>
+            <div class="header-detail"><a href="tel:{{ client.phone }}">{{ client.phone }}</a></div>
+            <div class="header-detail"><a href="mailto:{{ client.email }}">{{ client.email }}</a></div>
+        </div>
+    </mat-card-content>
 </mat-card>
 
-<mat-card class="mt-32">
-    <button mat-icon-button [matMenuTriggerFor]="addressMenu" class="pin-right-upper-corner">
-        <mat-icon>more_vert</mat-icon>
-    </button>
-    <mat-menu #addressMenu="matMenu">
-        <button mat-menu-item (click)="openEditDialog2()">Edit</button>
-    </mat-menu>
-    <mat-card-title>Address</mat-card-title>
-    <mat-card-content>
-        {{ client.street }} <br>
-        {{ client.zipCode }} {{ client.city }}
+<mat-card class="mt-32 client-address">
+    <mat-card-content class="card-content">
+        <button mat-icon-button [matMenuTriggerFor]="addressMenu" class="btn-right-upper-corner">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #addressMenu="matMenu">
+            <button mat-menu-item (click)="openEditDialog2()">Edit</button>
+        </mat-menu>
+        <h2 class="card-title">Address</h2>
+        <div class="card-detail">{{ client.street }} {{ client.streetNo }}</div>
+        <div class="card-detail">{{ client.zipCode }} {{ client.city }}</div>
     </mat-card-content>
 </mat-card>

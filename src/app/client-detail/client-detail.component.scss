@@ -1,33 +1,48 @@
 .client-detail-header {
-  min-height: 250px;
+  min-height: 150px;
   background-color: rgba(80, 137, 123); // rgb(183, 209, 76); //rgba(80, 137, 123);
   color: white;
   display: flex;
-  align-items: flex-end;
+  //align-items: flex-end;
 
-  .profile-picture {
-    height: 80px;
-    // width: auto?
-    object-fit: cover;
-    border-radius: 50%;
+  .header-detail {
+    margin-bottom: 0.5rem;
   }
+
+  .client-details {
+    // height: 80px;
+    // margin-left: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
 }
 
-.client-details {
-  height: 80px;
-  margin-left: 32px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-
-  h2 {
-    margin-bottom: 0;
-  }
-}
-
-.pin-right-upper-corner {
+.btn-right-upper-corner {
   position: absolute;
   right: 0;
-  top: 0;
+  top: 4px;
+  z-index: 1;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+  font-size: 1rem;
+}
+
+.card-title {
+  margin-bottom: 0.25rem;
+  position: relative;
+  bottom: 4px;
+}
+
+.card-detail {
+  margin-bottom: 0.5rem;
+}
+
+.client-address {
+  min-height: 100px;
 }
