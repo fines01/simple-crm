@@ -18,9 +18,9 @@ mat-card {
     border-bottom: 1px solid rgba(0, 0, 0, 0.4);
     cursor: pointer;
 
-    &:first-child {
-      cursor: unset;
-    }
+    // &:first-child {
+    //   cursor: unset;
+    // }
 
     &:last-child {
       border-bottom: 0;
@@ -46,7 +46,7 @@ mat-card {
       }
     }
 
-    &:hover:not(:first-child) {
+    &:hover {
       background-color: rgba(0, 0, 0, 0.04);
     }
   }
@@ -55,6 +55,14 @@ mat-card {
 
 .table-caption-outside {
   // text-align: left;
-  padding-left: 16px;
+  // padding-left: 16px;
   margin-bottom: 8px;
+}
+
+.mat-sort-header-container {
+  align-items: center;
+}
+
+.mat-form-field {
+  width: 100%;
 }

@@ -31,6 +31,9 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { environment } from '../environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
+
 
 
 
@@ -68,6 +71,8 @@ import { MatSelectModule } from '@angular/material/select';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     MatSelectModule,
+    MatSortModule,
+    MatTableModule,
     
   ],
   providers: [],
