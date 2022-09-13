@@ -36,6 +36,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { DialogEditClientComponent } from './client-components/dialog-edit-client/dialog-edit-client.component';
 import { DialogEditAddressComponent } from './client-components/dialog-edit-address/dialog-edit-address.component';
+import { ClientService } from './client.service';
 
 
 @NgModule({
@@ -79,7 +80,7 @@ import { DialogEditAddressComponent } from './client-components/dialog-edit-addr
     MatPaginatorModule,
     
   ],
-  providers: [],
+  providers: [ClientService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
