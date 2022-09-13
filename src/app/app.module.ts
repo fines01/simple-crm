@@ -33,8 +33,7 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
-
-
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 
 @NgModule({
@@ -73,6 +72,7 @@ import { MatTableModule } from '@angular/material/table';
     MatSelectModule,
     MatSortModule,
     MatTableModule,
+    MatPaginatorModule,
     
   ],
   providers: [],

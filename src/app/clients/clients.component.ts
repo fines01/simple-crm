@@ -1,10 +1,11 @@
-import { Component, OnInit} from '@angular/core';
+import { AfterViewInit, ViewChild, Component, OnInit} from '@angular/core';
 import { Client } from 'src/models/client.class';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAddClientComponent } from '../dialog-add-client/dialog-add-client.component';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-clients',
@@ -12,15 +13,16 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./clients.component.scss']
 })
 
-export class ClientsComponent implements OnInit {
+export class ClientsComponent implements OnInit, AfterViewInit {
 
+  
   user: Client = new Client();
   allClients = [];
   sortedClients!: any[];
   displayedColumns: string[] = ['firstName', 'lastName', 'email', 'phone', 'address', 'countryCode']; // + index ?
-
   dataSource = new MatTableDataSource(this.sortedClients);
-
+  
+  @ViewChild(MatPaginator) paginator = <MatPaginator>{};
   constructor(
     private dialog: MatDialog,
     private firestore: AngularFirestore,
@@ -31,29 +33,26 @@ export class ClientsComponent implements OnInit {
   ngOnInit(): void {
     this.firestore
       .collection('clients')
-      .valueChanges({
-        idField: 'clientID'
-      })
+      .valueChanges({idField: 'clientID'})
       .subscribe((changes: any) => {
-        console.log('received changes from DB ', changes);
         this.allClients = changes;
-
         this.sortedClients ? this.sortedClients = this.allClients : null;
         this.dataSource = new MatTableDataSource(this.sortedClients);
-        console.log(this.sortedClients, this.dataSource)
+        if (this.dataSource) this.dataSource.paginator = this.paginator;
       });
+  }
 
+  ngAfterViewInit() {
+    if (this.dataSource) this.dataSource.paginator = this.paginator;
   }
 
   sortClients(sort: any | Sort) {
 
     let data = this.allClients.slice();
-
     if (!sort.active || sort.direction === '') {
       this.sortedClients = this.allClients;
       return;
     }
-
     this.sortedClients = data.sort((a, b) => {
       const isAsc = sort.direction === 'asc';
 
@@ -88,7 +87,7 @@ export class ClientsComponent implements OnInit {
     let dialogRef = this.dialog.open(DialogAddClientComponent);
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('Dialog was closed');
+      //console.log('Dialog was closed');
       // save result in variable
     })
   }
