@@ -56,6 +56,14 @@ body {
   }
 }
 
+.mat-dialog-container:has(.failure-message) {
+  background-color: rgb(244, 67, 54, 0.45);
+}
+
+.mat-dialog-container:has(.success-message) {
+  background-color: rgb(105, 240, 174, 0.45);
+}
+
 .mat-sort-header-arrow {
   color: #69f0ae; // purple-green.css:1 : mat-icon-button.mat-accent,...
 }
