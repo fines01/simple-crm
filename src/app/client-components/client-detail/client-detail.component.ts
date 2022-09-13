@@ -45,10 +45,15 @@ export class ClientDetailComponent implements OnInit {
   // rename later dep on what to edit
   openEditDialog1() {
     const dialog = this.dialog.open(DialogEditClientComponent);
+    // pass a copy of the current user object to the component:
+    dialog.componentInstance.client = new Client(this.client.toJSON());
+    dialog.componentInstance.clientID = this.clientID;
   }
 
   openEditDialog2() {
     const dialog = this.dialog.open(DialogEditAddressComponent);
+    dialog.componentInstance.client = new Client(this.client.toJSON());
+    dialog.componentInstance.clientID = this.clientID;
   }
 
 }

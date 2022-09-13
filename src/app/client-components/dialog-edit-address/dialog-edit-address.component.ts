@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Client } from 'src/models/client.class';
 
 @Component({
   selector: 'app-dialog-edit-address',
@@ -7,9 +10,34 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DialogEditAddressComponent implements OnInit {
 
-  constructor() { }
+  client!: Client;
+  clientID!: string;
+  loading = false;
+  countries = ['AT','DE']; // etc. --> move to maybe Clients model? (better: a company-details model?)
+    
+  constructor(
+    private dialogRef: MatDialogRef<DialogEditAddressComponent>, 
+    private dialog: MatDialog,
+    private firestore: AngularFirestore,
+    ) { }
 
   ngOnInit(): void {
+  }
+
+  closeDialog() {
+    this.dialogRef.close();
+  }
+
+  saveEdit() {
+    this.loading = true;
+    this.firestore
+      .collection('clients')
+      .doc(this.clientID)
+      .update(this.client.toJSON()) // promise
+      .then(()=>{ 
+        this.loading = false;
+        this.closeDialog();
+      });
   }
 
 }
