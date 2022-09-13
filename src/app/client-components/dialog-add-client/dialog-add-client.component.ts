@@ -14,7 +14,7 @@ export class DialogAddClientComponent implements OnInit {
 
   client = new Client();
   loading = false;
-  countries = ['AT', 'CH', 'DE', 'CA', 'GB', 'US']
+  countries!: string[];
 
   constructor( 
     private dialogRef: MatDialogRef<DialogAddClientComponent>,
@@ -22,6 +22,7 @@ export class DialogAddClientComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.countries = this.client.countries;
   }
 
   closeDialog(): void {

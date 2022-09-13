@@ -13,7 +13,7 @@ export class DialogEditAddressComponent implements OnInit {
   client!: Client;
   clientID!: string;
   loading = false;
-  countries = ['AT','DE']; // etc. --> move to maybe Clients model? (better: a company-details model?)
+  countries!: string[];
     
   constructor(
     private dialogRef: MatDialogRef<DialogEditAddressComponent>, 
@@ -22,6 +22,7 @@ export class DialogEditAddressComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
+    this.countries = this.client.countries;
   }
 
   closeDialog() {
