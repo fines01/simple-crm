@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { ClientService } from 'src/app/client.service';
+import { Client } from 'src/models/client.class';
 
 @Component({
   selector: 'app-dialog-delete-client',
@@ -7,9 +11,48 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DialogDeleteClientComponent implements OnInit {
 
-  constructor() { }
+  loading = false;
+  deleted = false;
+  client!: Client;
+  clientID!: string;
+
+  dialogTitle = 'Delete Client?';
+  dialogMessage = 'Do you really want to delete the client: ';
+
+  constructor(
+    private dialogRef: MatDialogRef<DialogDeleteClientComponent>,
+    private clientService: ClientService,
+    private router: Router,
+    ) { }
 
   ngOnInit(): void {
+  }
+
+  closeDialog() {
+    this.dialogRef.close();
+  }
+
+  closeDelete() {
+    setTimeout(()=> {
+      this.router.navigate(['/clients']);
+      this.closeDelete()
+    },1000);
+  }
+
+  deleteClient() {
+    this.loading = true;
+    this.clientService.deleteClient(this.clientID)
+      .then( (result: any)=>{
+        this.loading = false;
+        this.setSuccessDialog();
+        this.closeDelete();
+      });
+  }
+
+  setSuccessDialog() {
+    this.dialogTitle = 'Success!';
+    this.dialogMessage = 'Deleted client:';
+    this.deleted = true;
   }
 
 }

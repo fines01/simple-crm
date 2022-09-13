@@ -1,1 +1,13 @@
-<p>dialog-delete-client works!</p>
+<div class="dialog-container">
+
+  <mat-progress-bar *ngIf="loading" mode="indeterminate" class="progress-bar"></mat-progress-bar>
+  <h1 mat-dialog-title>{{ dialogTitle }}</h1>
+  <p class="dialog-message">{{ dialogMessage }}<br>
+    <b>{{ client.firstName }} {{ client.lastName }}</b></p>
+  <!-- add client name -->
+  <div *ngIf="!deleted" mat-dialog-actions>
+    <button mat-button (click)="closeDialog()">No! Go back</button>
+    <button class="delete-btn" color="warn" mat-button (click)="deleteClient()" cdkFocusInitial>DELETE</button>
+  </div>
+
+</div>

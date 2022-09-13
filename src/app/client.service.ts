@@ -33,10 +33,12 @@ export class ClientService {
   }
 
   deleteClient(clientID: string) {
-    this.firestore
+    return this.firestore
       .collection('clients')
       .doc(clientID)
       .delete();
   }
+
+  // archiveClient() {} // move to collection trash or archivedClients
 
 }

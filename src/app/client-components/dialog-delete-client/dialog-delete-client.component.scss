@@ -1,0 +1,12 @@
+.delete-btn {
+    color: white;
+    transition: all 125ms linear;
+
+    &:hover {
+        background-color: #f44336; // color 'arn'
+    }
+}
+
+.dialog-message {
+    line-height: 2;
+}
