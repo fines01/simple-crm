@@ -1,7 +1,7 @@
 import { ComponentType } from '@angular/cdk/portal';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ClientService } from 'src/app/client.service';
 import { Client } from 'src/models/client.class';
 import { DialogDeleteClientComponent } from '../dialog-delete-client/dialog-delete-client.component';
@@ -22,6 +22,7 @@ export class ClientDetailComponent implements OnInit {
   constructor(
     private clientService: ClientService,
     private route: ActivatedRoute,
+    private router: Router,
     private dialog: MatDialog,
   ) { }
 
@@ -36,8 +37,17 @@ export class ClientDetailComponent implements OnInit {
   subscribeReceivedClient() {
     this.clientService.getClient(this.clientID)
       .subscribe( (client: any) => {
+        if (!this.checkRouteExists(client)) return;
         this.client = new Client(client); // convert retrieved client - JSON from DB in Object
       });
+  }
+
+  checkRouteExists(client: any){
+    if (client === undefined) {
+      this.router.navigate(['/clients']);
+      return false;
+    }
+    return true;
   }
 
   openEditDetails(){
