@@ -12,11 +12,11 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { StaffComponent } from './staff/staff.component';
-import { ClientsComponent } from './clients/clients.component';
+import { StaffComponent } from './staff-components/staff/staff.component';
+import { ClientsComponent } from './client-components/clients/clients.component';
 import { MatCardModule } from '@angular/material/card';
-import { ClientDetailComponent } from './client-detail/client-detail.component';
-import { DialogAddClientComponent } from './dialog-add-client/dialog-add-client.component';
+import { ClientDetailComponent } from './client-components/client-detail/client-detail.component';
+import { DialogAddClientComponent } from './client-components/dialog-add-client/dialog-add-client.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -34,6 +34,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { DialogEditClientComponent } from './client-components/dialog-edit-client/dialog-edit-client.component';
+import { DialogEditAddressComponent } from './client-components/dialog-edit-address/dialog-edit-address.component';
 
 
 @NgModule({
@@ -43,7 +45,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     StaffComponent,
     ClientsComponent,
     ClientDetailComponent,
-    DialogAddClientComponent
+    DialogAddClientComponent,
+    DialogEditClientComponent,
+    DialogEditAddressComponent
   ],
   imports: [
     BrowserModule,

@@ -3,6 +3,8 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { Client } from 'src/models/client.class';
+import { DialogEditAddressComponent } from '../dialog-edit-address/dialog-edit-address.component';
+import { DialogEditClientComponent } from '../dialog-edit-client/dialog-edit-client.component';
 
 @Component({
   selector: 'app-client-detail',
@@ -42,9 +44,11 @@ export class ClientDetailComponent implements OnInit {
 
   // rename later dep on what to edit
   openEditDialog1() {
-    // const dialog = this.dialog.open(ComponentXyz);
+    const dialog = this.dialog.open(DialogEditClientComponent);
   }
 
-  openEditDialog2() {}
+  openEditDialog2() {
+    const dialog = this.dialog.open(DialogEditAddressComponent);
+  }
 
 }
