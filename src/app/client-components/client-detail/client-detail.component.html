@@ -27,3 +27,18 @@
         <div class="card-detail">{{ client.zipCode }} {{ client.city }}</div>
     </mat-card-content>
 </mat-card>
+
+<!-- delete client button: -->
+<div class="delete-btn-container">
+    <button 
+        mat-fab color="warn" 
+        class="delete-client-btn"
+        #tooltip="matTooltip"
+        matTooltip="Delete client"
+        [matTooltipPosition]="'above'"
+        matTooltipHideDelay="500"
+        (click)="openDeleteDialog()">
+        <!-- [matTooltipPosition]="position.value!" -->
+            <mat-icon>delete</mat-icon>
+      </button>
+</div>

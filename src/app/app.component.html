@@ -20,9 +20,6 @@
       <li>
         <mat-icon color="accent">area_chart</mat-icon>Projects
       </li>
-      <!-- <li>
-        <mat-icon color="accent">groups</mat-icon>Teams
-      </li> -->
       <li>
         <mat-icon color="accent">task</mat-icon>Tasks
       </li>
@@ -37,38 +34,28 @@
         <!-- <mat-icon color="accent">toll</mat-icon>Admin Panel -->
         <mat-icon color="accent">admin_panel_settings</mat-icon>Admin Panel
       </li>
-
     </ul>
-    <!-- <div class="drawer-content"></div> -->
-
   </mat-drawer>
 
   <!-- Material Toolbar (inside sidenav container, s.t. sidenav is over toolbar if opened) -->
   <mat-toolbar color="primary">
     <mat-toolbar-row>
       <button (click)="drawer.toggle()" color="accent" mat-icon-button class=""
-        aria-label="Example icon-button with menu icon">
+        aria-label="Example icon-button with menu icon" #tooltip="matTooltip" matTooltip="Toggle side-navigation">
         <mat-icon>menu</mat-icon>
       </button>
       <span>Simple CRM</span>
       <span class="toolbar-spacer"></span>
-      <button mat-icon-button class="favorite-icon" aria-label="Example icon-button with heart icon">
+      <button mat-icon-button class="favorite-icon" aria-label="Lightmode icon">
         <mat-icon #tooltip="matTooltip" matTooltip="Switch to light mode" [matTooltipPosition]="'above'"
           matTooltipHideDelay="500" class="lightmode-icon">
           lightbulb
         </mat-icon>
       </button>
-      <button mat-icon-button class="" aria-label="Example icon-button with share icon">
-        <!-- <mat-icon>share</mat-icon> -->
-        <mat-icon>settings</mat-icon>
+      <button mat-icon-button class="" aria-label="Settings icon">
+        <mat-icon #tooltip="matTooltip" matTooltip="Open settings">settings</mat-icon>
       </button>
     </mat-toolbar-row>
-    <!-- toggle-sidenav button inside toolbar -->
-    <!-- <mat-toolbar-row>
-      <button type="button" mat-button (click)="drawer.toggle()">
-        Toggle sidenav
-      </button>
-    </mat-toolbar-row> -->
   </mat-toolbar>
   <!-- END toolbar -->
 

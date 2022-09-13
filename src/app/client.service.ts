@@ -9,7 +9,7 @@ export class ClientService {
   constructor(private firestore: AngularFirestore,) { }
 
   addClient(client: any) {
-    //Todo check if client already exists in DB (email should be unique)
+    //Todo check if client already exists in DB (client.email should be unique)
     return this.firestore
       .collection('clients')
       .add(client.toJSON())
@@ -33,7 +33,10 @@ export class ClientService {
   }
 
   deleteClient(clientID: string) {
-    
+    this.firestore
+      .collection('clients')
+      .doc(clientID)
+      .delete();
   }
 
 }

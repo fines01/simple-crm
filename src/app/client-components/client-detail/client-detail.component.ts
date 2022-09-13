@@ -47,6 +47,10 @@ export class ClientDetailComponent implements OnInit {
     this.openDialog(DialogEditAddressComponent);
   }
 
+  openDeleteDialog() {
+    
+  }
+
   openDialog(dialogComponent: ComponentType<any>) {
     const dialog: MatDialogRef<any> = this.dialog.open(dialogComponent);
     dialog.componentInstance.client = new Client(this.client.toJSON());
@@ -54,7 +58,7 @@ export class ClientDetailComponent implements OnInit {
   }
 
   passEditData(dialog: MatDialogRef<any>){
-    // pass a copy(!) of the current user object to the component:
+    // pass a copy(!) of the current user object to the dialog component:
     dialog.componentInstance.client = new Client(this.client.toJSON());
     dialog.componentInstance.clientID = this.clientID;
   }

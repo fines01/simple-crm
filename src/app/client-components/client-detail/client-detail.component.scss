@@ -46,3 +46,12 @@ a {
 .client-address {
   min-height: 100px;
 }
+
+.delete-btn-container {
+  position: absolute;
+  bottom: 0;
+  left: 0; right: 0;
+  padding-bottom: 32px;
+  display: flex;
+  justify-content: center;
+}
