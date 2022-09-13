@@ -3,7 +3,7 @@ import { Client } from 'src/models/client.class';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAddClientComponent } from '../dialog-add-client/dialog-add-client.component';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Sort } from '@angular/material/sort';
+import { Sort, MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 
@@ -23,6 +23,8 @@ export class ClientsComponent implements OnInit, AfterViewInit {
   dataSource = new MatTableDataSource(this.sortedClients);
   
   @ViewChild(MatPaginator) paginator = <MatPaginator>{};
+  // @ViewChild(MatSort) sort = <MatSort>{}; // neccessary?
+
   constructor(
     private dialog: MatDialog,
     private firestore: AngularFirestore,
@@ -43,7 +45,10 @@ export class ClientsComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    if (this.dataSource) this.dataSource.paginator = this.paginator;
+    if (this.dataSource) { 
+      // this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+    }
   }
 
   sortClients(sort: any | Sort) {
@@ -71,6 +76,7 @@ export class ClientsComponent implements OnInit, AfterViewInit {
     });
 
     this.dataSource = new MatTableDataSource(this.sortedClients);
+    this.dataSource.paginator = this.paginator;
   }
 
   compare(a: number | string, b: number | string, isAsc: boolean) {
@@ -85,7 +91,6 @@ export class ClientsComponent implements OnInit, AfterViewInit {
 
   openDialog() {
     let dialogRef = this.dialog.open(DialogAddClientComponent);
-
     dialogRef.afterClosed().subscribe(result => {
       //console.log('Dialog was closed');
       // save result in variable

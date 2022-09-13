@@ -50,7 +50,7 @@
       <td mat-cell *matCellDef="let client"> {{client.countryCode}} </td>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
     <tr mat-row *matRowDef="let client; columns: displayedColumns;" [routerLink]="['/client/' + client['clientID']]"></tr>
 
     <!-- Row shown when there is no matching data. -->
@@ -58,23 +58,6 @@
       <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
     </tr>
 
-    <!-- <tr>
-      <th mat-sort-header="first-name">Name</th>
-      <th mat-sort-header="last-name"></th>
-      <th >Email</th>
-      <th >Phone</th>
-      <th mat-sort-header="zip-code">Address</th>
-      <th mat-sort-header="country-code">Country</th>
-    </tr>
-    <tr *ngFor="let client of sortedClients" [routerLink]="['/client/' + client['clientID']]">
-      <td>{{ client['firstName'] }}</td>
-      <td>{{ client['lastName'] }}</td>
-      <td>{{ client['email'] }}</td>
-      <td>{{ client['phone'] }}</td>
-      <td>{{ client['zipCode'] }} {{ client['city'] }} <br> {{ client['street'] }} {{ client['streetNo'] }}</td>
-      <td>{{ client['countryCode'] }}</td>
-    </tr> -->
-    
   </table>
 </mat-card>
 

@@ -4,6 +4,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { ClientService } from 'src/app/client.service';
 import { Client } from 'src/models/client.class';
+import { DialogDeleteClientComponent } from '../dialog-delete-client/dialog-delete-client.component';
 import { DialogEditAddressComponent } from '../dialog-edit-address/dialog-edit-address.component';
 import { DialogEditClientComponent } from '../dialog-edit-client/dialog-edit-client.component';
 
@@ -48,13 +49,12 @@ export class ClientDetailComponent implements OnInit {
   }
 
   openDeleteDialog() {
-    
+    this.openDialog(DialogDeleteClientComponent);
   }
 
   openDialog(dialogComponent: ComponentType<any>) {
     const dialog: MatDialogRef<any> = this.dialog.open(dialogComponent);
-    dialog.componentInstance.client = new Client(this.client.toJSON());
-    dialog.componentInstance.clientID = this.clientID;
+    this.passEditData(dialog);
   }
 
   passEditData(dialog: MatDialogRef<any>){

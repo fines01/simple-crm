@@ -11,9 +11,9 @@ export class Client {
     phone!: number;
     countryCode!: string;
     // more Infos:  Contracts, Orders, Invoices & Invoice status...
-    countries = ['AT', 'CH', 'DE', 'CA', 'GB', 'US', 'IT']; // todo: maybe move to Company / Organization Model
+    countries = ['AT', 'CH', 'DE', 'CA', 'GB', 'US', 'IT']; // todo: maybe move to a Company / Organization Model
 
-    constructor(obj?: any) { // obj? --> ist optional
+    constructor(obj?: any) {
         this.firstName = obj ? obj.firstName : '';
         this.lastName = obj ? obj.lastName : '';
         this.street = obj ? obj.street : '';

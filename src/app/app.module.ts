@@ -37,6 +37,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { DialogEditClientComponent } from './client-components/dialog-edit-client/dialog-edit-client.component';
 import { DialogEditAddressComponent } from './client-components/dialog-edit-address/dialog-edit-address.component';
 import { ClientService } from './client.service';
+import { DialogDeleteClientComponent } from './client-components/dialog-delete-client/dialog-delete-client.component';
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import { ClientService } from './client.service';
     ClientDetailComponent,
     DialogAddClientComponent,
     DialogEditClientComponent,
-    DialogEditAddressComponent
+    DialogEditAddressComponent,
+    DialogDeleteClientComponent
   ],
   imports: [
     BrowserModule,
