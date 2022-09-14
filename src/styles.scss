@@ -72,6 +72,13 @@ body {
   text-align: center;
 }
 
+// // ruins open-close transition FIX:
+// .mat-drawer-transition .mat-drawer-content {
+//   margin-left: var(--width-sidenav);
+// }
+
+// (delete etc) buttons at bottom : plz (container inside mat-drawer-content --> in app.comp.scss)
+
 /* *** Scrollbar (todo change col, styles) *** */
 
 /* width */

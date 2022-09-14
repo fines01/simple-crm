@@ -1,6 +1,6 @@
 .client-detail-header {
   min-height: 150px;
-  background-color: rgba(80, 137, 123); // rgb(183, 209, 76); //rgba(80, 137, 123);
+  background-color: slategray; //rgb(82, 193, 139);
   color: white;
   display: flex;
   //align-items: flex-end;
@@ -20,6 +20,7 @@
 
 }
 
+// 
 .btn-right-upper-corner {
   position: absolute;
   right: 0;
@@ -40,7 +41,7 @@ a {
 }
 
 .card-detail {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.25rem;
 }
 
 .client-address {

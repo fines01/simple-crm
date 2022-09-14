@@ -29,20 +29,10 @@ export class DialogAddEmployeeComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  randomHexColor() {
-    let hex = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'A', 'B', 'C', 'D', 'E', 'F'];
-    let hexColorStr = '#';
-    for (let i = 0; i < 6; i++) {
-        let randNr = Math.floor(Math.random() * hex.length); //random number between [0, hex.length[
-        hexColorStr += hex[randNr];
-    }
-    return hexColorStr;
-}
-
   saveEmployee() {
     this.loading = true;
     this.employee.birthDate = this.birthDate.getTime();
-    this.employee.colorCode = this.randomHexColor();
+    this.employee.colorCode = this.employee.randomHexColor();
     this.fireService.add(this.employee.toJSON(), 'employees')
       .then( (result: any) => {
         this.loading = false;

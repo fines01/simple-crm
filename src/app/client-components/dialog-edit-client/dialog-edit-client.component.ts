@@ -27,7 +27,7 @@ export class DialogEditClientComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  saveEdit() {
+  saveEdit() { //TODO use firestore service
     this.loading = true;
     this.firestore
       .collection('clients')

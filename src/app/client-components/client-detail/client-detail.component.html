@@ -28,7 +28,22 @@
     </mat-card-content>
 </mat-card>
 
-<!-- delete client button: -->
+<!-- <mat-card class="mt-32 info-detail-card">
+    <mat-card-content class="card-content">
+        <button mat-icon-button [matMenuTriggerFor]="addressMenu" class="btn-right-upper-corner">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #addressMenu="matMenu">
+            <button mat-menu-item (click)="true">Edit</button>
+        </mat-menu>
+       
+        <h2 class="card-title">Further Info</h2>
+        <div class="card-detail">Projects: </div>
+    </mat-card-content>
+</mat-card> -->
+
+
+<!-- delete button: -->
 <div class="delete-btn-container">
     <button 
         mat-fab color="warn" 
@@ -40,5 +55,5 @@
         (click)="openDeleteDialog()">
         <!-- [matTooltipPosition]="position.value!" -->
             <mat-icon>delete</mat-icon>
-      </button>
+    </button>
 </div>

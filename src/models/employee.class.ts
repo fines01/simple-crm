@@ -60,4 +60,14 @@ export class Employee extends Company {
         }
     }
 
+    public randomHexColor() {
+    let hex = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'A', 'B', 'C', 'D', 'E', 'F'];
+    let hexColorStr = '#';
+    for (let i = 0; i < 6; i++) {
+        let randNr = Math.floor(Math.random() * hex.length); //random number between [0, hex.length[
+        hexColorStr += hex[randNr];
+    }
+    return hexColorStr;
+}
+
 }
