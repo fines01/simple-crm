@@ -12,7 +12,7 @@ import { Client } from 'src/models/client.class';
 export class DialogDeleteClientComponent implements OnInit {
 
   loading = false;
-  deleted = false;
+  showSuccessMsg = false;
   client!: Client;
   clientID!: string;
 
@@ -52,7 +52,7 @@ export class DialogDeleteClientComponent implements OnInit {
   setSuccessDialog() {
     this.dialogTitle = 'Success!';
     this.dialogMessage = 'Deleted client:';
-    this.deleted = true;
+    this.showSuccessMsg = true;
   }
 
 }
