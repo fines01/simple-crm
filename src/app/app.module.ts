@@ -12,7 +12,6 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { StaffComponent } from './staff-components/staff/staff.component';
 import { ClientsComponent } from './client-components/clients/clients.component';
 import { MatCardModule } from '@angular/material/card';
 import { ClientDetailComponent } from './client-components/client-detail/client-detail.component';
@@ -38,19 +37,24 @@ import { DialogEditClientComponent } from './client-components/dialog-edit-clien
 import { DialogEditAddressComponent } from './client-components/dialog-edit-address/dialog-edit-address.component';
 import { ClientService } from './client.service';
 import { DialogDeleteClientComponent } from './client-components/dialog-delete-client/dialog-delete-client.component';
+import { EmployeesComponent } from './employee-components/employees/employees.component';
+import { DialogAddEmployeeComponent } from './employee-components/dialog-add-employee/dialog-add-employee.component';
+import { EmployeeDetailComponent } from './employee-components/employee-detail/employee-detail.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
-    StaffComponent,
     ClientsComponent,
     ClientDetailComponent,
     DialogAddClientComponent,
     DialogEditClientComponent,
     DialogEditAddressComponent,
-    DialogDeleteClientComponent
+    DialogDeleteClientComponent,
+    EmployeesComponent,
+    DialogAddEmployeeComponent,
+    EmployeeDetailComponent
   ],
   imports: [
     BrowserModule,

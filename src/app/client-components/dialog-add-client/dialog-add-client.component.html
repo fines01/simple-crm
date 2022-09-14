@@ -2,9 +2,8 @@
 
   <mat-progress-bar *ngIf="loading" mode="indeterminate" class="progress-bar"></mat-progress-bar>
 
-  <h1 mat-dialog-title>Add User</h1>
+  <h1 mat-dialog-title>Add Client</h1>
   <div mat-dialog-content>
-    <!-- Hier NUTZER HINZUFüGEN -->
     <div class="">
       <mat-form-field appearance="outline" class="mr-16 width-50">
         <mat-label>First Name</mat-label>
@@ -37,7 +36,7 @@
         <input [(ngModel)]="client.street" matInput [disabled]="loading" placeholder="Street">
         <mat-hint>Street</mat-hint>
       </mat-form-field>
-       <mat-form-field appearance="outline" class="width-25">
+      <mat-form-field appearance="outline" class="width-25">
         <mat-label>No.</mat-label>
         <input [(ngModel)]="client.streetNo" matInput [disabled]="loading" placeholder="No.">
         <mat-hint>No.</mat-hint>
@@ -62,7 +61,6 @@
         <!-- <input [(ngModel)]="client.countryCode" matInput [disabled]="loading" placeholder=""> -->
         <mat-select [(ngModel)]="client.countryCode" [disabled]="loading" placeholder="Country">
           <mat-option *ngFor="let c of countries" [value]="c">{{ c }}</mat-option>
-          
           <!-- <mat-option value="de">DEU</mat-option>
           <mat-option value="ch">CHE</mat-option>
           <mat-option value="gb">GBR</mat-option>

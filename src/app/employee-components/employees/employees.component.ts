@@ -1,45 +1,44 @@
 import { AfterViewInit, ViewChild, Component, OnInit} from '@angular/core';
-import { Client } from 'src/models/client.class';
+import { Employee } from 'src/models/employee.class';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogAddClientComponent } from '../dialog-add-client/dialog-add-client.component';
+// import { DialogAddEmployeeComponent } from '../dialog-add-employee/dialog-add-employee.component';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Sort, MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
+import { FirestoreService } from 'src/app/firestore.service';
+import { DialogAddEmployeeComponent } from '../dialog-add-employee/dialog-add-employee.component';
 
 @Component({
-  selector: 'app-clients',
-  templateUrl: './clients.component.html',
-  styleUrls: ['./clients.component.scss']
+  selector: 'app-employees',
+  templateUrl: './employees.component.html',
+  styleUrls: ['./employees.component.scss']
 })
+export class EmployeesComponent implements OnInit, AfterViewInit {
 
-export class ClientsComponent implements OnInit, AfterViewInit {
-
-  
-  client: Client = new Client(); // necessary??
-  allClients = [];
-  sortedClients!: any[];
-  displayedColumns: string[] = ['firstName', 'lastName', 'email', 'phone', 'address', 'countryCode']; // + index ?
-  dataSource = new MatTableDataSource(this.sortedClients);
+  employee: Employee = new Employee();
+  allEmployees = [];
+  sortedEmployees!: any[];
+  displayedColumns: string[] = ['firstName', 'lastName', 'email', 'phone', 'address', 'department']; // countryCode?, address, + index ?
+  dataSource = new MatTableDataSource(this.sortedEmployees);
   
   @ViewChild(MatPaginator) paginator = <MatPaginator>{};
   // @ViewChild(MatSort) sort = <MatSort>{}; // neccessary?
 
   constructor(
     private dialog: MatDialog,
-    private firestore: AngularFirestore,
+    // private firestore: AngularFirestore,
+    private fireService: FirestoreService,
   ) {
-    this.sortedClients = this.allClients.slice(); // tst: in ngOnInit
+    this.sortedEmployees = this.allEmployees.slice(); // tst: in ngOnInit
   }
 
   ngOnInit(): void {
-    this.firestore
-      .collection('clients')
-      .valueChanges({idField: 'clientID'}) // TODO move to service
+    this.fireService.getCollection('employees')
       .subscribe((changes: any) => {
-        this.allClients = changes;
-        this.sortedClients ? this.sortedClients = this.allClients : null;
-        this.dataSource = new MatTableDataSource(this.sortedClients);
+        this.allEmployees = changes;
+        this.sortedEmployees ? this.sortedEmployees = this.allEmployees : null;
+        this.dataSource = new MatTableDataSource(this.sortedEmployees);
         if (this.dataSource) this.dataSource.paginator = this.paginator;
       });
   }
@@ -51,14 +50,25 @@ export class ClientsComponent implements OnInit, AfterViewInit {
     }
   }
 
-  sortClients(sort: any | Sort) {
+  openDialog() {
+    let dialogRef = this.dialog.open(DialogAddEmployeeComponent);
+    //dialogRef.afterClosed().subscribe(result => {
+      //console.log('Dialog was closed');
+      // save result in variable
+    // })
+  }
 
-    let data = this.allClients.slice();
+
+  // refactor and outsource table - sort code (same as in ex. clients, projects, all tables...)
+  sortData(sort: any | Sort) {
+
+    let data = this.allEmployees.slice();
     if (!sort.active || sort.direction === '') {
-      this.sortedClients = this.allClients;
+      this.sortedEmployees = this.allEmployees;
       return;
     }
-    this.sortedClients = data.sort((a, b) => {
+
+    this.sortedEmployees = data.sort((a, b) => {
       const isAsc = sort.direction === 'asc';
 
       switch (sort.active) {
@@ -75,26 +85,20 @@ export class ClientsComponent implements OnInit, AfterViewInit {
       }
     });
 
-    this.dataSource = new MatTableDataSource(this.sortedClients);
+    this.dataSource = new MatTableDataSource(this.sortedEmployees);
     this.dataSource.paginator = this.paginator;
   }
 
+  // outsource sort functionalities
   compare(a: number | string, b: number | string, isAsc: boolean) {
     return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
   }
 
+  // outsource table sort functionalities
   applyFilter(event: Event) {
     let filterValue = (event.target as HTMLInputElement).value;
     filterValue = filterValue.trim().toLowerCase();
     this.dataSource.filter = filterValue;
-  }
-
-  openDialog() {
-    let dialogRef = this.dialog.open(DialogAddClientComponent);
-    dialogRef.afterClosed().subscribe(result => {
-      //console.log('Dialog was closed');
-      // save result in variable
-    })
   }
 
 }

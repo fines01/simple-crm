@@ -1,0 +1,106 @@
+<div class="dialog-container">
+    <!-- Progress bar -->
+  <mat-progress-bar *ngIf="loading" mode="indeterminate" class="progress-bar"></mat-progress-bar>
+    <!-- Title -->
+  <h1 mat-dialog-title>Add Employee</h1>
+
+  <!-- Main-Content: form fields -->
+  <div mat-dialog-content>
+
+    <div class="">
+        <!-- First name -->
+      <mat-form-field appearance="outline" class="mr-16 width-50">
+        <mat-label>First Name</mat-label>
+        <input [(ngModel)]="employee.firstName" matInput [disabled]="loading" placeholder="First Name">
+        <mat-hint>First Name</mat-hint>
+      </mat-form-field>
+      <!-- Last name -->
+      <mat-form-field appearance="outline" class="width-50">
+        <mat-label>Last Name</mat-label>
+        <input [(ngModel)]="employee.lastName" matInput [disabled]="loading" placeholder="Last Name">
+        <mat-hint>Last Name</mat-hint>
+      </mat-form-field>
+    </div>
+
+    <div class="">
+        <!-- E-mail -->
+      <mat-form-field appearance="outline" class="width-50">
+        <mat-label>E-mail</mat-label>
+        <input [(ngModel)]="employee.email" matInput [disabled]="loading" placeholder="E-Mail">
+        <mat-hint>E-Mail Address</mat-hint>
+      </mat-form-field>
+        <!-- Phone -->
+      <mat-form-field appearance="outline" class="width-50">
+        <mat-label>Phone</mat-label>
+        <input [(ngModel)]="employee.phone" matInput [disabled]="loading" placeholder="phone">
+        <mat-hint>Phone number</mat-hint>
+      </mat-form-field>
+    </div>
+
+    <div class="">
+        <!-- Birth date -->
+        <mat-form-field appearance="outline" class="width-50 mr-16">
+            <mat-label>Birth Date</mat-label>
+            <input [(ngModel)]="birthDate" matInput [matDatepicker]="picker1" [disabled]="loading" placeholder="Birthdate">
+            <mat-hint>Please enter a date (MM/DD/YYYY)</mat-hint>
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+       <!-- Department -->
+       <mat-form-field appearance="outline" class="width-50">
+        <mat-label class="form-selector">Select Department</mat-label>
+        <mat-select [(ngModel)]="employee.department" [disabled]="loading" placeholder="Department">
+          <mat-option *ngFor="let dep of companyDepartments" [value]="dep">{{ dep }}</mat-option>
+        </mat-select>
+        <mat-hint>Country</mat-hint>
+      </mat-form-field>
+    </div>
+
+    <div class="">
+        <!-- Street -->
+      <mat-form-field appearance="outline" class="width-75 mr-16">
+        <mat-label>Street</mat-label>
+        <input [(ngModel)]="employee.street" matInput [disabled]="loading" placeholder="Street">
+        <mat-hint>Street</mat-hint>
+      </mat-form-field>
+      <!-- Street No. -->
+       <mat-form-field appearance="outline" class="width-25">
+        <mat-label>No.</mat-label>
+        <input [(ngModel)]="employee.streetNo" matInput [disabled]="loading" placeholder="No.">
+        <mat-hint>No.</mat-hint>
+      </mat-form-field>
+    </div>
+
+    <div class="">
+        <!-- Zip Code -->
+      <mat-form-field appearance="outline" class="width-33 mr-16">
+        <mat-label>Zip code</mat-label>
+        <input [(ngModel)]="employee.zipCode" matInput [disabled]="loading" placeholder="Zip Code">
+        <mat-hint>Zip code</mat-hint>
+      </mat-form-field>
+      <!-- City -->
+      <mat-form-field appearance="outline" class="width-33 mr-16">
+        <mat-label>City</mat-label>
+        <input [(ngModel)]="employee.city" matInput [disabled]="loading" placeholder="City">
+        <mat-hint>City</mat-hint>
+      </mat-form-field>
+      <!-- Country -->
+      <mat-form-field appearance="outline" class="width-33">
+        <mat-label class="country-selector">Select Country</mat-label>
+        <!-- <input [(ngModel)]="employee.countryCode" matInput [disabled]="loading" placeholder=""> -->
+        <mat-select [(ngModel)]="employee.countryCode" [disabled]="loading" placeholder="Country">
+          <mat-option *ngFor="let c of countries" [value]="c">{{ c }}</mat-option>
+        </mat-select>
+        <mat-hint>Country</mat-hint>
+      </mat-form-field>
+    </div>
+  </div>
+  <!-- END: main-content (form-fields) -->
+  
+  <!-- Buttons -->
+  <div mat-dialog-actions>
+    <button mat-button (click)="closeDialog()">Cancel</button>
+    <button mat-button (click)="saveEmployee()" cdkFocusInitial>Save</button>
+  </div>
+
+</div>
