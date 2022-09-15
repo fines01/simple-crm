@@ -61,11 +61,6 @@
         <!-- <input [(ngModel)]="client.countryCode" matInput [disabled]="loading" placeholder=""> -->
         <mat-select [(ngModel)]="client.countryCode" [disabled]="loading" placeholder="Country">
           <mat-option *ngFor="let c of countries" [value]="c">{{ c }}</mat-option>
-          <!-- <mat-option value="de">DEU</mat-option>
-          <mat-option value="ch">CHE</mat-option>
-          <mat-option value="gb">GBR</mat-option>
-          <mat-option value="ca">CAN</mat-option>
-          <mat-option value="us">USA</mat-option> -->
         </mat-select>
         <mat-hint>Country</mat-hint>
       </mat-form-field>

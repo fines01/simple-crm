@@ -26,9 +26,12 @@ export class FirestoreService {
       .collection(collectionName)
       .doc(id)
       .valueChanges();
-      // .subscribe( (client: any) => {
-      //   if (client) { console.log (client); return client }; // Observable (h t pass)
-      // });
+  }
+
+  getByValue(field: any, value: any, collectionName: string){ // T
+    return this.firestore
+      .collection(collectionName, ref => ref.where(field, '==', value))
+      .valueChanges();
   }
 
   update(obj: any, id: string, collectionName: string) {
@@ -36,6 +39,10 @@ export class FirestoreService {
       .collection(collectionName)
       .doc(id)
       .update(obj.toJSON()) // promise
+  }
+
+  updateField(obj: any, id: string, collectionName: string, fieldValueObj: object){
+    // 
   }
 
   delete(id: string, collectionName: string) {

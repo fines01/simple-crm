@@ -43,6 +43,14 @@ import { EmployeeDetailComponent } from './employee-components/employee-detail/e
 import { DialogEditEmployeeComponent } from './employee-components/dialog-edit-employee/dialog-edit-employee.component';
 import { DialogEditEmployeeAddressComponent } from './employee-components/dialog-edit-employee-address/dialog-edit-employee-address.component';
 import { DialogDeleteEmployeeComponent } from './employee-components/dialog-delete-employee/dialog-delete-employee.component';
+import { ProjectsComponent } from './project-components/projects/projects.component';
+import { DialogAddProjectComponent } from './project-components/dialog-add-project/dialog-add-project.component';
+import { DialogEditProjectComponent } from './project-components/dialog-edit-project/dialog-edit-project.component';
+import { ProjectDetailComponent } from './project-components/project-detail/project-detail.component';
+import { DialogDeleteProjectComponent } from './project-components/dialog-delete-project/dialog-delete-project.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 
 @NgModule({
@@ -60,7 +68,12 @@ import { DialogDeleteEmployeeComponent } from './employee-components/dialog-dele
     EmployeeDetailComponent,
     DialogEditEmployeeComponent,
     DialogEditEmployeeAddressComponent,
-    DialogDeleteEmployeeComponent
+    DialogDeleteEmployeeComponent,
+    ProjectsComponent,
+    DialogAddProjectComponent,
+    DialogEditProjectComponent,
+    ProjectDetailComponent,
+    DialogDeleteProjectComponent
   ],
   imports: [
     BrowserModule,
@@ -90,6 +103,8 @@ import { DialogDeleteEmployeeComponent } from './employee-components/dialog-dele
     MatSortModule,
     MatTableModule,
     MatPaginatorModule,
+    MatAutocompleteModule,
+    ReactiveFormsModule,
     
   ],
   providers: [ClientService],

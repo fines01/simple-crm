@@ -1,4 +1,3 @@
-import { stringLength } from "@firebase/util";
 import { Company } from "./company.class";
 
 export class Client extends Company {
