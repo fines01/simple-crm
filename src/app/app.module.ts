@@ -42,6 +42,7 @@ import { DialogAddEmployeeComponent } from './employee-components/dialog-add-emp
 import { EmployeeDetailComponent } from './employee-components/employee-detail/employee-detail.component';
 import { DialogEditEmployeeComponent } from './employee-components/dialog-edit-employee/dialog-edit-employee.component';
 import { DialogEditEmployeeAddressComponent } from './employee-components/dialog-edit-employee-address/dialog-edit-employee-address.component';
+import { DialogDeleteEmployeeComponent } from './employee-components/dialog-delete-employee/dialog-delete-employee.component';
 
 
 @NgModule({
@@ -58,7 +59,8 @@ import { DialogEditEmployeeAddressComponent } from './employee-components/dialog
     DialogAddEmployeeComponent,
     EmployeeDetailComponent,
     DialogEditEmployeeComponent,
-    DialogEditEmployeeAddressComponent
+    DialogEditEmployeeAddressComponent,
+    DialogDeleteEmployeeComponent
   ],
   imports: [
     BrowserModule,

@@ -4,6 +4,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { FirestoreService } from 'src/app/firestore.service';
 import { Employee } from 'src/models/employee.class';
+import { DialogDeleteEmployeeComponent } from '../dialog-delete-employee/dialog-delete-employee.component';
 import { DialogEditEmployeeAddressComponent } from '../dialog-edit-employee-address/dialog-edit-employee-address.component';
 import { DialogEditEmployeeComponent } from '../dialog-edit-employee/dialog-edit-employee.component';
 
@@ -62,6 +63,8 @@ export class EmployeeDetailComponent implements OnInit {
 
   openEditInfo() {}
 
-  openDeleteDialog() {}
+  openDeleteDialog() {
+    this.openDialog(DialogDeleteEmployeeComponent);
+  }
 
 }

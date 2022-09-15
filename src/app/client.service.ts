@@ -4,7 +4,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 @Injectable({
   providedIn: 'root'
 })
-export class ClientService {
+export class ClientService { //TODO: maybe make general db service instead & REMOVE
 
   constructor(private firestore: AngularFirestore,) { }
 

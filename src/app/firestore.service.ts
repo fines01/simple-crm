@@ -38,7 +38,7 @@ export class FirestoreService {
       .update(obj.toJSON()) // promise
   }
 
-  deleteClient(id: string, collectionName: string) {
+  delete(id: string, collectionName: string) {
     return this.firestore
       .collection(collectionName)
       .doc(id)
