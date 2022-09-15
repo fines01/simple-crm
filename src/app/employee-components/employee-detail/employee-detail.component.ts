@@ -1,7 +1,7 @@
 import { ComponentType } from '@angular/cdk/portal';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FirestoreService } from 'src/app/firestore.service';
 import { Employee } from 'src/models/employee.class';
 import { DialogDeleteEmployeeComponent } from '../dialog-delete-employee/dialog-delete-employee.component';
@@ -22,6 +22,7 @@ export class EmployeeDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private fireService: FirestoreService,
     private dialog: MatDialog,
+    private router: Router,
     ) { }
 
   ngOnInit(): void {
@@ -29,13 +30,14 @@ export class EmployeeDetailComponent implements OnInit {
       let id = paramMap.get('id');
       if (typeof id == 'string') this.employeeID = id;
       console.log( 'git ID: ', id, this.employeeID);
-      this.getUser();
+      this.subscribeReceivedEmployee();
     });
   }
 
-  getUser() {
+  subscribeReceivedEmployee() {
     this.fireService.getByID(this.employeeID, 'employees')
       .subscribe((employee: any) => {
+         if (!this.checkRouteExists(employee)) return;
         this.employee = new Employee(employee); // convert JSON iton Objekt
         console.log('retreived employee: ', employee);
       });
@@ -65,6 +67,15 @@ export class EmployeeDetailComponent implements OnInit {
 
   openDeleteDialog() {
     this.openDialog(DialogDeleteEmployeeComponent);
+  }
+
+  // auslagern:
+  checkRouteExists(client: any){
+    if (client === undefined) {
+      this.router.navigate(['/clients']);
+      return false;
+    }
+    return true;
   }
 
 }

@@ -42,6 +42,7 @@ export class ClientDetailComponent implements OnInit {
       });
   }
 
+  // auslagern:
   checkRouteExists(client: any){
     if (client === undefined) {
       this.router.navigate(['/clients']);
