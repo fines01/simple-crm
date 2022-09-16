@@ -1,7 +1,7 @@
 export class Company {
 
     companyName = 'Example Corp';
-    countries = ['AT', 'CH', 'DE', 'CA', 'GB', 'US', 'IT']; // todo: maybe move to a Company / Organization Model
+    countries = ['AT', 'CH', 'DE', 'CA', 'GB', 'US', 'IT'];
     departments = ['Project Management', 'Development', 'Design', 'Marketing', 'Finances'];
     companyProjects = ['Dog Feeder'];
     // etc.

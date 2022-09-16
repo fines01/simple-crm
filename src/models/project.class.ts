@@ -7,7 +7,8 @@ export class Project extends Company {
     projectManager!: string;
     projectManagerID!: string
     client!: string;
-    employees!: [];
+    //employees!: []; // m:N relationship --> info stored into junction table instead (employee_project)
+    managerID!: string;
     tasks!: [];
     dueDate!: number;
     status!: string; // status = ['initialized', 'planning', 'phase 1','phase 2', 'phase 2', 'testing' , 'finalized' , 'deployment'] // maybe better predefined options, than any blabla
@@ -21,7 +22,7 @@ export class Project extends Company {
         this.projectManager = obj ? obj.projectManager : '';
         this.projectManagerID = obj ? obj.projectManagerID : '';
         this.client = obj ? obj.client : '';
-        this.employees = obj ? obj.employees : '';
+        this.managerID = obj ? obj.managerID : '';
         this.tasks = obj ? obj.tasks : '';
         this.dueDate = obj ? obj.dueDate : '';
         this.status = obj ? obj.status : '';
@@ -35,7 +36,7 @@ export class Project extends Company {
             projectManager: this.projectManager,
             projectManagerID: this.projectManagerID,
             client: this.client,
-            employees: this.employees,
+            managerID: this.managerID,
             tasks: this.tasks,
             dueDate: this.dueDate,
             status: this.status,

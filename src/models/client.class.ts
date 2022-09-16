@@ -4,7 +4,9 @@ export class Client extends Company {
     firstName!: string;
     lastName!: string;
     street!: string;
-    streetNo!: number;
+    company!: string;
+    streetNo!: number; 
+    //client's company address / contact: (should be put in own class later)
     zipCode!: number;
     city!: string;
     email!: string;
@@ -16,6 +18,7 @@ export class Client extends Company {
         super();
         this.firstName = obj ? obj.firstName : '';
         this.lastName = obj ? obj.lastName : '';
+        this.company = obj ? obj.company : '';
         this.street = obj ? obj.street : '';
         this.streetNo = obj ? obj.streetNo : '';
         this.zipCode = obj ? obj.zipCode : '';
@@ -29,6 +32,7 @@ export class Client extends Company {
         return {
             firstName: this.firstName,
             lastName: this.lastName,
+            company: this.company,
             street: this.street,
             streetNo: this.streetNo,
             zipCode: this.zipCode,

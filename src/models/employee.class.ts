@@ -14,7 +14,7 @@ export class Employee extends Company {
     phone!: number;
     countryCode!: string;
     department!: string;
-    projects!: string[];
+    //project_IDs!: string[]; //M:N relationship: save project-ids of projects the employee works on... create a junction-table instead?
     tasks!: string[];
     colorCode!: string;
     isAdmin: boolean = false;
@@ -34,7 +34,6 @@ export class Employee extends Company {
         this.phone = obj ? obj.phone : '';
         this.countryCode = obj ? obj.countryCode : '';
         this.department = obj ? obj.department : '';
-        this.projects = obj ? obj.projects : '';
         this.tasks = obj ? obj.tasks : '';
         this.colorCode = obj ? obj.colorCode : '';
         this.isAdmin = obj ? obj.isAdmin : false;
@@ -53,7 +52,6 @@ export class Employee extends Company {
             phone: this.phone,
             countryCode: this.countryCode,
             department: this.department,
-            projects: this.projects,
             tasks: this.tasks,
             colorCode: this.colorCode,
             isAdmin: this.isAdmin,

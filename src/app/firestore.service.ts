@@ -14,11 +14,11 @@ export class FirestoreService {
       .valueChanges({idField: 'objID'}); //returns collection that can be subscribed inside the component
   }
 
-  add(obj: Object, collectionName: string) {
-    //Todo check if obj already exists in DB (case email- field exists: should be unique)
+  add(documentObj: Object, collectionName: string) {
+    //Todo check if documentObj already exists in DB (case email- field exists: should be unique)
     return this.firestore
       .collection(collectionName)
-      .add(obj)
+      .add(documentObj)
   }
 
   getByID(id: string, collectionName: string) {
@@ -34,14 +34,14 @@ export class FirestoreService {
       .valueChanges();
   }
 
-  update(obj: any, id: string, collectionName: string) {
+  update(documentObj: any, id: string, collectionName: string) {
     return this.firestore
       .collection(collectionName)
       .doc(id)
-      .update(obj.toJSON()) // promise
+      .update(documentObj.toJSON()) // promise
   }
 
-  updateField(obj: any, id: string, collectionName: string, fieldValueObj: object){
+  updateField(documentObj: any, id: string, collectionName: string, fieldValueObj: object){
     // 
   }
 
@@ -52,5 +52,10 @@ export class FirestoreService {
       .delete();
   }
 
+  addToJunctionTable(documentJson: object, collectionName: string, id1:string, id2:string) { //set custom ID doc1ID_doc2ID
+    let customID = `${id1}_${id2}`;
+    this.firestore.collection(collectionName)
+      .doc(customID).set(documentJson);
+  }
   // archive() {} // move to objName trash / archivedXyz collection
 }
