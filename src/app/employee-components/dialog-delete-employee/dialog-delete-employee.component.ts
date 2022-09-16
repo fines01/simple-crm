@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { FirestoreService } from 'src/app/firestore.service';
+import { FirestoreService } from 'src/app/services/firestore.service';
 import { Employee } from 'src/models/employee.class';
 
 @Component({

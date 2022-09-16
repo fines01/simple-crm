@@ -35,7 +35,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { DialogEditClientComponent } from './client-components/dialog-edit-client/dialog-edit-client.component';
 import { DialogEditAddressComponent } from './client-components/dialog-edit-address/dialog-edit-address.component';
-import { ClientService } from './client.service';
+import { ClientService } from './services/client.service';
 import { DialogDeleteClientComponent } from './client-components/dialog-delete-client/dialog-delete-client.component';
 import { EmployeesComponent } from './employee-components/employees/employees.component';
 import { DialogAddEmployeeComponent } from './employee-components/dialog-add-employee/dialog-add-employee.component';

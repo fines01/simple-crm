@@ -2,7 +2,7 @@ import { ComponentType } from '@angular/cdk/portal';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ClientService } from 'src/app/client.service';
+import { ClientService } from 'src/app/services/client.service';
 import { Client } from 'src/models/client.class';
 import { DialogDeleteClientComponent } from '../dialog-delete-client/dialog-delete-client.component';
 import { DialogEditAddressComponent } from '../dialog-edit-address/dialog-edit-address.component';

@@ -2,7 +2,7 @@ import { ComponentType } from '@angular/cdk/portal';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FirestoreService } from 'src/app/firestore.service';
+import { FirestoreService } from 'src/app/services/firestore.service';
 import { Employee } from 'src/models/employee.class';
 import { DialogDeleteEmployeeComponent } from '../dialog-delete-employee/dialog-delete-employee.component';
 import { DialogEditEmployeeAddressComponent } from '../dialog-edit-employee-address/dialog-edit-employee-address.component';

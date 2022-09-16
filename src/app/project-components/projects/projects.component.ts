@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { FirestoreService } from 'src/app/firestore.service';
+import { FirestoreService } from 'src/app/services/firestore.service';
 import { Project } from 'src/models/project.class';
 import { DialogAddProjectComponent } from '../dialog-add-project/dialog-add-project.component';
 

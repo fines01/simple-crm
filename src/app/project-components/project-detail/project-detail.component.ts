@@ -2,7 +2,7 @@ import { ComponentType } from '@angular/cdk/portal';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FirestoreService } from 'src/app/firestore.service';
+import { FirestoreService } from 'src/app/services/firestore.service';
 import { Project } from 'src/models/project.class';
 import { DialogEditProjectComponent } from '../dialog-edit-project/dialog-edit-project.component';
 
