@@ -1,62 +1,63 @@
-<mat-card class="detail-header" [style.background-color]="managerColorCode ? managerColorCode : 'darkslategray'">
-    <!-- <mat-card-content class="card-content"> -->
-    <button mat-icon-button [matMenuTriggerFor]="headerMenu" class="btn-right-upper-corner">
+<div class="detail-content">
+  <div class="detail-cards">
+
+    <mat-card class="detail-header" [style.background-color]="managerColorCode ? managerColorCode : 'darkslategray'">
+      <!-- <mat-card-content class="card-content"> -->
+      <button mat-icon-button [matMenuTriggerFor]="headerMenu" class="btn-right-upper-corner">
         <mat-icon>more_vert</mat-icon>
-    </button>
-    <mat-menu #headerMenu="matMenu">
+      </button>
+      <mat-menu #headerMenu="matMenu">
         <button mat-menu-item (click)="openEdit()">Edit</button>
-    </mat-menu>
-    <img src="./assets/img/avatar.png" class="profile-picture" alt="">
-    <div class="contact-details">
+      </mat-menu>
+      <img src="./assets/img/avatar.png" class="profile-picture" alt="">
+      <div class="contact-details">
         <h2 class="card-title">{{ project.name }}</h2>
         <div class="header-detail">Project Manager: {{ project.projectManager }}</div>
         <!-- manager contact-infos from employees= -->
         <!-- <div class="header-detail"><a href="tel:{{ project.projectmaager.phone }}">{{ project.projectManager.phone }}</a></div>
         <div class="header-detail"><a href="mailto:{{ project.projectManager.email }}">{{ project.projectmanager.email }}</a></div> -->
-    </div>
-    <!-- </mat-card-content> -->
-</mat-card>
+      </div>
+      <!-- </mat-card-content> -->
+    </mat-card>
 
-<mat-card class="mt-32 info-detail-card">
-    <mat-card-content class="card-content">
+    <mat-card class="mt-32 info-detail-card">
+      <mat-card-content class="card-content">
         <button mat-icon-button [matMenuTriggerFor]="addressMenu" class="btn-right-upper-corner">
-            <mat-icon>more_vert</mat-icon>
+          <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #addressMenu="matMenu">
-            <button mat-menu-item (click)="openEdit()">Edit</button>
+          <button mat-menu-item (click)="openEdit()">Edit</button>
         </mat-menu>
         <h2 class="card-title">Details</h2>
         <div class="card-detail">{{ project.description }}</div>
         <!-- reference to client-details -->
         <div class="card-detail">Client: {{ project.client }}</div>
         <div class="card-detail">Due date: {{ localFormatDate }}</div>
-    </mat-card-content>
-</mat-card>
+      </mat-card-content>
+    </mat-card>
 
-<mat-card class="mt-32 info-detail-card">
-    <mat-card-content class="card-content">
+    <mat-card class="mt-32 info-detail-card">
+      <mat-card-content class="card-content">
         <button mat-icon-button [matMenuTriggerFor]="addressMenu" class="btn-right-upper-corner">
-            <mat-icon>more_vert</mat-icon>
+          <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #addressMenu="matMenu">
-            <button mat-menu-item (click)="openEdit()">Edit</button>
+          <button mat-menu-item (click)="openEdit()">Edit</button>
         </mat-menu>
         <h2 class="card-title">Assigned Employees</h2>
         <div *ngFor="let employee of assignedEmployees" class="card-detail"></div>
-    </mat-card-content>
-</mat-card>
+      </mat-card-content>
+    </mat-card>
 
-<!-- delete button: -->
-<div class="delete-btn-container">
-    <button 
-        mat-fab color="warn" 
-        class="delete-client-btn"
-        #tooltip="matTooltip"
-        matTooltip="Delete project"
-        [matTooltipPosition]="'above'"
-        matTooltipHideDelay="500"
-        (click)="openDeleteDialog()">
-            <mat-icon>delete</mat-icon>
-      </button>
-</div>
+    <!-- END: detail-cards -->
+  </div>
 
+  <!-- delete button: -->
+  <div class="delete-btn-container">
+    <button mat-fab color="warn" class="delete-client-btn" #tooltip="matTooltip" matTooltip="Delete project"
+      [matTooltipPosition]="'above'" matTooltipHideDelay="500" (click)="openDeleteDialog()">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>
+
+  <!-- END: detail-content -->

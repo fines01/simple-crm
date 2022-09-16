@@ -15,7 +15,6 @@ body {
 }
 
 .mr-16 {
-  // um immer ca die gleichen Abstände zu haben. Ev besser auch mit css properties Abstände definieren.
   margin-right: 1rem;
 }
 
@@ -99,5 +98,19 @@ body {
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: rgb(85, 85, 85);
+}
+
+.delete-btn-container {
+  // position: absolute;
+  // bottom: 0;
+  // left: 0;
+  // right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  // padding-bottom: 32px;
+  padding-top: 32px;
+  // height: 120px; //120 (btn: 56 + 2* 32px)
+  // box-sizing: border-box;
 }
 

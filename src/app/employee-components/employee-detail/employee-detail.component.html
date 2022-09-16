@@ -1,59 +1,76 @@
-<mat-card class="detail-header" [style.background-color]="employee.colorCode">
-    <!-- <mat-card-content class="card-content"> -->
-    <button mat-icon-button [matMenuTriggerFor]="headerMenu" class="btn-right-upper-corner">
+<div class="detail-content">
+  <div class="detail-cards">
+
+    <mat-card class="detail-header" [style.background-color]="employee.colorCode">
+      <!-- <mat-card-content class="card-content"> -->
+      <button mat-icon-button [matMenuTriggerFor]="headerMenu" class="btn-right-upper-corner">
         <mat-icon>more_vert</mat-icon>
-    </button>
-    <mat-menu #headerMenu="matMenu">
+      </button>
+      <mat-menu #headerMenu="matMenu">
         <button mat-menu-item (click)="openEditHeader()">Edit</button>
-    </mat-menu>
-    <img src="./assets/img/avatar.png" class="profile-picture" alt="">
-    <div class="contact-details">
+      </mat-menu>
+      <img src="./assets/img/avatar.png" class="profile-picture" alt="">
+      <div class="contact-details">
         <h2 class="card-title">{{ employee.firstName }} {{ employee.lastName }}</h2>
         <div class="header-detail"><a href="tel:{{ employee.phone }}">{{ employee.phone }}</a></div>
         <div class="header-detail"><a href="mailto:{{ employee.email }}">{{ employee.email }}</a></div>
-    </div>
-    <!-- </mat-card-content> -->
-</mat-card>
+      </div>
+      <!-- </mat-card-content> -->
+    </mat-card>
 
-<mat-card class="mt-32 info-detail-card">
-    <mat-card-content class="card-content">
+    <mat-card class="mt-32 info-detail-card">
+      <mat-card-content class="card-content">
         <button mat-icon-button [matMenuTriggerFor]="addressMenu" class="btn-right-upper-corner">
-            <mat-icon>more_vert</mat-icon>
+          <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #addressMenu="matMenu">
-            <button mat-menu-item (click)="openEditAddress()">Edit</button>
+          <button mat-menu-item (click)="openEditAddress()">Edit</button>
         </mat-menu>
         <h2 class="card-title">Address</h2>
         <div class="card-detail">{{ employee.street }} {{ employee.streetNo }}</div>
         <div class="card-detail">{{ employee.zipCode }} {{ employee.city }}</div>
         <div class="card-detail">Country: {{ employee.countryCode }}</div>
-    </mat-card-content>
-</mat-card>
+      </mat-card-content>
+    </mat-card>
 
-<!-- <mat-card class="mt-32 info-detail-card">
-    <mat-card-content class="card-content">
+    <mat-card class="mt-32 info-detail-card">
+      <mat-card-content class="card-content">
         <button mat-icon-button [matMenuTriggerFor]="addressMenu" class="btn-right-upper-corner">
-            <mat-icon>more_vert</mat-icon>
+          <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #addressMenu="matMenu">
-            <button mat-menu-item (click)="openEditInfo()">Edit</button>
+          <button mat-menu-item (click)="openEditInfo()">Edit</button>
         </mat-menu>
-       
+
         <h2 class="card-title">Further Info</h2>
         <div class="card-detail">Projects: </div>
-    </mat-card-content>
-</mat-card> -->
+      </mat-card-content>
+    </mat-card>
 
-<!-- delete button: -->
-<div class="delete-btn-container">
-    <button 
-        mat-fab color="warn" 
-        class="delete-client-btn"
-        #tooltip="matTooltip"
-        matTooltip="Delete employee"
-        [matTooltipPosition]="'above'"
-        matTooltipHideDelay="500"
-        (click)="openDeleteDialog()">
-            <mat-icon>delete</mat-icon>
-      </button>
+    <mat-card class="mt-32 info-detail-card">
+      <mat-card-content class="card-content">
+        <button mat-icon-button [matMenuTriggerFor]="addressMenu" class="btn-right-upper-corner">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #addressMenu="matMenu">
+          <button mat-menu-item (click)="openEditInfo()">Edit</button>
+        </mat-menu>
+
+        <h2 class="card-title">Further Info</h2>
+        <div class="card-detail">Projects: </div>
+      </mat-card-content>
+    </mat-card>
+
+  </div>
+  <!-- END: detail-cards -->
+
+  <!-- delete button: -->
+  <div class="delete-btn-container">
+    <button mat-fab color="warn" class="delete-client-btn" #tooltip="matTooltip" matTooltip="Delete employee"
+      [matTooltipPosition]="'above'" matTooltipHideDelay="500" (click)="openDeleteDialog()">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>
+
 </div>
+<!-- END detail-content -->

@@ -1,3 +1,8 @@
+.detail-content {
+  height: 100%;
+  position: relative;
+}
+
 .client-detail-header {
   min-height: 150px;
   background-color: slategray; //rgb(82, 193, 139);
@@ -17,7 +22,6 @@
     align-items: flex-start;
     justify-content: center;
   }
-
 }
 
 // 
@@ -48,11 +52,12 @@ a {
   min-height: 100px;
 }
 
-.delete-btn-container {
-  position: absolute;
-  bottom: 0;
-  left: 0; right: 0;
-  padding-bottom: 32px;
-  display: flex;
-  justify-content: center;
-}
+//rm --> app.scss
+// .delete-btn-container {
+//   position: absolute;
+//   bottom: 0;
+//   left: 0; right: 0;
+//   padding-bottom: 32px;
+//   display: flex;
+//   justify-content: center;
+// }
