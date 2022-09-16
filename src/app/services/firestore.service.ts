@@ -8,9 +8,12 @@ export class FirestoreService {
 
   constructor(private firestore: AngularFirestore,) { }
 
-  getCollection(collectionName: string) {
+  getCollection(collectionName: string, orderByDoc?: string) {
+    let queryFn!: any;
+    orderByDoc ?  queryFn = (ref: any) => ref.orderBy(orderByDoc, 'asc') : queryFn = undefined;
+    
     return this.firestore
-      .collection(collectionName)
+      .collection(collectionName, queryFn  )
       .valueChanges({idField: 'objID'}); //returns collection that can be subscribed inside the component
   }
 
@@ -54,8 +57,10 @@ export class FirestoreService {
 
   addToJunctionTable(documentJson: object, collectionName: string, id1:string, id2:string) { //set custom ID doc1ID_doc2ID
     let customID = `${id1}_${id2}`;
-    this.firestore.collection(collectionName)
+
+    return this.firestore.collection(collectionName)
       .doc(customID).set(documentJson);
   }
+  
   // archive() {} // move to objName trash / archivedXyz collection
 }

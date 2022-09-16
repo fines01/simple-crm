@@ -1,7 +1,7 @@
 <div class="dialog-container">
-    <!-- Progress bar -->
+  <!-- Progress bar -->
   <mat-progress-bar *ngIf="loading" mode="indeterminate" class="progress-bar"></mat-progress-bar>
-    <!-- Title -->
+  <!-- Title -->
   <h1 mat-dialog-title>Add Project</h1>
 
   <!-- Main-Content: form fields -->
@@ -15,79 +15,47 @@
       </mat-form-field>
     </div>
 
-     <div class="">
+    <div class="">
       <mat-form-field appearance="outline" class="width-100">
         <mat-label>Description</mat-label>
-        <textarea [(ngModel)]="project.description" matInput [disabled]="loading" placeholder="Further Infos">{{ project.description }}</textarea>
+        <textarea [(ngModel)]="project.description" matInput [disabled]="loading"
+          placeholder="Further Infos">{{ project.description }}</textarea>
         <mat-hint>Project description</mat-hint>
       </mat-form-field>
     </div>
 
     <div class="">
-        <mat-form-field appearance="outline" class="width-50 mr-16">
-            <mat-label>Project manager</mat-label>
-            <input [(ngModel)]="project.projectManager" matInput [disabled]="loading" placeholder="Last Name">
-            <mat-hint>Enter responsible manager</mat-hint>
-        </mat-form-field>
-        <mat-form-field appearance="outline" class="width-50">
-            <mat-label>Client name</mat-label>
-            <input [(ngModel)]="project.client" matInput [disabled]="loading" placeholder="Client name">
-            <mat-hint>Enter main client</mat-hint>
-        </mat-form-field>
-    </div>
-    
-    <div class="">
-        <!-- Date picker -->
-        <mat-form-field appearance="outline" class="width-100">
-            <mat-label>Due date</mat-label>
-            <input [(ngModel)]="dueDate" matInput [matDatepicker]="picker1" [disabled]="loading" placeholder="Due date">
-            <mat-hint>Please enter the due date (MM/DD/YYYY)</mat-hint>
-            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-            <mat-datepicker #picker1></mat-datepicker>
-        </mat-form-field>
-    </div>
-
-
-    <!-- <div class="">
-        <mat-form-field appearance="outline" class="width-75 mr-16">
-            <mat-label>Street</mat-label>
-            <input [(ngModel)]="project.street" matInput [disabled]="loading" placeholder="Street">
-        <mat-hint>Street</mat-hint>
-        </mat-form-field>
-      
-        <mat-form-field appearance="outline" class="width-25">
-            <mat-label>No.</mat-label>
-            <input [(ngModel)]="project.streetNo" matInput [disabled]="loading" placeholder="No.">
-            <mat-hint>No.</mat-hint>
-        </mat-form-field>
-    </div> -->
-
-    <!-- <div class="">
-      <mat-form-field appearance="outline" class="width-33 mr-16">
-        <mat-label>Zip code</mat-label>
-        <input [(ngModel)]="project.zipCode" matInput [disabled]="loading" placeholder="Zip Code">
-        <mat-hint>Zip code</mat-hint>
-      </mat-form-field>
-      
-      <mat-form-field appearance="outline" class="width-33 mr-16">
-        <mat-label>City</mat-label>
-        <input [(ngModel)]="project.city" matInput [disabled]="loading" placeholder="City">
-        <mat-hint>City</mat-hint>
-      </mat-form-field>
-      
-      <mat-form-field appearance="outline" class="width-33">
-        <mat-label class="country-selector">Select Country</mat-label>
-       
-        <mat-select [(ngModel)]="project.countryCode" [disabled]="loading" placeholder="Country">
-          <mat-option *ngFor="let c of countries" [value]="c">{{ c }}</mat-option>
+      <mat-form-field appearance="outline" class="width-50 mr-16">
+        <mat-label class="form-selector">Manager</mat-label>
+        <mat-select [(ngModel)]="manager" [disabled]="loading" placeholder="Manager">
+          <mat-option *ngFor="let e of employees" [value]="e">
+            {{ e.firstName }} {{ e.lastName }}
+          </mat-option>
         </mat-select>
-        <mat-hint>Country</mat-hint>
+        <mat-hint>Responsible project manager</mat-hint>
       </mat-form-field>
-    </div> -->
+
+      <mat-form-field appearance="outline" class="width-50">
+        <mat-label>Client name</mat-label>
+        <input [(ngModel)]="project.client" matInput [disabled]="loading" placeholder="Client name">
+        <mat-hint>Enter main client</mat-hint>
+      </mat-form-field>
+    </div>
+
+    <div class="">
+      <!-- Date picker -->
+      <mat-form-field appearance="outline" class="width-100">
+        <mat-label>Due date</mat-label>
+        <input [(ngModel)]="dueDate" matInput [matDatepicker]="picker1" [disabled]="loading" placeholder="Due date">
+        <mat-hint>Please enter the due date (MM/DD/YYYY)</mat-hint>
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+      </mat-form-field>
+    </div>
 
   </div>
   <!-- END: main-content (form-fields) -->
-  
+
   <!-- Buttons -->
   <div mat-dialog-actions>
     <button mat-button (click)="closeDialog()">Cancel</button>
@@ -95,4 +63,3 @@
   </div>
 
 </div>
-

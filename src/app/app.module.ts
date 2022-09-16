@@ -50,6 +50,7 @@ import { ProjectDetailComponent } from './project-components/project-detail/proj
 import { DialogDeleteProjectComponent } from './project-components/dialog-delete-project/dialog-delete-project.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ReactiveFormsModule } from '@angular/forms';
+import { DialogEditProjectEmployeesComponent } from './project-components/dialog-edit-project-employees/dialog-edit-project-employees.component';
 
 
 
@@ -73,7 +74,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     DialogAddProjectComponent,
     DialogEditProjectComponent,
     ProjectDetailComponent,
-    DialogDeleteProjectComponent
+    DialogDeleteProjectComponent,
+    DialogEditProjectEmployeesComponent
   ],
   imports: [
     BrowserModule,

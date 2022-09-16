@@ -27,7 +27,7 @@
     <div class="">
       <mat-form-field appearance="outline" class="width-50 mr-16">
         <mat-label class="form-selector">Manager</mat-label>
-        <mat-select [(ngModel)]="project.projectManager" [disabled]="loading" placeholder="Manager">
+        <mat-select [(ngModel)]="manager" [disabled]="loading" placeholder="Manager">
           <mat-option *ngFor="let empl of employees" [value]="empl">{{ empl.firstName }} {{ empl.lastName }}</mat-option>
         </mat-select>
         <mat-hint>Responsible project manager</mat-hint>

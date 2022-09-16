@@ -15,6 +15,9 @@ export class DialogEditProjectComponent implements OnInit {
   projectID!: string;
   loading = false;
   dueDate!: Date;
+  employees!: any[];
+  manager!: any;
+  managerID!: string;
 
   constructor(
     private dialogRef: MatDialogRef<DialogEditProjectComponent>, 
@@ -25,7 +28,6 @@ export class DialogEditProjectComponent implements OnInit {
   ngOnInit(): void {
     let date = new FormControl(new Date(this.project.dueDate)).value; // FormControl necessary? or instead just new Date(...)?
     if(date instanceof Date) this.dueDate = date;
-    console.log(this.project);
   }
 
   closeDialog() {
@@ -34,16 +36,16 @@ export class DialogEditProjectComponent implements OnInit {
 
   saveEdit() {
     this.loading = true;
-    // firestire: save via service
+    this.managerID = this.manager.objID;
+    this.project.managerID = this.manager.objID;
     this.fireService.update(this.project, this.projectID ,'projects')
       .then( ()=>{
-        this.afterSaveSuccess(); // todo: add some checks
+        this.afterSaveSuccess();
       });
   }
 
   afterSaveSuccess(){
     this.loading = false;
-    // ... etc.
     this.closeDialog();
   }
 

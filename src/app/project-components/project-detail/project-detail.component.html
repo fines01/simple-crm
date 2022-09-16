@@ -1,7 +1,7 @@
 <div class="detail-content">
   <div class="detail-cards">
 
-    <mat-card class="detail-header" [style.background-color]="managerColorCode ? managerColorCode : 'darkslategray'">
+    <mat-card class="detail-header" [style.background-color]="manager ? manager.colorCode : 'darkslategray'">
       <!-- <mat-card-content class="card-content"> -->
       <button mat-icon-button [matMenuTriggerFor]="headerMenu" class="btn-right-upper-corner">
         <mat-icon>more_vert</mat-icon>
@@ -9,13 +9,13 @@
       <mat-menu #headerMenu="matMenu">
         <button mat-menu-item (click)="openEdit()">Edit</button>
       </mat-menu>
-      <img src="./assets/img/avatar.png" class="profile-picture" alt="">
       <div class="contact-details">
         <h2 class="card-title">{{ project.name }}</h2>
-        <div class="header-detail">Project Manager: {{ project.projectManager }}</div>
+        <h3 class="">Project Manager: </h3>
+        <div class="header-detail manager-name" [routerLink]=" manager ? '/employee/'+ project['managerID'] : ''">{{ manager ? manager.firstName : '' }} {{ manager ? manager.lastName : '' }}</div>
         <!-- manager contact-infos from employees= -->
-        <!-- <div class="header-detail"><a href="tel:{{ project.projectmaager.phone }}">{{ project.projectManager.phone }}</a></div>
-        <div class="header-detail"><a href="mailto:{{ project.projectManager.email }}">{{ project.projectmanager.email }}</a></div> -->
+        <div class="header-detail"><a href="tel:{{ manager ? manager.phone : '' }}">{{ manager ? manager.phone : '' }}</a></div>
+        <div class="header-detail"><a href="mailto:{{ manager ? manager.email : '' }}">{{ manager ? manager.email : '' }}</a></div>
       </div>
       <!-- </mat-card-content> -->
     </mat-card>
@@ -29,7 +29,7 @@
           <button mat-menu-item (click)="openEdit()">Edit</button>
         </mat-menu>
         <h2 class="card-title">Details</h2>
-        <div class="card-detail">{{ project.description }}</div>
+        <div class="card-detail project-description">{{ project.description }}</div>
         <!-- reference to client-details -->
         <div class="card-detail">Client: {{ project.client }}</div>
         <div class="card-detail">Due date: {{ localFormatDate }}</div>
@@ -38,11 +38,11 @@
 
     <mat-card class="mt-32 info-detail-card">
       <mat-card-content class="card-content">
-        <button mat-icon-button [matMenuTriggerFor]="addressMenu" class="btn-right-upper-corner">
+        <button mat-icon-button [matMenuTriggerFor]="employeesMenu" class="btn-right-upper-corner">
           <mat-icon>more_vert</mat-icon>
         </button>
-        <mat-menu #addressMenu="matMenu">
-          <button mat-menu-item (click)="openEdit()">Edit</button>
+        <mat-menu #employeesMenu="matMenu">
+          <button mat-menu-item (click)="openEditEmployees()">Edit</button>
         </mat-menu>
         <h2 class="card-title">Assigned Employees</h2>
         <div *ngFor="let employee of assignedEmployees" class="card-detail"></div>

@@ -76,9 +76,9 @@ export class ProjectsComponent implements OnInit {
           return this.compare(a['manager'], b['manager'], isAsc);
         case 'client':
           return this.compare(a['client'], b['client'], isAsc);
-        case ('dueDate'):
+        case 'dueDate':
           return this.compare(a['dueDate'], b['dueDate'], isAsc);
-        case ('status'):
+        case 'status':
           return this.compare(a['status'], b['status'], isAsc);
         default:
           return 0;

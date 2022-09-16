@@ -4,8 +4,6 @@ export class Project extends Company {
 
     name!: string;
     description!: string;
-    projectManager!: string;
-    projectManagerID!: string
     client!: string;
     //employees!: []; // m:N relationship --> info stored into junction table instead (employee_project)
     managerID!: string;
@@ -19,8 +17,6 @@ export class Project extends Company {
         super();
         this.name = obj ? obj.name : '';
         this.description = obj ? obj.description : '';
-        this.projectManager = obj ? obj.projectManager : '';
-        this.projectManagerID = obj ? obj.projectManagerID : '';
         this.client = obj ? obj.client : '';
         this.managerID = obj ? obj.managerID : '';
         this.tasks = obj ? obj.tasks : '';
@@ -33,8 +29,6 @@ export class Project extends Company {
         return {
             name: this.name,
             description: this.description,
-            projectManager: this.projectManager,
-            projectManagerID: this.projectManagerID,
             client: this.client,
             managerID: this.managerID,
             tasks: this.tasks,

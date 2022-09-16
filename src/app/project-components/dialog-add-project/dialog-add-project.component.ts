@@ -16,7 +16,10 @@ export class DialogAddProjectComponent implements OnInit {
   project = new Project();
   employees!: any[];
   dueDate!: Date;
-  loading = false; 
+  loading = false;
+  manager!: any;
+  managerID!: string;
+  projectID!: string;
   
   constructor( 
     private dialogRef: MatDialogRef<DialogAddProjectComponent>,
@@ -31,22 +34,38 @@ export class DialogAddProjectComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  saveProject() {
+  async saveProject() {
     this.loading = true;
     this.project.status = 'initialized';
+    this.project.managerID = this.manager.objID;
     this.project.dueDate = this.dueDate.getTime();
-    this.fireService.add(this.project.toJSON(), 'projects')
+    //
+    await this.fireService.add(this.project.toJSON(), 'projects')
       .then( (result: any) => {
+        //// add to junction table (edit: for employees M:N projects) --> add employees in edit-project
+        // this.projectID = result.id;
+        // if(this.projectID) this.saveDbRelations();
         this.loading = false;
         this.closeDialog();
       });
-  }
+    }
+    
+  // // add to junction table (edit: for employees M:N projects)
+  //   saveDbRelations(){
+  //   let relDocument = {
+  //     employee_id: this.manager.objID,
+  //     project_id: this.projectID,
+  //   }
+  //   this.fireService.addToJunctionTable(relDocument, 'employee_project', this.manager.objID, this.projectID)
+  //   .then( (res: any) => {
+  //     console.log(res);
+  //   });
+  // }
   
   subscribeEmployees() {
-    this.fireService.getCollection('employees')
+    this.fireService.getCollection('employees', 'lastName')
       .subscribe ( employees => {
         if (employees) this.employees = employees;
-        console.log(this.employees[0].firstName);
       });
   }
 

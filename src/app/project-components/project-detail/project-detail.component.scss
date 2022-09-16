@@ -5,28 +5,21 @@
 
 .detail-header {
   min-height: 250px;
-  background-color: rgba(80, 137, 123); // rgb(183, 209, 76); //rgba(80, 137, 123);
+  background-color: darkslategray; // rgb(183, 209, 76); //rgba(80, 137, 123);
   color: white;
   display: flex;
-  align-items: flex-end;
+  align-items: flex-start;
 
-  .profile-picture {
-    height: 80px;
-    // width: auto?
-    object-fit: cover;
-    border-radius: 50%;
-  }
 }
 
 .contact-details {
-  height: 80px;
-  margin-left: 32px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
+  line-height: 1.5;
 
-  h2 {
+  h2, h3, a {
     margin-bottom: 0;
   }
 }
@@ -54,19 +47,20 @@ a {
   margin-bottom: 0.25rem;
 }
 
+.project-description {
+  margin-bottom: 0.5rem;
+}
+
 .client-address {
   min-height: 100px;
 }
 
-.delete-btn-container {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding-bottom: 32px;
-  padding-top: 32px;
-  display: flex;
-  justify-content: center;
+.header-detail {
+  cursor: pointer;
+
+  &:hover, a:hover {
+    color: rgb(200, 200, 200);
+  }
 }
 
 // .info-detail-card {}
