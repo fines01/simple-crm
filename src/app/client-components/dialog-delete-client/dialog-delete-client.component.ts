@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { ClientService } from 'src/app/services/client.service';
+import { FirestoreService } from 'src/app/services/firestore.service';
 import { Client } from 'src/models/client.class';
 
 @Component({
@@ -21,7 +21,7 @@ export class DialogDeleteClientComponent implements OnInit {
 
   constructor(
     private dialogRef: MatDialogRef<DialogDeleteClientComponent>,
-    private clientService: ClientService,
+    private fireService: FirestoreService,
     private router: Router,
     ) { }
 
@@ -41,7 +41,7 @@ export class DialogDeleteClientComponent implements OnInit {
 
   deleteClient() {
     this.loading = true;
-    this.clientService.deleteClient(this.clientID)
+    this.fireService.delete(this.clientID, 'clients')
       .then( (result: any)=>{
         this.loading = false;
         this.setSuccessDialog();

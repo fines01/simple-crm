@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { Client } from 'src/models/client.class';
-import { ClientService } from 'src/app/services/client.service';
+import { FirestoreService } from 'src/app/services/firestore.service';
 
 export interface DialogData {}
 
@@ -18,7 +18,7 @@ export class DialogAddClientComponent implements OnInit {
 
   constructor( 
     private dialogRef: MatDialogRef<DialogAddClientComponent>,
-    private clientService: ClientService
+    private fireService: FirestoreService
   ) { }
 
   ngOnInit(): void {
@@ -31,7 +31,7 @@ export class DialogAddClientComponent implements OnInit {
 
   saveClient() {
     this.loading = true;
-    this.clientService.addClient(this.client)
+    this.fireService.add(this.client, 'clients')
       .then( (result: any) => {
         this.loading = false;
         this.closeDialog();

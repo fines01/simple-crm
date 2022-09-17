@@ -2,7 +2,7 @@
   <!-- Progress bar -->
   <mat-progress-bar *ngIf="loading" mode="indeterminate" class="progress-bar"></mat-progress-bar>
   <!-- Title -->
-  <h1 mat-dialog-title>Add Project</h1>
+  <h1 mat-dialog-title>Edit Project</h1>
 
   <!-- Main-Content: form fields -->
   <div mat-dialog-content>
@@ -27,7 +27,7 @@
     <div class="">
       <mat-form-field appearance="outline" class="width-50 mr-16">
         <mat-label class="form-selector">Manager</mat-label>
-        <mat-select [(ngModel)]="manager" [disabled]="loading" placeholder="Manager">
+        <mat-select [(ngModel)]="manager" [disabled]="loading" placeholder="Fuck">
           <mat-option *ngFor="let e of employees" [value]="e">
             {{ e.firstName }} {{ e.lastName }}
           </mat-option>

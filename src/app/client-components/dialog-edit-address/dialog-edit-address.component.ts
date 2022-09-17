@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { ClientService } from 'src/app/services/client.service';
+import { FirestoreService } from 'src/app/services/firestore.service';
 import { Client } from 'src/models/client.class';
 
 @Component({
@@ -18,7 +18,7 @@ export class DialogEditAddressComponent implements OnInit {
   constructor(
     private dialogRef: MatDialogRef<DialogEditAddressComponent>, 
     private dialog: MatDialog,
-    private clientService: ClientService,
+    private fireService: FirestoreService,
     ) { }
 
   ngOnInit(): void {
@@ -31,7 +31,7 @@ export class DialogEditAddressComponent implements OnInit {
 
   saveEdit() {
     this.loading = true;
-    this.clientService.updateClient(this.client, this.clientID)
+    this.fireService.update(this.client, this.clientID, 'clients')
       .then(()=>{ 
         this.loading = false;
         this.closeDialog();

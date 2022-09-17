@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { FirestoreService } from 'src/app/services/firestore.service';
 import { Client } from 'src/models/client.class';
 
 @Component({
@@ -17,7 +17,7 @@ export class DialogEditClientComponent implements OnInit {
   constructor(
     private dialogRef: MatDialogRef<DialogEditClientComponent>, 
     private dialog: MatDialog,
-    private firestore: AngularFirestore,
+    private fireService: FirestoreService,
     ) { }
 
   ngOnInit(): void {
@@ -29,10 +29,7 @@ export class DialogEditClientComponent implements OnInit {
 
   saveEdit() { //TODO use firestore service
     this.loading = true;
-    this.firestore
-      .collection('clients')
-      .doc(this.clientID)
-      .update(this.client.toJSON()) // promise
+    this.fireService.update(this.client, this.clientID, 'clients')
       .then(()=>{ 
         this.loading = false;
         this.closeDialog();

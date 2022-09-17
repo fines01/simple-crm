@@ -2,10 +2,10 @@ import { AfterViewInit, ViewChild, Component, OnInit} from '@angular/core';
 import { Client } from 'src/models/client.class';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAddClientComponent } from '../dialog-add-client/dialog-add-client.component';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Sort, MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
+import { FirestoreService } from 'src/app/services/firestore.service';
 
 @Component({
   selector: 'app-clients',
@@ -27,15 +27,14 @@ export class ClientsComponent implements OnInit, AfterViewInit {
 
   constructor(
     private dialog: MatDialog,
-    private firestore: AngularFirestore,
+    private firesService: FirestoreService,
   ) {
     this.sortedClients = this.allClients.slice(); // tst: in ngOnInit
   }
 
   ngOnInit(): void {
-    this.firestore
-      .collection('clients')
-      .valueChanges({idField: 'clientID'}) // TODO move to service
+    this.firesService
+      .getCollection('clients')
       .subscribe((changes: any) => {
         this.allClients = changes;
         this.sortedClients ? this.sortedClients = this.allClients : null;

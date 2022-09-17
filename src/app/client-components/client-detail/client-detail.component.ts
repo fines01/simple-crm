@@ -2,7 +2,7 @@ import { ComponentType } from '@angular/cdk/portal';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ClientService } from 'src/app/services/client.service';
+import { FirestoreService } from 'src/app/services/firestore.service';
 import { Client } from 'src/models/client.class';
 import { DialogDeleteClientComponent } from '../dialog-delete-client/dialog-delete-client.component';
 import { DialogEditAddressComponent } from '../dialog-edit-address/dialog-edit-address.component';
@@ -20,7 +20,7 @@ export class ClientDetailComponent implements OnInit {
   client = new Client();
 
   constructor(
-    private clientService: ClientService,
+    private fireService: FirestoreService,
     private route: ActivatedRoute,
     private router: Router,
     private dialog: MatDialog,
@@ -35,7 +35,7 @@ export class ClientDetailComponent implements OnInit {
   }
 
   subscribeReceivedClient() {
-    this.clientService.getClient(this.clientID)
+    this.fireService.getByID(this.clientID, 'clients')
       .subscribe( (client: any) => {
         if (!this.checkRouteExists(client)) return;
         this.client = new Client(client); // convert retrieved client - JSON from DB in Object
