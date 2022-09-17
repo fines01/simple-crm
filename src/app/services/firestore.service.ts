@@ -9,6 +9,7 @@ export class FirestoreService {
   constructor(private firestore: AngularFirestore,) { }
 
   getCollection(collectionName: string, orderByDoc?: string) {
+    
     let queryFn!: any;
     orderByDoc ?  queryFn = (ref: any) => ref.orderBy(orderByDoc, 'asc') : queryFn = undefined;
     

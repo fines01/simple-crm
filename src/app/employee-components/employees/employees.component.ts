@@ -52,10 +52,6 @@ export class EmployeesComponent implements OnInit, AfterViewInit {
 
   openDialog() {
     let dialogRef = this.dialog.open(DialogAddEmployeeComponent);
-    //dialogRef.afterClosed().subscribe(result => {
-      //console.log('Dialog was closed');
-      // save result in variable
-    // })
   }
 
 

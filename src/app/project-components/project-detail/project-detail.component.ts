@@ -57,6 +57,7 @@ export class ProjectDetailComponent implements OnInit {
       });
   }
 
+  // in projects (list) --> pass to this component
   getProjectmanager(managerID: string) {
     this.fireService.getByID(managerID, 'employees')
       .subscribe( (manager)=>{

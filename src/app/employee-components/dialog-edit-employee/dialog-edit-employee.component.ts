@@ -25,7 +25,6 @@ export class DialogEditEmployeeComponent implements OnInit {
   ngOnInit(): void {
     let date = new FormControl(new Date(this.employee.birthDate)).value; // FormControl necessary? or instead just new Date(...)?
     if(date instanceof Date) this.birthDate = date;
-    console.log(this.employee);
   }
 
   closeDialog() {

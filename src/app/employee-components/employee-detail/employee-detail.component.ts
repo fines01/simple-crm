@@ -29,7 +29,6 @@ export class EmployeeDetailComponent implements OnInit {
     this.route.paramMap.subscribe( paramMap => {
       let id = paramMap.get('id');
       if (typeof id == 'string') this.employeeID = id;
-      console.log( 'git ID: ', id, this.employeeID);
       this.subscribeReceivedEmployee();
     });
   }
@@ -39,7 +38,6 @@ export class EmployeeDetailComponent implements OnInit {
       .subscribe((employee: any) => {
          if (!this.checkRouteExists(employee)) return;
         this.employee = new Employee(employee); // convert JSON iton Objekt
-        console.log('retreived employee: ', employee);
       });
   }
 

@@ -19,6 +19,8 @@ export class ProjectsComponent implements OnInit {
   sortedProjects!: any[];
   displayedColumns: string[] = ['name', 'manager', 'client', 'dueDate', 'status']; // countryCode?, address, + index ?
   dataSource = new MatTableDataSource(this.sortedProjects);
+  managers: any = [];
+  manager!: any; // RM
 
   localFormatdate!: string;
   
@@ -36,6 +38,7 @@ export class ProjectsComponent implements OnInit {
     this.fireService.getCollection('projects')
       .subscribe((changes: any) => {
         this.allProjects = changes;
+        if (this.allProjects) this.addManagers(); // add manager names for received projects
         if (this.sortedProjects) this.sortedProjects = this.allProjects; //check in components: clients, employees
         this.dataSource = new MatTableDataSource(this.sortedProjects);
         if (this.dataSource) this.dataSource.paginator = this.paginator;
@@ -47,6 +50,22 @@ export class ProjectsComponent implements OnInit {
       // this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     }
+  }
+
+  addManagers() {
+    this.allProjects.forEach( (doc: any) => {
+      this.getManagerName(doc.managerID, doc);
+    });
+  }
+
+  getManagerName(managerID: string, document: any) {
+    this.fireService.getByID(managerID, 'employees')
+      .subscribe( (result: any)=>{
+        if(result) {
+          let name = `${result.firstName} ${result.lastName}`;
+          if (name) document.managerName = name;
+        }
+      });
   }
 
   openDialog() {
