@@ -35,9 +35,10 @@ export class FirestoreService {
   getByValue(field: any, value: any, collectionName: string){ // T
     return this.firestore
       .collection(collectionName, ref => ref.where(field, '==', value))
-      .valueChanges();
+      .valueChanges({idField: 'objID'});
   }
 
+  //updateDoc
   update(documentObj: any, id: string, collectionName: string) {
     return this.firestore
       .collection(collectionName)
@@ -49,6 +50,7 @@ export class FirestoreService {
     // 
   }
 
+  // deleteDoc
   delete(id: string, collectionName: string) {
     return this.firestore
       .collection(collectionName)

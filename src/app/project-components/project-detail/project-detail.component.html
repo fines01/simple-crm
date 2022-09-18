@@ -11,7 +11,7 @@
       </mat-menu>
       <div class="contact-details">
         <h2 class="card-title">{{ project.name }}</h2>
-        <h3 class="">Project Manager: </h3>
+        <h3 class="card-title-small">Project Manager: </h3>
         <div class="header-detail manager-name" [routerLink]=" manager ? '/employee/'+ project['managerID'] : ''">{{ manager ? manager.firstName : '' }} {{ manager ? manager.lastName : '' }}</div>
         <!-- manager contact-infos from employees= -->
         <div class="header-detail"><a href="tel:{{ manager ? manager.phone : '' }}">{{ manager ? manager.phone : '' }}</a></div>
@@ -45,7 +45,12 @@
           <button mat-menu-item (click)="openEditEmployees()">Edit</button>
         </mat-menu>
         <h2 class="card-title">Assigned Employees</h2>
-        <div *ngFor="let employee of assignedEmployees" class="card-detail"></div>
+        <span 
+          *ngFor="let ass of assignedEmployees" 
+          class="card-detail assigned-person"
+          [style.color]="ass.colorCode"
+          [routerLink]="['/employee/'+ ass.objID]"
+          >{{ ass.firstName }} {{ ass.lastName }}</span>
       </mat-card-content>
     </mat-card>
 

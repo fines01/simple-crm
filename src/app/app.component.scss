@@ -61,7 +61,7 @@ mat-toolbar-row {
       margin-right: 16px;
     }
 
-    &:hover {
+    &:hover:not(.disabled) {
       background-color: rgba(0, 0, 0, 0.25); // light-mode: rgba(0,0,0,0.04)
     }
 
@@ -80,3 +80,11 @@ mat-toolbar-row {
   height: 48px;
 }
 
+.disabled {
+  cursor: not-allowed !important;
+  color: gray;
+  
+  mat-icon {
+    color: gray;
+  }
+}

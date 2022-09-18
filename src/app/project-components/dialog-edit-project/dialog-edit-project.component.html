@@ -27,8 +27,8 @@
     <div class="">
       <mat-form-field appearance="outline" class="width-50 mr-16">
         <mat-label class="form-selector">Manager</mat-label>
-        <mat-select [(ngModel)]="manager" [disabled]="loading" placeholder="Fuck">
-          <mat-option *ngFor="let e of employees" [value]="e">
+        <mat-select [(ngModel)]="managerID" [disabled]="loading">
+          <mat-option *ngFor="let e of employees" [value]="e.objID">
             {{ e.firstName }} {{ e.lastName }}
           </mat-option>
         </mat-select>

@@ -1,0 +1,26 @@
+.selected-values-container {
+    display: flex;
+    width: 100%;
+    max-width: 309px;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: flex-start;
+}
+
+.show-selected {
+    font-weight: bold;
+    font-size: 13px;
+    background-color: black;
+    border-radius: 0.15rem 0.25rem;
+    padding:0.25rem;
+    // margin-right:0.5rem;
+
+    &:hover {
+        background-color: white;
+        cursor: default;
+    }
+}
+
+// .mat-dialog-container {
+//     width: 357px !important;
+// }

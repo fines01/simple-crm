@@ -43,12 +43,18 @@ a {
   bottom: 4px;
 }
 
+.card-title-small {
+  font-size: 14px;
+  text-decoration: underline;
+}
+
 .card-detail {
   margin-bottom: 0.25rem;
 }
 
 .project-description {
   margin-bottom: 0.5rem;
+  white-space: pre-wrap;
 }
 
 .client-address {
@@ -59,7 +65,25 @@ a {
   cursor: pointer;
 
   &:hover, a:hover {
-    color: rgb(200, 200, 200);
+    color: rgb(219, 219, 219);
+    font-weight: bold;
+  }
+}
+
+.manager-name {
+  font-size: 1rem;
+}
+
+.assigned-person {
+  cursor: pointer;
+  font-weight: bold;
+  background-color: rgb(0,0,0,0.5);
+  border-radius: 0.25rem;;
+  padding: 0.25rem;
+  margin-right: 0.5rem;
+
+  &:hover {
+    background-color: rgb(0,0,0);
   }
 }
 

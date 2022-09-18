@@ -14,10 +14,13 @@ import { DialogEditProjectComponent } from '../dialog-edit-project/dialog-edit-p
 })
 export class ProjectDetailComponent implements OnInit {
 
+  // TODO fix edit project: values from project manager
+
   projectID!: string;
   project = new Project(); // else undefined at beginning -- console.error
   employees!: any;
-  assignedEmployees!: any[]; // project.employees;
+  assignedEmployeeIDs = new Set(); // Set Object: collection of unique values // nn global ??
+  assignedEmployees: any[] = []; // project.employees;
   manager!: any;
   managerColorCode!: string; // color-code of employee who manages the project
  
@@ -36,7 +39,6 @@ export class ProjectDetailComponent implements OnInit {
       if (typeof id == 'string') this.projectID = id;
       this.subscribeReceivedProject();
     });
-
     this.subscribeEmployees();
   }
 
@@ -53,25 +55,46 @@ export class ProjectDetailComponent implements OnInit {
   subscribeEmployees() {
     this.fireService.getCollection('employees', 'lastName')
       .subscribe ( employees => {
-        if (employees) this.employees = employees;
+        if (employees) {
+          this.employees = employees;
+          this.getAssignedEmployees(); // hier? runs everytime afer changes happen...
+        }
       });
   }
 
-  // in projects (list) --> pass to this component
+  // in projects (list) --> pass to this component?
   getProjectmanager(managerID: string) {
     this.fireService.getByID(managerID, 'employees')
       .subscribe( (manager)=>{
         if (manager) this.manager = manager;
       });
   }
-  
-  getAssignedEmployees(){
-    // 1. get all documents from employees_projects where project_id == this.projectID 
-    // 2. save in assignedEmployees
 
+  getAssignedEmployees(){
+    // 1. get all documents from junction table employees_projects where project_id == this.projectID 
+    let junctionDocs:any[] = [];
+    // let assignedEmployeeIDs = new Set(); // Set Object: collection of unique values
+
+    this.fireService
+      .getByValue('project_id',this.projectID,'employee_project')
+      .subscribe( (result: any)=>{
+        if (result) junctionDocs = result;
+        if (junctionDocs.length > 0) this.filterEmployees(junctionDocs)
+      });
+    
   }
 
-  //wh
+  filterEmployees(junctionTableDocs: any) {
+    for (let obj of junctionTableDocs) {
+          this.assignedEmployeeIDs.add(obj.employee_id);
+        }
+    this.assignedEmployees = this.employees.filter( (empl: any) => {
+      return this.assignedEmployeeIDs.has(empl.objID);
+    });
+  }
+
+  // wh
+
   openDialog(dialogComponent: ComponentType<any>) {
     let dialog: MatDialogRef<any> = this.dialog.open(dialogComponent);
     //this.passEditData(dialog);
@@ -83,7 +106,6 @@ export class ProjectDetailComponent implements OnInit {
     dialog.componentInstance.project = new Project(this.project.toJSON());
     dialog.componentInstance.projectID = this.projectID;
     dialog.componentInstance.employees = this.employees;
-    dialog.componentInstance.manager = this.manager;
     dialog.componentInstance.managerID = this.project.managerID;
   }
 
@@ -94,8 +116,16 @@ export class ProjectDetailComponent implements OnInit {
 
   openEditEmployees() {
     let dialog = this.openDialog(DialogEditProjectEmployeesComponent);
-    dialog.componentInstance.employees = this.employees;
-    //dialog.componentInstance.assignedEmployees = this.assignedEmployees;
+    dialog.componentInstance.employees = this.removeManager();
+    dialog.componentInstance.projectID = this.projectID;
+    dialog.componentInstance.assignedEmployees = this.assignedEmployees;
+  }
+  
+  removeManager() {
+    let assignableEmployees = this.employees.filter((e:any) => {
+      return e.objID != this.project.managerID;
+    });
+    return assignableEmployees;
   }
 
   openDeleteDialog() {
