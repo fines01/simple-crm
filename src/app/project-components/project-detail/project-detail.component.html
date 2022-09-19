@@ -7,7 +7,7 @@
         <mat-icon>more_vert</mat-icon>
       </button>
       <mat-menu #headerMenu="matMenu">
-        <button mat-menu-item (click)="openEdit()">Edit</button>
+        <button mat-menu-item (click)="openEditDetails()">Edit</button>
       </mat-menu>
       <div class="contact-details">
         <h2 class="card-title">{{ project.name }}</h2>
@@ -26,7 +26,7 @@
           <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #addressMenu="matMenu">
-          <button mat-menu-item (click)="openEdit()">Edit</button>
+          <button mat-menu-item (click)="openEditDetails()">Edit</button>
         </mat-menu>
         <h2 class="card-title">Details</h2>
         <div class="card-detail project-description">{{ project.description }}</div>
@@ -44,7 +44,7 @@
         <mat-menu #employeesMenu="matMenu">
           <button mat-menu-item (click)="openEditEmployees()">Edit</button>
         </mat-menu>
-        <h2 class="card-title">Assigned Employees</h2>
+        <h2 class="card-title">Assigned team members</h2>
         <span 
           *ngFor="let ass of assignedEmployees" 
           class="card-detail assigned-person"

@@ -1,7 +1,9 @@
+import { DialogRef } from '@angular/cdk/dialog';
 import { ComponentType } from '@angular/cdk/portal';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { FirestoreService } from 'src/app/services/firestore.service';
 import { Project } from 'src/models/project.class';
 import { DialogEditProjectEmployeesComponent } from '../dialog-edit-project-employees/dialog-edit-project-employees.component';
@@ -12,19 +14,24 @@ import { DialogEditProjectComponent } from '../dialog-edit-project/dialog-edit-p
   templateUrl: './project-detail.component.html',
   styleUrls: ['./project-detail.component.scss']
 })
-export class ProjectDetailComponent implements OnInit {
-
-  // TODO fix edit project: values from project manager
+export class ProjectDetailComponent implements OnInit, OnDestroy {
 
   projectID!: string;
-  project = new Project(); // else undefined at beginning -- console.error
+  project = new Project();
   employees!: any;
-  assignedEmployeeIDs = new Set(); // Set Object: collection of unique values // nn global ??
+  assignedEmployeeIDs = new Set(); // Set Object: collection of unique values // nn glob?
   assignedEmployees: any[] = []; // project.employees;
   manager!: any;
   managerColorCode!: string; // color-code of employee who manages the project
- 
+  junctionTableDocs!: any[];
   localFormatDate!: string;
+  
+  projectSubscription!: Subscription;
+  employeesSubscription!: Subscription;
+  assigneesSubscription!: Subscription;
+  managerSubscription!: Subscription;
+  routeSubscription!: Subscription;
+  allSubscriptions!: Subscription[];
 
   constructor(
     private route: ActivatedRoute,
@@ -34,58 +41,77 @@ export class ProjectDetailComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe( paramMap => {
+    this.subscribeRouteParams();
+    this.subscribeEmployees();
+    this.subscribeAssignedEmployees();
+   
+    this.allSubscriptions = [
+      this.routeSubscription,
+      this.projectSubscription, 
+      this.employeesSubscription,
+      this.assigneesSubscription, 
+      this.managerSubscription
+    ];
+  }
+
+  ngOnDestroy(): void {
+    this.allSubscriptions.forEach( ((subscription, index) => {
+      console.log(index, subscription, typeof subscription);
+      if(subscription) subscription.unsubscribe();
+      else console.log('UNDEFINED:', index);
+    }));
+  }
+
+  subscribeRouteParams() {
+    this.routeSubscription = this.route.paramMap.subscribe( paramMap => {
       let id = paramMap.get('id');
       if (typeof id == 'string') this.projectID = id;
       this.subscribeReceivedProject();
     });
-    this.subscribeEmployees();
+    //this.allSubscriptions.push(this.routeSubscription);
   }
 
   subscribeReceivedProject() {
-    this.fireService.getByID(this.projectID, 'projects')
+    this.projectSubscription = this.fireService.getByID(this.projectID, 'projects')
       .subscribe((project: any) => {
-         if (!this.checkRouteExists(project)) return;
+        if (!this.checkRouteExists(project)) return;
         this.project = new Project(project); // convert JSON iton Objekt
-        if (project) this.getProjectmanager(project.managerID);
+        if (project) this.subscribeProjectmanager(project.managerID);
         this.localFormatDate = new Date(project.dueDate).toLocaleDateString();
       });
+      //this.allSubscriptions.push(this.projectSubscription);
   }
 
   subscribeEmployees() {
-    this.fireService.getCollection('employees', 'lastName')
+    this.employeesSubscription = this.fireService.getCollection('employees', 'lastName')
       .subscribe ( employees => {
         if (employees) {
           this.employees = employees;
-          this.getAssignedEmployees(); // hier? runs everytime afer changes happen...
         }
       });
+      //this.allSubscriptions.push(this.employeesSubscription);
   }
 
-  // in projects (list) --> pass to this component?
-  getProjectmanager(managerID: string) {
-    this.fireService.getByID(managerID, 'employees')
+  subscribeProjectmanager(managerID: string) {
+    this.managerSubscription = this.fireService.getByID(managerID, 'employees')
       .subscribe( (manager)=>{
         if (manager) this.manager = manager;
-      });
+      }); 
+      //this.allSubscriptions.push(this.managerSubscription);
   }
 
-  getAssignedEmployees(){
-    // 1. get all documents from junction table employees_projects where project_id == this.projectID 
-    let junctionDocs:any[] = [];
-    // let assignedEmployeeIDs = new Set(); // Set Object: collection of unique values
-
-    this.fireService
+  subscribeAssignedEmployees(){
+    this.assigneesSubscription = this.fireService
       .getByValue('project_id',this.projectID,'employee_project')
       .subscribe( (result: any)=>{
-        if (result) junctionDocs = result;
-        if (junctionDocs.length > 0) this.filterEmployees(junctionDocs)
+        if (result) this.junctionTableDocs = result;
+        if (this.junctionTableDocs) this.filterEmployees(this.junctionTableDocs)
       });
-    
+    //this.allSubscriptions.push(this.assigneesSubscription);
   }
 
   filterEmployees(junctionTableDocs: any) {
-    for (let obj of junctionTableDocs) {
+    for (let obj of this.junctionTableDocs) {
           this.assignedEmployeeIDs.add(obj.employee_id);
         }
     this.assignedEmployees = this.employees.filter( (empl: any) => {
@@ -94,34 +120,33 @@ export class ProjectDetailComponent implements OnInit {
   }
 
   // wh
-
   openDialog(dialogComponent: ComponentType<any>) {
     let dialog: MatDialogRef<any> = this.dialog.open(dialogComponent);
-    //this.passEditData(dialog);
     return dialog;
   }
 
-  passEditData(dialog: MatDialogRef<any>){
+  passEditDetailData(dialog: MatDialogRef<any>){
     // pass a copy(!) of the current user object to the dialog component: else every typed change in the text field will be saved immediately into original (two-way-binding)
     dialog.componentInstance.project = new Project(this.project.toJSON());
     dialog.componentInstance.projectID = this.projectID;
     dialog.componentInstance.employees = this.employees;
     dialog.componentInstance.managerID = this.project.managerID;
   }
-
-  openEdit() {
+  
+  openEditDetails() {
     let dialog = this.openDialog(DialogEditProjectComponent);
-    this.passEditData(dialog);
+    this.passEditDetailData(dialog);
   }
-
+  
   openEditEmployees() {
     let dialog = this.openDialog(DialogEditProjectEmployeesComponent);
     dialog.componentInstance.employees = this.removeManager();
     dialog.componentInstance.projectID = this.projectID;
     dialog.componentInstance.assignedEmployees = this.assignedEmployees;
+    dialog.afterClosed().subscribe( data => this.assignedEmployees = data)
   }
   
-  removeManager() {
+  removeManager() { // remove manager from assignable team-members 
     let assignableEmployees = this.employees.filter((e:any) => {
       return e.objID != this.project.managerID;
     });
@@ -140,6 +165,5 @@ export class ProjectDetailComponent implements OnInit {
     }
     return true;
   }
-
 
 }

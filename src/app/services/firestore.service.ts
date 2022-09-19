@@ -9,17 +9,14 @@ export class FirestoreService {
   constructor(private firestore: AngularFirestore,) { }
 
   getCollection(collectionName: string, orderByDoc?: string) {
-    
     let queryFn!: any;
     orderByDoc ?  queryFn = (ref: any) => ref.orderBy(orderByDoc, 'asc') : queryFn = undefined;
-    
     return this.firestore
       .collection(collectionName, queryFn  )
-      .valueChanges({idField: 'objID'}); //returns collection that can be subscribed inside the component
+      .valueChanges({idField: 'objID'}); //returns collection / Observable that can be subscribed inside the component
   }
 
   add(documentObj: Object, collectionName: string) {
-    //Todo check if documentObj already exists in DB (case email- field exists: should be unique)
     return this.firestore
       .collection(collectionName)
       .add(documentObj)
@@ -46,8 +43,10 @@ export class FirestoreService {
       .update(documentObj.toJSON()) // promise
   }
 
-  updateField(documentObj: any, id: string, collectionName: string, fieldValueObj: object){
-    // 
+  getWhere(field: any, value: any, collectionName: string){
+    return this.firestore
+      .collection(collectionName, ref => ref.where(field, '==', value))
+      .get()
   }
 
   // deleteDoc
@@ -65,5 +64,5 @@ export class FirestoreService {
       .doc(customID).set(documentJson);
   }
   
-  // archive() {} // move to objName trash / archivedXyz collection
+  // archive() {} // or move() {} // move to objName trash / archivedXyz collection
 }

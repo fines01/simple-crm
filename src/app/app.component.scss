@@ -81,7 +81,7 @@ mat-toolbar-row {
 }
 
 .disabled {
-  cursor: not-allowed !important;
+  cursor: default !important;
   color: gray;
   
   mat-icon {
