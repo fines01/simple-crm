@@ -8,7 +8,7 @@
   background-color: rgba(80, 137, 123); // rgb(183, 209, 76); //rgba(80, 137, 123);
   color: white;
   display: flex;
-  align-items: flex-end;
+  // align-items: flex-end;
 
   .profile-picture {
     height: 80px;
@@ -54,19 +54,15 @@ a {
   margin-bottom: 0.25rem;
 }
 
+.card-detail-link {
+  cursor: pointer;
+
+  &:hover {
+    color: rgb(221, 217, 217);
+  }
+}
+
 .client-address {
   min-height: 100px;
 }
 
-// .delete-btn-container {
-//   position: absolute;
-//   bottom: 0;
-//   left: 0;
-//   right: 0;
-//   padding-bottom: 32px;
-//   padding-top: 32px;
-//   display: flex;
-//   justify-content: center;
-// }
-
-// .info-detail-card {}

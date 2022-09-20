@@ -38,7 +38,7 @@ export class DialogEditEmployeeComponent implements OnInit {
   saveEdit() {
     this.loading = true;
     // firestire: save via service
-    this.fireService.update(this.employee, this.employeeID ,'employees')
+    this.fireService.update(this.employee.toJSON(), this.employeeID ,'employees')
       .then( ()=>{
         this.afterSaveSuccess(); // todo: add some checks
       });

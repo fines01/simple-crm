@@ -33,31 +33,36 @@
       </mat-card-content>
     </mat-card>
 
-    <mat-card class="mt-32 info-detail-card">
+    <mat-card *ngIf=" managedProjects && managedProjects.length > 0" class="mt-32 info-detail-card">
       <mat-card-content class="card-content">
-        <button mat-icon-button [matMenuTriggerFor]="addressMenu" class="btn-right-upper-corner">
-          <mat-icon>more_vert</mat-icon>
-        </button>
-        <mat-menu #addressMenu="matMenu">
-          <button mat-menu-item (click)="openEditInfo()">Edit</button>
-        </mat-menu>
-
-        <h2 class="card-title">Further Info</h2>
-        <div class="card-detail">Assigned project manager for: </div>
+        <h2 class="card-title">Managed projects:</h2>
+        <div *ngFor="let p of managedProjects" class="card-detail card-detail-link" [routerLink]="'/project/'+p.objID">{{ p.name }}</div>
       </mat-card-content>
     </mat-card>
 
-    <mat-card class="mt-32 info-detail-card">
+    <mat-card *ngIf="assignedProjects && assignedProjects.length > 0" class="mt-32 info-detail-card">
       <mat-card-content class="card-content">
-        <button mat-icon-button [matMenuTriggerFor]="addressMenu" class="btn-right-upper-corner">
+        <!-- TODO: Edit teams? Revoke project assignmant (deleto employee from project) -->
+        <!-- <button mat-icon-button [matMenuTriggerFor]="teamsMenu" class="btn-right-upper-corner">
           <mat-icon>more_vert</mat-icon>
         </button>
-        <mat-menu #addressMenu="matMenu">
-          <button mat-menu-item (click)="openEditInfo()">Edit</button>
-        </mat-menu>
+        <mat-menu #teamsMenu="matMenu">
+          <button mat-menu-item (click)="openEditAssignments()">Edit</button>
+        </mat-menu> -->
 
-        <h2 class="card-title">Further Info</h2>
-        <div class="card-detail">Assigned team memer for the following projects: </div>
+        <h2 class="card-title">Project team member in:</h2>
+        <div *ngFor="let p of assignedProjects" class="card-detail card-detail-link" [routerLink]="'/project/'+p.objID">{{ p.name }}</div>
+      </mat-card-content>
+    </mat-card>
+    
+    <mat-card *ngIf="!isAssigned" class="mt-32 info-detail-card">
+      <mat-card-content class="card-content">
+        <div class="card-detail"></div>
+        <p>Dear Admin:</p>
+        <p>The employee {{ employee.firstName }} {{ employee.lastName }} is currently not assigned to any projects. <br> 
+          Please give them something to do!
+        </p>
+        <p>Go to <span class="card-detail-link"[routerLink]="'/projects'">Projects</span> and set assignments there.</p>
       </mat-card-content>
     </mat-card>
 

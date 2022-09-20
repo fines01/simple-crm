@@ -56,7 +56,6 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.allSubscriptions.forEach( ((subscription, index) => {
-      console.log(index, subscription, typeof subscription);
       if(subscription) subscription.unsubscribe();
       else console.log('UNDEFINED:', index);
     }));
@@ -68,7 +67,6 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
       if (typeof id == 'string') this.projectID = id;
       this.subscribeReceivedProject();
     });
-    //this.allSubscriptions.push(this.routeSubscription);
   }
 
   subscribeReceivedProject() {
@@ -76,10 +74,9 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
       .subscribe((project: any) => {
         if (!this.checkRouteExists(project)) return;
         this.project = new Project(project); // convert JSON iton Objekt
-        if (project) this.subscribeProjectmanager(project.managerID);
+        if (project && project.managerID && project.managerID.trim().length > 0) this.subscribeProjectmanager(project.managerID);
         this.localFormatDate = new Date(project.dueDate).toLocaleDateString();
       });
-      //this.allSubscriptions.push(this.projectSubscription);
   }
 
   subscribeEmployees() {
@@ -89,7 +86,6 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
           this.employees = employees;
         }
       });
-      //this.allSubscriptions.push(this.employeesSubscription);
   }
 
   subscribeProjectmanager(managerID: string) {
@@ -107,7 +103,6 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
         if (result) this.junctionTableDocs = result;
         if (this.junctionTableDocs) this.filterEmployees(this.junctionTableDocs)
       });
-    //this.allSubscriptions.push(this.assigneesSubscription);
   }
 
   filterEmployees(junctionTableDocs: any) {
@@ -140,13 +135,13 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
   
   openEditEmployees() {
     let dialog = this.openDialog(DialogEditProjectEmployeesComponent);
-    dialog.componentInstance.employees = this.removeManager();
+    dialog.componentInstance.employees = this.removeManagerFromAssignable();
     dialog.componentInstance.projectID = this.projectID;
     dialog.componentInstance.assignedEmployees = this.assignedEmployees;
     dialog.afterClosed().subscribe( data => this.assignedEmployees = data)
   }
   
-  removeManager() { // remove manager from assignable team-members 
+  removeManagerFromAssignable() { // remove manager from assignable team-members 
     let assignableEmployees = this.employees.filter((e:any) => {
       return e.objID != this.project.managerID;
     });

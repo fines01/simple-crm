@@ -29,7 +29,13 @@ export class FirestoreService {
       .valueChanges();
   }
 
-  getByValue(field: any, value: any, collectionName: string){ // T
+  /** 
+   * @param field - field name in documents of the passed collection
+   * @param value - value of the given field
+   * @param collectionName - name of the collection in which to search for matching documents
+   * @returns array of all found documents of the collection that match the passed value
+   */
+  getByValue(field: string, value: any, collectionName: string){ // T
     return this.firestore
       .collection(collectionName, ref => ref.where(field, '==', value))
       .valueChanges({idField: 'objID'});
@@ -37,10 +43,11 @@ export class FirestoreService {
 
   //updateDoc
   update(documentObj: any, id: string, collectionName: string) {
+    //if ( !this.isJSON(documentObj) ) documentObj = documentObj.toJSON();
     return this.firestore
       .collection(collectionName)
       .doc(id)
-      .update(documentObj.toJSON()) // promise
+      .update(documentObj);
   }
 
   getWhere(field: any, value: any, collectionName: string){
@@ -63,6 +70,15 @@ export class FirestoreService {
     return this.firestore.collection(collectionName)
       .doc(customID).set(documentJson);
   }
+
+  // isJSON(data: any) {
+  //   try {
+  //     JSON.parse(data);
+  //   } catch (err) {
+  //     return false;
+  //   }
+  //   return true;
+  // }
   
   // archive() {} // or move() {} // move to objName trash / archivedXyz collection
 }

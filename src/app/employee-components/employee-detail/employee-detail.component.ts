@@ -1,7 +1,8 @@
 import { ComponentType } from '@angular/cdk/portal';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { FirestoreService } from 'src/app/services/firestore.service';
 import { Employee } from 'src/models/employee.class';
 import { DialogDeleteEmployeeComponent } from '../dialog-delete-employee/dialog-delete-employee.component';
@@ -13,10 +14,21 @@ import { DialogEditEmployeeComponent } from '../dialog-edit-employee/dialog-edit
   templateUrl: './employee-detail.component.html',
   styleUrls: ['./employee-detail.component.scss']
 })
-export class EmployeeDetailComponent implements OnInit {
+export class EmployeeDetailComponent implements OnInit, OnDestroy {
 
   employeeID!: string;
   employee = new Employee();
+  
+  projects!: any[];
+  assignedProjects!: any[];
+  managedProjects!: any[];
+
+  isAssigned = true;
+
+  routeparamSubscription!: Subscription;
+  employeeSubscription!: Subscription;
+  projectsSubscription!: Subscription;
+  junctionSubscription!: Subscription;
 
   constructor(
     private route: ActivatedRoute,
@@ -26,11 +38,26 @@ export class EmployeeDetailComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe( paramMap => {
+    this.routeparamSubscription = this.route.paramMap.subscribe( paramMap => {
       let id = paramMap.get('id');
       if (typeof id == 'string') this.employeeID = id;
-      this.subscribeReceivedEmployee();
     });
+    this.subscribeReceivedEmployee();
+    this.subscribeProjects();
+    this.subscribeEmployeeProjectJunction();
+  }
+
+  ngOnDestroy(): void {
+    if (this.routeparamSubscription) this.routeparamSubscription.unsubscribe();
+    if (this.employeeSubscription) this.employeeSubscription.unsubscribe();
+    if (this.projectsSubscription) this.projectsSubscription.unsubscribe();
+    if (this.junctionSubscription) this.junctionSubscription.unsubscribe();
+  }
+
+  isEmployeeAssigned() {
+      if (this.assignedProjects && this.managedProjects) {
+        this.isAssigned = this.assignedProjects.length > 0 || this.managedProjects.length > 0;
+    }
   }
 
   subscribeReceivedEmployee() {
@@ -41,36 +68,72 @@ export class EmployeeDetailComponent implements OnInit {
       });
   }
 
-  //wh
-  openDialog(dialogComponent: ComponentType<any>) {
-    const dialog: MatDialogRef<any> = this.dialog.open(dialogComponent);
-    this.passEditData(dialog);
+  subscribeProjects() {
+    this.projectsSubscription = this.fireService.getCollection('projects', 'name')
+      .subscribe ((result) => {
+        if (result) this.projects = result;
+        if (this.projects) this.getManagedProjects();
+      });
   }
 
-  passEditData(dialog: MatDialogRef<any>){
+  subscribeEmployeeProjectJunction() {
+    this.junctionSubscription = this.fireService.getByValue('employee_id',this.employeeID,'employee_project')
+      .subscribe( (result) => {
+        if (result) this.getAssignedProjects(result)
+        this.isEmployeeAssigned();
+      });
+
+  }
+
+  getAssignedProjects(junctionDocs: any) {
+    let projIDs: string[];
+    if (this.projects) {
+      projIDs = junctionDocs.map( (doc: any) => doc.project_id);
+      this.assignedProjects = this.projects.filter( p => projIDs.indexOf(p.objID) > -1);
+    }
+  }
+
+  getManagedProjects() {
+    this.managedProjects = this.projects.filter( (project)=>{
+      return project.managerID === this.employeeID;
+    });
+  }
+
+  //wh
+  openDialog(dialogComponent: ComponentType<any>) {
+    let dialog!: MatDialogRef<any>;
+    return dialog = this.dialog.open(dialogComponent);
+  }
+
+  passEditDetailData(dialog: MatDialogRef<any>){
     // pass a copy(!) of the current user object to the dialog component: else every typed change in the text field will be saved immediately into original (two-way-binding)
     dialog.componentInstance.employee = new Employee(this.employee.toJSON());
     dialog.componentInstance.employeeID = this.employeeID;
   }
 
   openEditHeader() {
-    this.openDialog(DialogEditEmployeeComponent);
+    let dialog = this.openDialog(DialogEditEmployeeComponent);
+    this.passEditDetailData(dialog);
   }
 
   openEditAddress() {
-    this.openDialog(DialogEditEmployeeAddressComponent);
+    let dialog = this.openDialog(DialogEditEmployeeAddressComponent);
+    this.passEditDetailData(dialog);
   }
 
   openEditInfo() {}
 
   openDeleteDialog() {
-    this.openDialog(DialogDeleteEmployeeComponent);
+    let dialog = this.openDialog(DialogDeleteEmployeeComponent);
+    this.passEditDetailData(dialog);
+    dialog.componentInstance.assignedProjects = this.assignedProjects;
+    dialog.componentInstance.managedProjects = this.managedProjects;
   }
 
   // auslagern:
   checkRouteExists(client: any){
     if (client === undefined) {
-      this.router.navigate(['/clients']);
+      this.router.navigate(['/employees']);
       return false;
     }
     return true;

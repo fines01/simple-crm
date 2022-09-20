@@ -31,7 +31,7 @@ export class DialogEditEmployeeAddressComponent implements OnInit {
 
   saveEdit() {
     this.loading = true;
-    this.fireService.update(this.employee, this.employeeID, 'employees')
+    this.fireService.update(this.employee.toJSON(), this.employeeID, 'employees')
       .then(()=>{ 
         this.loading = false;
         this.closeDialog();
