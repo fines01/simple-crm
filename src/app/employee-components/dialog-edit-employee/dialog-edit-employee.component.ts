@@ -39,14 +39,15 @@ export class DialogEditEmployeeComponent implements OnInit {
     this.loading = true;
     // firestire: save via service
     this.fireService.update(this.employee.toJSON(), this.employeeID ,'employees')
-      .then( ()=>{
-        this.afterSaveSuccess(); // todo: add some checks
-      });
+      .then( (res)=>{
+        this.afterSaveSuccess();
+        console.info('%c SUCCESS updating employee: '+res, 'color: white; background: #333399');
+      })
+      .catch( (err) => console.warn('%c ERROR updating employee: '+err, 'color: blue'))
   }
 
   afterSaveSuccess(){
     this.loading = false;
-    // ... etc.
     this.closeDialog();
   }
 

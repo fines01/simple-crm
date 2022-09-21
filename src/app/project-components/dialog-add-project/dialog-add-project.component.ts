@@ -45,22 +45,12 @@ export class DialogAddProjectComponent implements OnInit {
         //// add to junction table (edit: for employees M:N projects) --> add employees in edit-project
         // this.projectID = result.id;
         // if(this.projectID) this.saveDbRelations();
+        console.info('%c SUCCESS adding new project. ', 'color: white; background: #333399');
         this.loading = false;
         this.closeDialog();
-      });
+      })
+      .catch((err) => console.warn('%c ERROR - adding new project failed: ' + err, 'color: blue'));
     }
-    
-  // // add to junction table (edit: for employees M:N projects)
-  //   saveDbRelations(){
-  //   let relDocument = {
-  //     employee_id: this.manager.objID,
-  //     project_id: this.projectID,
-  //   }
-  //   this.fireService.addToJunctionTable(relDocument, 'employee_project', this.manager.objID, this.projectID)
-  //   .then( (res: any) => {
-  //     console.log(res);
-  //   });
-  // }
   
   subscribeEmployees() {
     this.fireService.getCollection('employees', 'lastName')

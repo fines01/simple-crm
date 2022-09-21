@@ -5,8 +5,8 @@
     <b>{{ employee.firstName }} {{ employee.lastName }}</b></p>
   <!-- add employee name -->
   <div *ngIf="!showSuccessMsg" mat-dialog-actions>
-    <button class="cancel-btn" mat-button (click)="closeDialog()">No! Go back</button>
-    <button class="delete-btn" mat-button (click)="deleteEmployee()" cdkFocusInitial>DELETE</button>
+    <button class="cancel-btn" mat-button (click)="closeDialog()" cdkFocusInitial>No! Go back</button>
+    <button class="delete-btn" mat-button (click)="deleteEmployee()">DELETE</button>
   </div>
 
 </div>

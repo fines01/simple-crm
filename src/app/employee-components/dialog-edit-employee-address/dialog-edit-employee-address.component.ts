@@ -32,10 +32,12 @@ export class DialogEditEmployeeAddressComponent implements OnInit {
   saveEdit() {
     this.loading = true;
     this.fireService.update(this.employee.toJSON(), this.employeeID, 'employees')
-      .then(()=>{ 
+      .then((res)=>{ 
         this.loading = false;
         this.closeDialog();
-      });
+        console.info('%c SUCCESS updating employee address: '+res, 'color: white; background: #333399');
+      })
+      .catch((err) => console.warn('%c ERROR updating employee address: '+err, 'color: blue'));
   }
 
 }

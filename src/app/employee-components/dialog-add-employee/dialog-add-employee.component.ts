@@ -37,7 +37,9 @@ export class DialogAddEmployeeComponent implements OnInit {
       .then( (result: any) => {
         this.loading = false;
         this.closeDialog();
-      });
+        console.info('%c SUCCESS adding employee', 'color: white; background: #333399');
+      })
+      .catch((err) => console.warn('%c ERROR adding employee: '+err, 'color: blue'));
   }
 
 }

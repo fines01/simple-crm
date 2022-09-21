@@ -38,11 +38,12 @@ export class DialogEditProjectComponent implements OnInit {
     this.loading = true;
     this.project.managerID = this.managerID;// this.manager.objID;
     this.fireService.update(this.project.toJSON(), this.projectID ,'projects')
-      .then( ()=>{
+      .then( (res)=>{
+        console.info('%c SUCCESS updating project: '+res, 'color: white; background: #333399');
         this.afterSaveSuccess();
       })
-      .catch ( (err) => console.warn(err) )
-      .finally (()=> console.info('%c Project update completed ', 'color: white; background: #333399')); // test: use custom css in console message
+      .catch ( (err) => console.warn('%c ERROR updating employee: '+err, 'color: blue') )
+      .finally (()=> console.info('%c Project update completed ', 'color: white; background: #333399'));
   }
 
   afterSaveSuccess(){
