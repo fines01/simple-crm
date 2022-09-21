@@ -1,6 +1,6 @@
 import { DialogRef } from '@angular/cdk/dialog';
 import { ComponentType } from '@angular/cdk/portal';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -106,6 +106,8 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
   }
 
   filterEmployees(junctionTableDocs: any) {
+    //reset assignedEmployeeIDs in case of edit
+    this.assignedEmployeeIDs.clear();
     for (let obj of this.junctionTableDocs) {
           this.assignedEmployeeIDs.add(obj.employee_id);
         }
@@ -138,7 +140,7 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
     dialog.componentInstance.employees = this.removeManagerFromAssignable();
     dialog.componentInstance.projectID = this.projectID;
     dialog.componentInstance.assignedEmployees = this.assignedEmployees;
-    dialog.afterClosed().subscribe( data => this.assignedEmployees = data)
+    //dialog.afterClosed().subscribe((data) => {if(data) this.assignedEmployees = data}); // i subscribed assigned employees, so any change should be noticed and rendered
   }
   
   removeManagerFromAssignable() { // remove manager from assignable team-members 
