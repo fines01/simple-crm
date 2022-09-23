@@ -21,6 +21,9 @@ export class DialogAddProjectComponent implements OnInit {
   manager!: any;
   managerID!: string;
   projectID!: string;
+  descriptionCounter!: number;
+  descriptionLength!: number;
+  descriptionMaxLength!: number;
   
   // access template reference variables 
   // @ViewChild('addProjectForm',{static:true}) addProjectForm!: ElementRef;
@@ -33,12 +36,18 @@ export class DialogAddProjectComponent implements OnInit {
     
     ngOnInit(): void {
       this.subscribeEmployees();
+      this.descriptionMaxLength = this.project.descriptionMaxLength;
     }
     
   //getErrorMessages() { }
   
   closeDialog(): void {
     this.dialogRef.close();  
+  }
+
+  countStrLength() {
+    this.descriptionLength = this.project.description.length;
+    this.descriptionCounter = this.descriptionMaxLength - this.project.description.length;
   }
 
   async saveProject() {
@@ -49,9 +58,6 @@ export class DialogAddProjectComponent implements OnInit {
     //
     await this.fireService.add(this.project.toJSON(), 'projects')
       .then( (result: any) => {
-        //// add to junction table (edit: for employees M:N projects) --> add employees in edit-project
-        // this.projectID = result.id;
-        // if(this.projectID) this.saveDbRelations();
         console.info('%c SUCCESS adding new project. ', 'color: white; background: #333399');
         this.loading = false;
         this.closeDialog();

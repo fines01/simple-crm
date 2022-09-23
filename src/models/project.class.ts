@@ -4,6 +4,7 @@ export class Project extends Company {
 
     name!: string;
     description!: string;
+    descriptionMaxLength: number = 300;
     client!: string;
     //employees!: []; // m:N relationship --> info stored into junction table instead (employee_project)
     managerID!: string;

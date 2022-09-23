@@ -24,12 +24,12 @@
       <div class="">
         <mat-form-field appearance="outline" class="width-100">
           <mat-label>Description</mat-label>
-          <textarea [(ngModel)]="project.description" matInput [disabled]="loading" placeholder="Further Infos"
-            name="description" #descriptionInput="ngModel" maxLength="400" class="form-control">
+          <textarea [(ngModel)]="project.description" (keyup)="countStrLength()" matInput [disabled]="loading" placeholder="Further Infos"
+            name="description" #descriptionInput="ngModel" [maxlength]="descriptionMaxLength" class="form-control">
           {{ project.description }}
         </textarea>
           <mat-hint *ngIf="descriptionInput.pristine">Project description (optional)</mat-hint>
-          <mat-error *ngIf="descriptionInput.invalid">No more than 100 characters</mat-error>
+          <mat-hint *ngIf="descriptionInput.dirty"><span>{{ descriptionCounter }}</span> of {{ descriptionMaxLength }} characters left</mat-hint>
         </mat-form-field>
       </div>
 

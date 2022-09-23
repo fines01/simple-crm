@@ -17,6 +17,9 @@ export class DialogEditProjectComponent implements OnInit {
   dueDate!: Date;
   employees!: any[];
   managerID!: string;
+  descriptionCounter!: number;
+  descriptionLength!: number;
+  descriptionMaxLength!: number;
 
   constructor(
     private dialogRef: MatDialogRef<DialogEditProjectComponent>, 
@@ -27,11 +30,17 @@ export class DialogEditProjectComponent implements OnInit {
   ngOnInit(): void {
     let date = new FormControl(new Date(this.project.dueDate)).value; // FormControl necessary? or instead just new Date(...)?
     if(date instanceof Date) this.dueDate = date;
-    //this.manager.objID = this.managerID;
+    this.descriptionMaxLength = this.project.descriptionMaxLength;
+    this.countStrLength();
   }
 
   closeDialog() {
     this.dialogRef.close();
+  }
+
+  countStrLength() {
+    this.descriptionLength = this.project.description.length;
+    this.descriptionCounter = this.descriptionMaxLength - this.project.description.length;
   }
 
   saveEdit() {
