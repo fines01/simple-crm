@@ -26,7 +26,7 @@
   align-items: flex-start;
   justify-content: center;
 
-  h2 {
+  h2, h3 {
     margin-bottom: 0;
   }
 }
@@ -56,7 +56,8 @@ a {
 
 .card-detail-link {
   cursor: pointer;
-
+  // text-decoration: underline;
+  
   &:hover {
     color: rgb(221, 217, 217);
   }

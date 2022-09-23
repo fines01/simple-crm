@@ -1,50 +1,60 @@
-<div class="dialog-container">
+<form action="" #editEmployeeAddr="ngForm" class="dialog-container">
 
   <mat-progress-bar *ngIf="loading" mode="indeterminate" class="progress-bar"></mat-progress-bar>
 
-  <h1 mat-dialog-title>Edit Client Address</h1>
+  <h1 mat-dialog-title>Edit Employee Address</h1>
   <div mat-dialog-content>
 
     <div class="">
+      <!-- Street -->
       <mat-form-field appearance="outline" class="width-75 mr-16">
         <mat-label>Street</mat-label>
-        <input [(ngModel)]="employee.street" matInput [disabled]="loading" placeholder="Street">
-        <mat-hint>Street</mat-hint>
+        <input [(ngModel)]="employee.street" matInput [disabled]="loading" placeholder="Street"
+          name="street" #streetInput="ngModel" required maxlength="30" class="form-control">
+        <mat-hint *ngIf="streetInput.pristine">Street</mat-hint>
+        <mat-error *ngIf="streetInput.errors && streetInput.errors['required']">Street name is required</mat-error>
       </mat-form-field>
+      <!-- Street No. -->
        <mat-form-field appearance="outline" class="width-25">
         <mat-label>No.</mat-label>
-        <input [(ngModel)]="employee.streetNo" matInput [disabled]="loading" placeholder="No.">
-        <mat-hint>No.</mat-hint>
+        <input [(ngModel)]="employee.streetNo" matInput [disabled]="loading" placeholder="No."
+          name="streetNo" #streetNoInput="ngModel" required maxlength="30" class="form-control">
+        <mat-hint *ngIf="streetNoInput.pristine">No.</mat-hint>
+        <mat-error *ngIf="streetNoInput.errors && streetNoInput.errors['required']">Enter a street number</mat-error>
       </mat-form-field>
     </div>
 
     <div class="">
+      <!-- Zip Code -->
       <mat-form-field appearance="outline" class="width-33 mr-16">
         <mat-label>Zip code</mat-label>
-        <input [(ngModel)]="employee.zipCode" matInput [disabled]="loading" placeholder="Zip Code">
-        <mat-hint>Zip code</mat-hint>
+        <input [(ngModel)]="employee.zipCode" matInput [disabled]="loading" placeholder="Zip Code"
+          name="zipCode" #zipInput="ngModel" required maxlength="30" class="form-control">
+        <mat-hint *ngIf="zipInput.pristine">Zip code</mat-hint>
+        <mat-error *ngIf="zipInput.errors && zipInput.errors['required']">Enter a Zip code</mat-error>
       </mat-form-field>
-
+      <!-- City -->
       <mat-form-field appearance="outline" class="width-33 mr-16">
         <mat-label>City</mat-label>
-        <input [(ngModel)]="employee.city" matInput [disabled]="loading" placeholder="City">
-        <mat-hint>City</mat-hint>
+        <input [(ngModel)]="employee.city" matInput [disabled]="loading" placeholder="City"
+           name="city" #cityInput="ngModel" required maxlength="30" class="form-control">
+        <mat-hint *ngIf="cityInput.pristine">City</mat-hint>
+        <mat-error *ngIf="cityInput.errors && cityInput.errors['required']">City is required</mat-error>
       </mat-form-field>
-
+      <!-- Country -->
       <mat-form-field appearance="outline" class="width-33">
         <mat-label class="country-selector">Select Country</mat-label>
-        <!-- <input [(ngModel)]="employee.countryCode" matInput [disabled]="loading" placeholder=""> -->
-        <mat-select [(ngModel)]="employee.countryCode" [disabled]="loading" placeholder="Country">
+        <mat-select [(ngModel)]="employee.countryCode" [disabled]="loading" placeholder="Country" name="country" #countryInput="ngModel" required class="form-control">
           <mat-option *ngFor="let c of countries" [value]="c">{{ c }}</mat-option>
-          
         </mat-select>
-        <mat-hint>Country</mat-hint>
+         <mat-hint *ngIf="countryInput.pristine">Country</mat-hint>
+        <mat-error *ngIf="countryInput.invalid">Country is required</mat-error>
       </mat-form-field>
     </div>
   </div>
   <div mat-dialog-actions>
     <button mat-button (click)="closeDialog()">Cancel</button>
-    <button mat-button (click)="saveEdit()" cdkFocusInitial>Save</button>
+    <button mat-button [disabled]="!editEmployeeAddr.form.valid" (click)="editEmployeeAddr.form.valid && saveEdit()" cdkFocusInitial>Save</button>
   </div>
 
-</div>
+</form>

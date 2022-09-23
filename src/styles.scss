@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
 :root {
-  --width-sidenav: 300px;
+  --width-sidenav: 250px;
 }
 
 html,
@@ -40,6 +40,10 @@ body {
 
 .width-25 {
   width: calc(25% - 8px);
+}
+
+.underline {
+  text-decoration: underline;
 }
 
 .dialog-container {

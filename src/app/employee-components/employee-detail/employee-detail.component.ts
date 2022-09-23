@@ -22,6 +22,7 @@ export class EmployeeDetailComponent implements OnInit, OnDestroy {
   projects!: any[];
   assignedProjects!: any[];
   managedProjects!: any[];
+  localFormatDate!: string;
 
   isAssigned = true;
 
@@ -63,8 +64,9 @@ export class EmployeeDetailComponent implements OnInit, OnDestroy {
   subscribeReceivedEmployee() {
     this.fireService.getByID(this.employeeID, 'employees')
       .subscribe((employee: any) => {
-         if (!this.checkRouteExists(employee)) return;
+        if (!this.checkRouteExists(employee)) return;
         this.employee = new Employee(employee); // convert JSON iton Objekt
+        this.localFormatDate = new Date(employee.birthDate).toLocaleDateString();
       });
   }
 

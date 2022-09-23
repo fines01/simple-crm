@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { FirestoreService } from 'src/app/services/firestore.service';
 import { Project } from 'src/models/project.class';
+
 
 @Component({
   selector: 'app-dialog-add-project',
@@ -21,23 +22,29 @@ export class DialogAddProjectComponent implements OnInit {
   managerID!: string;
   projectID!: string;
   
+  // access template reference variables 
+  // @ViewChild('addProjectForm',{static:true}) addProjectForm!: ElementRef;
+  // @ViewChild('name',{static:true}) nameInput!: ElementRef;
+
   constructor( 
     private dialogRef: MatDialogRef<DialogAddProjectComponent>,
     private fireService: FirestoreService,
-  ) { }
-
-  ngOnInit(): void {
-    this.subscribeEmployees();
-  }
+    ) { }
+    
+    ngOnInit(): void {
+      this.subscribeEmployees();
+    }
+    
+  //getErrorMessages() { }
   
   closeDialog(): void {
-    this.dialogRef.close();
+    this.dialogRef.close();  
   }
 
   async saveProject() {
     this.loading = true;
     this.project.status = 'initialized';
-    this.project.managerID = this.manager.objID;
+    this.project.managerID = this.manager.objID ? this.manager.objID : '';
     this.project.dueDate = this.dueDate.getTime();
     //
     await this.fireService.add(this.project.toJSON(), 'projects')

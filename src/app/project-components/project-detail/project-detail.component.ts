@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { FirestoreService } from 'src/app/services/firestore.service';
 import { Project } from 'src/models/project.class';
+import { DialogDeleteProjectComponent } from '../dialog-delete-project/dialog-delete-project.component';
 import { DialogEditProjectEmployeesComponent } from '../dialog-edit-project-employees/dialog-edit-project-employees.component';
 import { DialogEditProjectComponent } from '../dialog-edit-project/dialog-edit-project.component';
 
@@ -151,13 +152,15 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
   }
 
   openDeleteDialog() {
-    //this.openDialog(DialogDeleteEmployeeComponent);
+    let dialog = this.openDialog(DialogDeleteProjectComponent);
+    dialog.componentInstance.projectID = this.projectID;
+    dialog.componentInstance.projectName = this.project.name;
   }
 
   // auslagern:
   checkRouteExists(client: any){
     if (client === undefined) {
-      this.router.navigate(['/clients']);
+      this.router.navigate(['/projects']);
       return false;
     }
     return true;

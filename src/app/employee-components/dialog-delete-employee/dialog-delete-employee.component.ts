@@ -48,7 +48,6 @@ export class DialogDeleteEmployeeComponent implements OnInit, OnDestroy {
 
   closeDelete() {
     setTimeout(()=> {
-      //this.router.navigate(['/clients']); // instead --> checkRouteExists() in employee-detail
       this.closeDialog()
     },2500);
   }
@@ -59,20 +58,22 @@ export class DialogDeleteEmployeeComponent implements OnInit, OnDestroy {
       .then( (result: any)=>{
         this.deleteDependencies();
         this.setSuccessDialog();
-        this.closeDelete();
-        this.loading = false; // maybe in finally()
+        this.loading = false;
       })
       .catch ( (err) => console.warn('%c error deleting Employee: '+err, 'color:blue') ) // TDOD: error dialog
-      .finally (()=> console.info('%c Employee deletion completed ', 'color: white; background: #333399')); // check 4
+      .finally (() => {
+        console.info('%c Employee deletion completed ', 'color: white; background: #333399')
+        this.closeDelete();
+      }); 
 
   }
 
-  deleteDependencies() { // wird ausgeführt, fehler muss in eine der fkt liegen
+  deleteDependencies() {
     this.deleteJunctionDocs();
     this.deleteManagerFromProjects();
   }
       
-  deleteJunctionDocs() { // TEST
+  deleteJunctionDocs() {
     let junctionDocs!: any[];
     this.junctionSubscription = this.fireService
     .getByValue('employee_id',this.employeeID,'employee_project')
@@ -83,22 +84,22 @@ export class DialogDeleteEmployeeComponent implements OnInit, OnDestroy {
         junctionDocs.forEach( (doc: any) => 
           {
             this.fireService.delete(doc.objID, 'employee_project')
-            .then( (res)=> console.info('%c Junctions deletion completed ', 'color: white; background: #333399')) // check 7
-            .catch ( (err) => console.warn('%c Error deleting junctions: '+err, 'color:blue') ) // TDOD: error dialog;
+            .then( ()=> console.info('%c Junction deletion completed ', 'color: white; background: #333399'))
+            .catch ( (err) => console.warn('%c Error deleting junction: '+err, 'color:blue') ) // TDOD: error dialog;
           });
       }
     });
   }
 
-  deleteManagerFromProjects() { // TEST
+  deleteManagerFromProjects() {
     let managedProjects!: any[];
     this.projectsSubscription = this.fireService.getByValue('managerID', this.employeeID, 'projects')
       .subscribe( (res: any) => {
         if (res) managedProjects = res;
         //
         if (managedProjects) managedProjects.forEach( (p)=> {  
-          this.fireService.update({managerID: ''},p.objID,'projects') // TypeError: documentObj.toJSON is not a function at FirestoreService.update (firestore.service.ts:49:27)
-            .then( (res)=> console.info('%c Projects managerID update completed ', 'color: white; background: #333399')) // NO
+          this.fireService.update({managerID: ''},p.objID,'projects')
+            .then( ()=> console.info('%c Projects managerID update completed ', 'color: white; background: #333399')) 
             .catch ( (err) => console.warn('%c Error updating projects managerID: '+err, 'color:blue') ) // TDOD: error dialog;;
         });
       });
@@ -106,7 +107,7 @@ export class DialogDeleteEmployeeComponent implements OnInit, OnDestroy {
 
   setSuccessDialog() {
     this.dialogTitle = 'Success!';
-    this.dialogMessage = 'Deleted employee:';
+    this.dialogMessage = 'Employee deleted:';
     this.showSuccessMsg = true;
   }
 

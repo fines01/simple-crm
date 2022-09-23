@@ -1,1 +1,12 @@
-<p>dialog-delete-project works!</p>
+<div class="dialog-container" [class.success-message]="showSuccessMsg">
+  <mat-progress-bar *ngIf="loading" mode="indeterminate" class="progress-bar"></mat-progress-bar>
+  <h1 mat-dialog-title [innerHTML]="dialogTitle"></h1>
+  <p class="dialog-message"><span [innerHTML]="dialogMessage"></span></p>
+  <!-- add employee name -->
+  <div *ngIf="!showSuccessMsg" mat-dialog-actions>
+    <button class="cancel-btn" mat-button (click)="closeDialog()" cdkFocusInitial>No! Go back</button>
+    <button class="delete-btn" mat-button (click)="deleteProject()">DELETE</button>
+  </div>
+
+</div>
+
