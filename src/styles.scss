@@ -114,3 +114,55 @@ body {
   // box-sizing: border-box;
 }
 
+// Media queries
+
+@media screen and (max-width: 850px) {
+
+  :root {
+    --width-sidenav: 200px;
+  }
+
+  .mat-cell {
+    font-size: 13px;
+  }
+
+  th.mat-header-cell:last-of-type,
+  td.mat-cell:last-of-type,
+  td.mat-footer-cell:last-of-type {
+    padding-right: 10px;
+  }
+
+}
+
+@media screen and (max-width: 815px) {
+
+  .mat-drawer {
+    margin-top:56px;
+    width:100vw !important;
+    height: 200px;
+  }
+
+  .mat-drawer-inner-container {
+    overflow: hidden !important; //??? maybe
+  }
+
+  .mat-drawer-backdrop {
+    top: 56px !important;
+  }
+
+  .mat-drawer-container-has-open {
+    .mat-drawer-content {
+      overflow: hidden;
+    }
+  }
+
+}
+
+// big views
+@media screen and (min-width:1200px) {
+
+  :root {
+    --width-sidenav: 300px;
+  }
+}
+

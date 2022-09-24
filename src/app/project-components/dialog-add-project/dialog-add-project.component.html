@@ -12,7 +12,7 @@
         <mat-form-field appearance="outline" class="width-100">
           <mat-label>Project Name</mat-label>
           <input [(ngModel)]="project.name" matInput [disabled]="loading" placeholder="Project name" name="name"
-            #nameInput="ngModel" required maxlength="15" class="form-control">
+            #nameInput="ngModel" required maxlength="25" class="form-control">
           <mat-hint *ngIf="nameInput.pristine">Enter a project name (max. 15 characters)</mat-hint>
           <!-- <mat-error *ngIf="nameInput.invalid">Enter a name</mat-error> -->
           <mat-error *ngIf="nameInput.errors && nameInput.errors['required']">Project name is required</mat-error>
@@ -48,7 +48,7 @@
         <mat-form-field appearance="outline" class="width-50">
           <mat-label>Client name</mat-label>
           <input [(ngModel)]="project.client" matInput [disabled]="loading" placeholder="Client name" required
-            name="client" #clientInput="ngModel" required maxlength="15" class="form-control">
+            name="client" #clientInput="ngModel" required maxlength="25" class="form-control">
           <mat-hint *ngIf="clientInput.pristine">Enter main client</mat-hint>
           <mat-error *ngIf="clientInput.invalid">Enter a client name (max 15 characters)</mat-error>
         </mat-form-field>

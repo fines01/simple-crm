@@ -29,7 +29,7 @@
       <mat-form-field appearance="outline" class="width-33 mr-16">
         <mat-label>Zip code</mat-label>
         <input [(ngModel)]="employee.zipCode" matInput [disabled]="loading" placeholder="Zip Code"
-          name="zipCode" #zipInput="ngModel" required maxlength="30" class="form-control">
+          name="zipCode" #zipInput="ngModel" required maxlength="10" class="form-control">
         <mat-hint *ngIf="zipInput.pristine">Zip code</mat-hint>
         <mat-error *ngIf="zipInput.errors && zipInput.errors['required']">Enter a Zip code</mat-error>
       </mat-form-field>

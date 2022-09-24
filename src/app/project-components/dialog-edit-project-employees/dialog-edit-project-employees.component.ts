@@ -1,7 +1,7 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MatDialogRef} from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
-import { FirestoreService } from 'src/app/services/firestore.service';
+import { FirestoreService } from 'src/app/shared/services/firestore.service';
 
 @Component({
   selector: 'app-dialog-edit-project-employees',

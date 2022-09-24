@@ -5,7 +5,7 @@ import { DialogAddClientComponent } from '../dialog-add-client/dialog-add-client
 import { Sort, MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
-import { FirestoreService } from 'src/app/services/firestore.service';
+import { FirestoreService } from 'src/app/shared/services/firestore.service';
 
 @Component({
   selector: 'app-clients',

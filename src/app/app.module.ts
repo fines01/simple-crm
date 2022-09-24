@@ -50,6 +50,11 @@ import { DialogDeleteProjectComponent } from './project-components/dialog-delete
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DialogEditProjectEmployeesComponent } from './project-components/dialog-edit-project-employees/dialog-edit-project-employees.component';
+import { StartComponent } from './start/start.component';
+import { SignInComponent } from './auth-components/sign-in/sign-in.component';
+import { SignUpComponent } from './auth-components/sign-up/sign-up.component';
+import { ForgotPasswordComponent } from './auth-components/forgot-password/forgot-password.component';
+import { VerifyEmailComponent } from './auth-components/verify-email/verify-email.component';
 
 
 
@@ -74,7 +79,12 @@ import { DialogEditProjectEmployeesComponent } from './project-components/dialog
     DialogEditProjectComponent,
     ProjectDetailComponent,
     DialogDeleteProjectComponent,
-    DialogEditProjectEmployeesComponent
+    DialogEditProjectEmployeesComponent,
+    StartComponent,
+    SignInComponent,
+    SignUpComponent,
+    ForgotPasswordComponent,
+    VerifyEmailComponent
   ],
   imports: [
     BrowserModule,

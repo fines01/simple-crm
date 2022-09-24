@@ -1,6 +1,6 @@
 <!-- Material Sidenav -->
 <mat-drawer-container class="mat-drawer-container" autosize>
-  <mat-drawer #drawer class="mat-sidenav" mode="side" [opened]="true">
+  <mat-drawer #drawer class="mat-sidenav" [mode]="mobileQuery.matches ? 'over' : 'side'" [opened]="mobileQuery.matches ? false : true">
     <div class="logo-container">
       PLATZ FüR LOGO
       <!-- <img src="./assets/img/logo.png" class="nav-logo" alt="Simple CRM Logo"> -->
@@ -40,7 +40,7 @@
   </mat-drawer>
 
   <!-- Material Toolbar (inside sidenav container, s.t. sidenav is over toolbar if opened, change for mobile-view?) -->
-  <mat-toolbar color="primary">
+  <mat-toolbar color="primary" class="toolbar">
     <mat-toolbar-row>
       <button (click)="drawer.toggle()" color="accent" mat-icon-button class=""
         aria-label="Example icon-button with menu icon" #tooltip="matTooltip" matTooltip="Toggle side-navigation">

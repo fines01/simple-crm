@@ -12,7 +12,7 @@
       <mat-form-field appearance="outline" class="mr-16 width-50">
         <mat-label>First Name</mat-label>
         <input [(ngModel)]="employee.firstName" matInput [disabled]="loading" placeholder="First Name" name="firstName"
-          #firstNameInput="ngModel" required maxlength="15" class="form-control">
+          #firstNameInput="ngModel" required maxlength="25" class="form-control">
         <mat-hint *ngIf="firstNameInput.pristine">First name</mat-hint>
         <mat-error *ngIf="firstNameInput.errors && firstNameInput.errors['required']">First name is required</mat-error>
         <mat-error *ngIf="firstNameInput.errors && firstNameInput.errors['maxlength']">Name should have max. 15
@@ -22,7 +22,7 @@
       <mat-form-field appearance="outline" class="width-50">
         <mat-label>Last Name</mat-label>
         <input [(ngModel)]="employee.lastName" matInput [disabled]="loading" placeholder="Last Name" name="lastName"
-          #lastNameInput="ngModel" required maxlength="15" class="form-control">
+          #lastNameInput="ngModel" required maxlength="25" class="form-control">
         <mat-hint *ngIf="lastNameInput.pristine">Last name</mat-hint>
         <mat-error *ngIf="lastNameInput.errors && lastNameInput.errors['required']">Last name is required</mat-error>
         <mat-error *ngIf="lastNameInput.errors && lastNameInput.errors['maxlength']">Name should have max. 15 characters
@@ -99,7 +99,7 @@
       <mat-form-field appearance="outline" class="width-33 mr-16">
         <mat-label>Zip code</mat-label>
         <input [(ngModel)]="employee.zipCode" matInput [disabled]="loading" placeholder="Zip Code" name="zipCode"
-          #zipInput="ngModel" required maxlength="30" class="form-control">
+          #zipInput="ngModel" required maxlength="10" class="form-control">
         <mat-hint *ngIf="zipInput.pristine">Zip code</mat-hint>
         <mat-error *ngIf="zipInput.errors && zipInput.errors['required']">Enter a Zip code</mat-error>
       </mat-form-field>
