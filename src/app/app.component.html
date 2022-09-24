@@ -1,13 +1,13 @@
 <!-- Material Sidenav -->
 <mat-drawer-container class="mat-drawer-container" autosize>
   <mat-drawer #drawer class="mat-sidenav" [mode]="mobileQuery.matches ? 'over' : 'side'" [opened]="mobileQuery.matches ? false : true">
-    <div class="logo-container">
-      PLATZ FüR LOGO
-      <!-- <img src="./assets/img/logo.png" class="nav-logo" alt="Simple CRM Logo"> -->
+    <div class="logo-container" [routerLink]="'/'">
+      <span class="logo">PLATZ FüR LOGO</span>
+      <!-- <img src="./assets/img/logo.png" class="nav-logo" alt="Simple CRM Logo" class="logo"> -->
     </div>
 
     <ul class="menu-items">
-      <li [routerLink]="'/'">
+      <li [routerLink]="'/dashboard'">
         <mat-icon color="accent">fact_check</mat-icon>Dashboard
       </li>
       <li [routerLink]="'/employees'">

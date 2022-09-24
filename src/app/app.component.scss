@@ -29,6 +29,10 @@
   min-height: 56px;
   display: flex;
   align-items: center;
+  
+  .logo{
+    cursor: pointer;
+  }
 }
 
 .drawer-content {

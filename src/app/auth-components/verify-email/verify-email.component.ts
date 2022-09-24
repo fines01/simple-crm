@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from "../../shared/services/auth.service";
 
 @Component({
   selector: 'app-verify-email',
@@ -7,9 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VerifyEmailComponent implements OnInit {
 
-  constructor() { }
+  testMail = 'tess@test.ch';
+  
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
+  }
+
+  // calling sendVerificationMail() method via the authService Api 
+  requestVerificationMail() {
+    this.authService.sendVerificationMail();
+  }
+
+  checkUserData() {
+    if (this.authService.userData) return this.authService.userData;
+    return false;
   }
 
 }

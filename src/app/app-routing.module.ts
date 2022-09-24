@@ -7,15 +7,14 @@ import { EmployeesComponent } from './employee-components/employees/employees.co
 import { EmployeeDetailComponent } from './employee-components/employee-detail/employee-detail.component';
 import { ProjectsComponent } from './project-components/projects/projects.component';
 import { ProjectDetailComponent } from './project-components/project-detail/project-detail.component';
-import { StartComponent } from './start/start.component';
 import { SignInComponent } from './auth-components/sign-in/sign-in.component';
 import { SignUpComponent } from './auth-components/sign-up/sign-up.component';
-import { ForgotPasswordComponent } from './auth-components/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './auth-components/reset-password/reset-password.component';
 import { VerifyEmailComponent } from './auth-components/verify-email/verify-email.component';
 
 const routes: Routes = [
   // {path: '404', component: NotFoundComponent} // TODO maybe make 404 page
-  {path: '', component: StartComponent},
+  //{path: '', component: LandingPageComponent},
   {path: 'dashboard', component: DashboardComponent}, // TODO: change link in navbar
   {path: 'clients', component: ClientsComponent},
   {path: 'client/:id', component: ClientDetailComponent},
@@ -25,7 +24,7 @@ const routes: Routes = [
   {path: 'project/:id', component: ProjectDetailComponent},
   {path: 'sign-in', component: SignInComponent},
   {path: 'sign-up', component: SignUpComponent},
-  {path: 'forgot-password', component: ForgotPasswordComponent},
+  {path: 'reset-password', component: ResetPasswordComponent},
   {path: 'verify-email', component: VerifyEmailComponent},
 
   {path:'**', redirectTo: '/'},

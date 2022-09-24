@@ -24,6 +24,11 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { provideAuth,getAuth } from '@angular/fire/auth';
+
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+
 import { provideDatabase,getDatabase } from '@angular/fire/database';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { AngularFireModule } from '@angular/fire/compat';
@@ -50,11 +55,11 @@ import { DialogDeleteProjectComponent } from './project-components/dialog-delete
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DialogEditProjectEmployeesComponent } from './project-components/dialog-edit-project-employees/dialog-edit-project-employees.component';
-import { StartComponent } from './start/start.component';
 import { SignInComponent } from './auth-components/sign-in/sign-in.component';
 import { SignUpComponent } from './auth-components/sign-up/sign-up.component';
-import { ForgotPasswordComponent } from './auth-components/forgot-password/forgot-password.component';
 import { VerifyEmailComponent } from './auth-components/verify-email/verify-email.component';
+import { AuthService } from './shared/services/auth.service';
+import { ResetPasswordComponent } from './auth-components/reset-password/reset-password.component';
 
 
 
@@ -80,11 +85,10 @@ import { VerifyEmailComponent } from './auth-components/verify-email/verify-emai
     ProjectDetailComponent,
     DialogDeleteProjectComponent,
     DialogEditProjectEmployeesComponent,
-    StartComponent,
     SignInComponent,
     SignUpComponent,
-    ForgotPasswordComponent,
-    VerifyEmailComponent
+    VerifyEmailComponent,
+    ResetPasswordComponent
   ],
   imports: [
     BrowserModule,
@@ -116,9 +120,13 @@ import { VerifyEmailComponent } from './auth-components/verify-email/verify-emai
     MatPaginatorModule,
     MatAutocompleteModule,
     ReactiveFormsModule,
+
+    AngularFireAuthModule,
+    AngularFireStorageModule,
+    AngularFireDatabaseModule,
     
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
