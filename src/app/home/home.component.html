@@ -1,10 +1,31 @@
-<p>home works!</p>
+<mat-drawer-container class="mat-drawer-container" autosize>
+    <div class="content-wrap">
 
-<ul class="">
-      <li [routerLink]="'/sign-in'">
-        <mat-icon color="accent">login</mat-icon>Sign In
-      </li>
-      <li [routerLink]="'/sign-up'">
-        <mat-icon color="accent">app_registration</mat-icon>Sign Up
-      </li>
-</ul>
+        <mat-toolbar color="primary" class="toolbar">
+          <mat-toolbar-row>
+            <span>Simple CRM</span>
+            <span class="toolbar-spacer"></span>
+            <span class="unauth-navicons">
+              <span class="navbar-icon-label">Log In</span>
+              <button mat-icon-button class="" aria-label="Settings icon">
+                  <mat-icon #tooltip="matTooltip" matTooltip="">login</mat-icon>
+              </button>
+              <span class="navbar-icon-label">Register</span>
+              <button mat-icon-button>
+                  <mat-icon class="avatar">app_registration</mat-icon>
+                  <!-- <img src="./assets/img/undraw_female_avatar_white.svg" alt="avatar" class="avatar"> -->
+              </button>
+            </span>
+          </mat-toolbar-row>
+        </mat-toolbar>
+      
+        <div class="">
+            <router-outlet></router-outlet>
+        </div>
+
+    </div>
+    
+    <footer>FOOTER</footer>
+
+
+</mat-drawer-container>
