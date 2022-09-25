@@ -1,0 +1,42 @@
+<mat-toolbar color="primary" class="toolbar">
+  <mat-toolbar-row>
+    <!-- IF AUTH && NOT HOME -->
+    <button (click)="emitOpenDrawerEvent()" color="accent" mat-icon-button class=""
+      aria-label="Example icon-button with menu icon" #tooltip="matTooltip" matTooltip="Toggle side-navigation">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <!-- -->
+    <span>Simple CRM</span>
+    <span class="toolbar-spacer"></span>
+    <!-- <button mat-icon-button class="favorite-icon" aria-label="Lightmode icon">
+        <mat-icon #tooltip="matTooltip" matTooltip="Switch to light mode" [matTooltipPosition]="'above'"
+          matTooltipHideDelay="500" class="lightmode-icon">
+          lightbulb
+        </mat-icon>
+      </button> -->
+
+    <!-- IF UNAUTH: -->
+    <span *ngIf="false" class="unauth-navicons">
+      <span class="navbar-icon-label">Log In</span>
+      <button mat-icon-button class="" aria-label="Settings icon">
+        <mat-icon #tooltip="matTooltip" matTooltip="">login</mat-icon>
+      </button>
+      <span class="navbar-icon-label">Register</span>
+      <button mat-icon-button>
+        <mat-icon class="avatar">app_registration</mat-icon>
+        <!-- <img src="./assets/img/undraw_female_avatar_white.svg" alt="avatar" class="avatar"> -->
+      </button>
+    </span>
+
+    <!-- IF AUTH: -->
+    <span class="auth-navicons">
+      <button mat-icon-button class="" aria-label="Settings icon">
+        <mat-icon #tooltip="matTooltip" matTooltip="Open settings">settings</mat-icon>
+      </button>
+      <span class="user-name">User Name</span>
+      <button mat-icon-button>
+        <img src="./assets/img/undraw_female_avatar_white.svg" alt="avatar" class="avatar">
+      </button>
+    </span>
+  </mat-toolbar-row>
+</mat-toolbar>

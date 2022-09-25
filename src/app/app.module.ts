@@ -61,6 +61,8 @@ import { VerifyEmailComponent } from './auth-components/verify-email/verify-emai
 import { AuthService } from './shared/services/auth.service';
 import { ResetPasswordComponent } from './auth-components/reset-password/reset-password.component';
 import { HomeComponent } from './home/home.component';
+import { ToolbarComponent } from './toolbar/toolbar.component';
+import { SidenavComponent } from './sidenav/sidenav.component';
 
 
 
@@ -90,7 +92,9 @@ import { HomeComponent } from './home/home.component';
     SignUpComponent,
     VerifyEmailComponent,
     ResetPasswordComponent,
-    HomeComponent
+    HomeComponent,
+    ToolbarComponent,
+    SidenavComponent
   ],
   imports: [
     BrowserModule,

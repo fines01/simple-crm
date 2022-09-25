@@ -1,5 +1,6 @@
 import {MediaMatcher} from '@angular/cdk/layout';
-import {ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
+import {ChangeDetectorRef, Component, OnDestroy, TemplateRef, ViewChild } from '@angular/core';
+import { MatDrawer } from '@angular/material/sidenav';
 import { AuthService } from './shared/services/auth.service';
 
 @Component({
@@ -11,6 +12,8 @@ export class AppComponent implements OnDestroy{
   
   title = 'simple-crm';
   mobileQuery!: MediaQueryList;
+  // get template ref variables
+  @ViewChild('drawer', {static: true}) drawer!: MatDrawer;
 
   private _mobileQueryListener: () => void;
 
@@ -31,5 +34,8 @@ export class AppComponent implements OnDestroy{
     return this.authService.isLoggedIn;
   }
 
+  onOpenDrawer() {
+    if (this.drawer) this.drawer.toggle();
+  }
 
 }

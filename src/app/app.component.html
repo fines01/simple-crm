@@ -1,75 +1,17 @@
-
-
-<!-- Material Sidenav -->
 <mat-drawer-container class="mat-drawer-container" autosize>
-  <mat-drawer #drawer class="mat-sidenav" [mode]="mobileQuery.matches ? 'over' : 'side'" [opened]="mobileQuery.matches ? false : true">
-    <div class="logo-container" [routerLink]="'/'">
-      <span class="logo">PLATZ FüR LOGO</span>
-      <!-- <img src="./assets/img/logo.png" class="nav-logo" alt="Simple CRM Logo" class="logo"> -->
-    </div>
 
-    <ul class="menu-items">
-      <li [routerLink]="'/dashboard'">
-        <mat-icon color="accent">fact_check</mat-icon>Dashboard
-      </li>
-      <li [routerLink]="'/employees'">
-        <mat-icon color="accent">group</mat-icon>Employees
-      </li>
-      <li [routerLink]="'/projects'">
-        <mat-icon color="accent">area_chart</mat-icon>Projects
-      </li>
-      <li [routerLink]="'/clients'">
-        <mat-icon color="accent">3p</mat-icon>Client Contacts
-      </li>
-      <!-- <li [routerLink]="'/clients'">
-        <mat-icon color="accent">3p</mat-icon>Clients (Companies)
-      </li> -->
-      <!-- <li>
-        <mat-icon disabled color="accent">monetization_on</mat-icon>Sales & Deals
-      </li> -->
-      <li class="disabled">
-        <mat-icon color="accent">task</mat-icon>My Tasks
-      </li>
-       <li class="disabled">
-        <mat-icon color="accent">mail</mat-icon>Mail
-      </li>
-      <!-- Remove / Put in Dashboard? -->
-      <li class="disabled">
-        <!-- <mat-icon color="accent">toll</mat-icon>Admin Panel -->
-        <mat-icon color="accent">admin_panel_settings</mat-icon>Admin Panel
-      </li>
-    </ul>
+  <!-- Material Sidenav (IF AUTH && NOT HOME) -->
+  <mat-drawer #drawer class="mat-sidenav" [mode]="mobileQuery.matches ? 'over' : 'side'" [opened]="mobileQuery.matches ? false : true">
+    <app-sidenav></app-sidenav>
   </mat-drawer>
 
-<!-- Material Toolbar (inside sidenav container, s.t. sidenav is over toolbar if opened, change for mobile-view?) -->
-  <mat-toolbar color="primary" class="toolbar">
-    <mat-toolbar-row>
-      <button (click)="drawer.toggle()" color="accent" mat-icon-button class=""
-        aria-label="Example icon-button with menu icon" #tooltip="matTooltip" matTooltip="Toggle side-navigation">
-        <mat-icon>menu</mat-icon>
-      </button>
-      <span>Simple CRM</span>
-      <span class="toolbar-spacer"></span>
-      <!-- <button mat-icon-button class="favorite-icon" aria-label="Lightmode icon">
-        <mat-icon #tooltip="matTooltip" matTooltip="Switch to light mode" [matTooltipPosition]="'above'"
-          matTooltipHideDelay="500" class="lightmode-icon">
-          lightbulb
-        </mat-icon>
-      </button> -->
-      <button mat-icon-button class="" aria-label="Settings icon">
-        <mat-icon #tooltip="matTooltip" matTooltip="Open settings">settings</mat-icon>
-      </button>
-      <span class="user-name">User Name</span>
-      <button mat-icon-button>
-        <img src="./assets/img/undraw_female_avatar_white.svg" alt="avatar" class="avatar">
-      </button>
-    </mat-toolbar-row>
-  </mat-toolbar>
-  <!-- END toolbar -->
-  
+  <app-toolbar (openDrawer)="onOpenDrawer()"></app-toolbar>
 
   <div class="content-container">
     <router-outlet></router-outlet>
   </div>
+
+  <!-- IF UNAUTH OR HOME -->
+  <footer *ngIf="false">FOOTER</footer>
 
 </mat-drawer-container>

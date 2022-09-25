@@ -1,0 +1,23 @@
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
+
+mat-toolbar,
+mat-toolbar-row {
+  min-height: 56px;
+  height: 56px;
+}
+
+mat-toolbar-row {
+  padding: 0 32px;
+}
+
+.navbar-icon-label {
+  font-size: 14px;
+  margin-left: 16px;
+  margin-right: -4px;
+}
+
+.lightmode-icon {
+  color: #303030;
+}
