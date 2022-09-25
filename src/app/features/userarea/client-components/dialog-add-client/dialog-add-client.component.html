@@ -1,0 +1,103 @@
+<form action="" #addClient="ngForm" class="dialog-container">
+
+  <mat-progress-bar *ngIf="loading" mode="indeterminate" class="progress-bar"></mat-progress-bar>
+
+  <h1 mat-dialog-title>Add Client Contact</h1>
+  <div mat-dialog-content>
+
+    <div class="">
+      <!-- First name -->
+      <mat-form-field appearance="outline" class="mr-16 width-50">
+        <mat-label>First Name</mat-label>
+        <input [(ngModel)]="client.firstName" matInput [disabled]="loading" placeholder="First Name" name="firstName"
+          #firstNameInput="ngModel" required maxlength="15" class="form-control">
+        <mat-hint *ngIf="firstNameInput.pristine">First name</mat-hint>
+        <mat-error *ngIf="firstNameInput.errors && firstNameInput.errors['required']">First name is required</mat-error>
+        <mat-error *ngIf="firstNameInput.errors && firstNameInput.errors['maxlength']">Name should have max. 15
+          characters</mat-error>
+      </mat-form-field>
+      <!-- Last name -->
+      <mat-form-field appearance="outline" class="width-50">
+        <mat-label>Last Name</mat-label>
+        <input [(ngModel)]="client.lastName" matInput [disabled]="loading" placeholder="Last Name" name="lastName"
+          #lastNameInput="ngModel" required maxlength="15" class="form-control">
+        <mat-hint *ngIf="lastNameInput.pristine">Last name</mat-hint>
+        <mat-error *ngIf="lastNameInput.errors && lastNameInput.errors['required']">Last name is required</mat-error>
+        <mat-error *ngIf="lastNameInput.errors && lastNameInput.errors['maxlength']">Name should have max. 15 characters
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="">
+      <mat-form-field appearance="outline" class="width-50 mr-16">
+        <mat-label>E-mail</mat-label>
+        <input type="email" [(ngModel)]="client.email" matInput [disabled]="loading" placeholder="E-Mail" name="email"
+          required email #emailInput="ngModel" class="form-control" maxlength="50">
+        <mat-hint *ngIf="emailInput.pristine">E-Mail address</mat-hint>
+        <mat-error *ngIf="emailInput.errors && emailInput.errors['required']">E-mail is required</mat-error>
+        <mat-error *ngIf="emailInput.errors && emailInput.errors['email']">Please enter a valid e-mail address
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="">
+      <mat-form-field appearance="outline" class="width-50">
+        <mat-label>Phone</mat-label>
+        <input [(ngModel)]="client.phone" matInput [disabled]="loading" placeholder="phone" name="phone" required
+          #phoneInput="ngModel" class="form-control" maxlength="50">
+        <mat-hint *ngIf="phoneInput.pristine">Phone number</mat-hint>
+        <mat-error *ngIf="phoneInput.errors && phoneInput.errors['required']">Phone number is required</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="">
+      <mat-form-field appearance="outline" class="width-75 mr-16">
+        <mat-label>Street</mat-label>
+        <input [(ngModel)]="client.street" matInput [disabled]="loading" placeholder="Street" name="street"
+          #streetInput="ngModel" required maxlength="30" class="form-control">
+        <mat-hint *ngIf="streetInput.pristine">Street</mat-hint>
+        <mat-error *ngIf="streetInput.errors && streetInput.errors['required']">Street name is required</mat-error>
+      </mat-form-field>
+      <!-- Street No. -->
+      <mat-form-field appearance="outline" class="width-25">
+        <mat-label>No.</mat-label>
+        <input [(ngModel)]="client.streetNo" matInput [disabled]="loading" placeholder="No." name="streetNo"
+          #streetNoInput="ngModel" required maxlength="30" class="form-control">
+        <mat-hint *ngIf="streetNoInput.pristine">No.</mat-hint>
+        <mat-error *ngIf="streetNoInput.errors && streetNoInput.errors['required']">Enter a street number</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="">
+      <!-- Zip Code -->
+      <mat-form-field appearance="outline" class="width-33 mr-16">
+        <mat-label>Zip code</mat-label>
+        <input [(ngModel)]="client.zipCode" matInput [disabled]="loading" placeholder="Zip Code" name="zipCode"
+          #zipInput="ngModel" required maxlength="30" class="form-control">
+        <mat-hint *ngIf="zipInput.pristine">Zip code</mat-hint>
+        <mat-error *ngIf="zipInput.errors && zipInput.errors['required']">Enter a Zip code</mat-error>
+      </mat-form-field>
+      <!-- City -->
+      <mat-form-field appearance="outline" class="width-33 mr-16">
+        <mat-label>City</mat-label>
+        <input [(ngModel)]="client.city" matInput [disabled]="loading" placeholder="City" name="city"
+          #cityInput="ngModel" required maxlength="30" class="form-control">
+        <mat-hint *ngIf="cityInput.pristine">City</mat-hint>
+        <mat-error *ngIf="cityInput.errors && cityInput.errors['required']">City is required</mat-error>
+      </mat-form-field>
+      <!-- Country -->
+      <mat-form-field appearance="outline" class="width-33">
+        <mat-label class="country-selector">Select Country</mat-label>
+        <mat-select [(ngModel)]="client.countryCode" [disabled]="loading" placeholder="Country" name="country"
+          #countryInput="ngModel" required class="form-control">
+          <mat-option *ngFor="let c of countries" [value]="c">{{ c }}</mat-option>
+        </mat-select>
+        <mat-hint *ngIf="countryInput.pristine">Country</mat-hint>
+        <mat-error *ngIf="countryInput.invalid">Country is required</mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="closeDialog()">Cancel</button>
+    <button mat-button [disabled]="!addClient.form.valid" (click)="addClient.form.valid && saveClient()"
+      cdkFocusInitial>Save</button>
+  </div>
+
+</form>

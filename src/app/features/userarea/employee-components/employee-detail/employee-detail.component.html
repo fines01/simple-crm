@@ -1,0 +1,104 @@
+<div class="detail-content">
+  <div class="detail-cards">
+
+    <mat-card class="detail-header" [style.background-color]="employee.colorCode">
+      <!-- <mat-card-content class="card-content"> -->
+      <button mat-icon-button [matMenuTriggerFor]="headerMenu" class="btn-right-upper-corner">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #headerMenu="matMenu">
+        <button mat-menu-item (click)="openEditHeader()">Edit</button>
+      </mat-menu>
+      <img src="./assets/img/avatar.png" class="profile-picture" alt="">
+      <div class="contact-details">
+        <h2 class="card-title">{{ employee.firstName }} {{ employee.lastName }}</h2>
+        <div class="header-detail"><a href="tel:{{ employee.phone }}">{{ employee.phone }}</a></div>
+        <div class="header-detail"><a href="mailto:{{ employee.email }}">{{ employee.email }}</a></div>
+      </div>
+      <!-- </mat-card-content> -->
+    </mat-card>
+
+    <mat-card class="mt-32 info-detail-card">
+      <mat-card-content class="card-content">
+        <button mat-icon-button [matMenuTriggerFor]="headerMenu" class="btn-right-upper-corner">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #headerMenu="matMenu">
+          <button mat-menu-item (click)="openEditHeader()">Edit</button>
+        </mat-menu>
+        <h2 class="card-title">Details</h2>
+        <div class="card-detail">Department: {{ employee.department }}</div>
+        <div class="card-detail">Birth date: {{ localFormatDate }}</div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card *ngIf=" managedProjects && managedProjects.length > 0" class="mt-32 info-detail-card">
+      <mat-card-content class="card-content">
+        <h2 class="card-title">Managed Projects</h2>
+        <div *ngFor="let p of managedProjects" class="card-detail card-detail-link" [routerLink]="'/project/'+p.objID">
+          {{ p.name }}</div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card *ngIf="assignedProjects && assignedProjects.length > 0" class="mt-32 info-detail-card">
+      <mat-card-content class="card-content">
+        <h2 class="card-title">Project Team Member In:</h2>
+        <div *ngFor="let p of assignedProjects" class="card-detail card-detail-link" [routerLink]="'/project/'+p.objID">
+          {{ p.name }}</div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card *ngIf="!isAssigned" class="mt-32 info-detail-card">
+      <mat-card-content class="card-content">
+        <div class="card-detail"></div>
+        <p class="admin-alert">Dear Admin:</p>
+        <p>The employee {{ employee.firstName }} {{ employee.lastName }} is currently not assigned to any projects. <br>
+          Please give them something to do!
+        </p>
+        <p>Go to <span class="card-detail-link underline" [routerLink]="'/projects'">Projects</span> and set assignments
+          there.</p>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- <mat-card class="mt-32 info-detail-card">
+      <mat-card-content class="card-content">
+        <button mat-icon-button [matMenuTriggerFor]="headerMenu" class="btn-right-upper-corner">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #headerMenu="matMenu">
+          <button mat-menu-item (click)="openEditHeader()">Edit</button>
+        </mat-menu>
+        <h2 class="card-title">Further Infos</h2>
+        <div class="card-detail">Department: {{ employee.department }}</div>
+        <div class="card-detail">Birth date: {{ localFormatDate }}</div>
+      </mat-card-content>
+    </mat-card> -->
+
+    <mat-card class="mt-32 info-detail-card">
+      <mat-card-content class="card-content">
+        <button mat-icon-button [matMenuTriggerFor]="addressMenu" class="btn-right-upper-corner">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #addressMenu="matMenu">
+          <button mat-menu-item (click)="openEditAddress()">Edit</button>
+        </mat-menu>
+        <h2 class="card-title">Address</h2>
+        <div class="card-detail">{{ employee.street }} {{ employee.streetNo }}</div>
+        <div class="card-detail">{{ employee.zipCode }} {{ employee.city }}</div>
+        <div class="card-detail">Country: {{ employee.countryCode }}</div>
+      </mat-card-content>
+    </mat-card>
+
+  </div>
+  <!-- END: detail-cards -->
+
+  <!-- delete button: -->
+  <div class="delete-btn-container">
+    <button mat-fab color="warn" class="delete-btn" #tooltip="matTooltip" matTooltip="Delete employee"
+      [matTooltipPosition]="'above'" matTooltipHideDelay="500" (click)="openDeleteDialog()">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>
+
+</div>
+<!-- END detail-content -->

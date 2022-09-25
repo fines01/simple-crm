@@ -1,0 +1,63 @@
+<!-- TODO make new w material -->
+<div class="cards-container">
+
+  <mat-card>
+
+    <form action="" #authForm="ngForm" class="">
+
+      <mat-card-title class="align-center">
+        Log In
+      </mat-card-title>
+
+      <div class="">
+        <mat-form-field appearance="outline" class="width-100">
+          <mat-label>Username</mat-label>
+          <input type="text" [(ngModel)]="userName" matInput name="username" #usernameInput="ngModel"
+            class="form-control" placeholder="Username" required>
+          <mat-hint>Username</mat-hint>
+          <mat-error>Please enter a username</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="width-100">
+          <mat-label>Password</mat-label>
+          <input type="password" [(ngModel)]="userPassword" matInput name="password" #pwInput="ngModel"
+            class="form-control" placeholder="Password" required>
+          <mat-hint>Password</mat-hint>
+          <mat-error>Please enter your password</mat-error>
+        </mat-form-field>
+      </div>
+      <!-- TODO checkbox: remember me -->
+      <!-- TODO guest sign-in -->
+      <div class="form-buttons " mat-dialog-actions>
+        <button mat-button class=" width-50 mr-16 btn-login" (click)="usernameSignIn()" >Log In</button>
+        <button mat-button class="width-50 btn-guest-login" disabled (click)="guestSignIn()">Log in as guest</button>
+      </div>
+
+      <div class="width-100 form-info align-center">
+        <span class="link" [routerLink]="'/reset-password'">Forgot Password?</span>
+      </div>
+      <div class="form-info align-center">
+        Not signed up yet? <span class="link" routerLink="/sign-up"> Sign Up</span>
+      </div>
+
+    </form>
+
+  </mat-card>
+
+  <mat-card class="mt-32">
+    <div class="width-100">
+      <mat-card-title class="align-center">
+        <h3>Or continue with Google</h3>
+      </mat-card-title>
+
+      <div mat-dialog-actions class="mt-16 align-center">
+        <button class="btn-logo" mat-button (click)="googleSignIn()">
+          <img src="./assets/img/google-icon-logo-pngrepo-com.png" alt="" class="btn-icon">
+          Sign in with Google
+        </button>
+      </div>
+    </div>
+
+  </mat-card>
+
+</div>

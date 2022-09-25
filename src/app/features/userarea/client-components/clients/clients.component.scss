@@ -1,0 +1,84 @@
+.add-client-btn {
+  position: absolute;
+  bottom: 0; //32px; //wie margin-bottom in content-container!
+  right: 0; //44px; //wie m-r in content-container in app component
+}
+
+mat-card {
+  padding-left: 0;
+  padding-right: 0;
+  padding-bottom: 0;
+}
+
+.client-table {
+  width: 100%;
+  border-collapse: collapse;
+
+  tr {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+
+    // &:first-child {
+    //   cursor: unset;
+    // }
+
+    &:last-child {
+      border-bottom: 0;
+    }
+
+    td {
+      height: 48px;
+
+      &:first-child {
+        padding-left: 16px;
+      }
+
+      //country-codes
+      &:last-child {
+        text-align: center;
+      }
+    }
+
+    th {
+      height: 48px;
+      font-weight: 500;
+      font-size: 14px;
+      text-align: start;
+      // color
+
+      &:first-child {
+        padding-left: 16px;
+      }
+    }
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.04);
+    }
+  }
+
+}
+
+.table-caption-outside {
+  // text-align: left;
+  // padding-left: 16px;
+  margin-bottom: 8px;
+}
+
+.mat-sort-header-container {
+  align-items: center;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+.paginator-container {
+  padding: 0;
+  margin-top: 16px;
+}
+
+.table-content {
+  height: 100%;
+  padding-bottom: 104px; //32px margin-bottom of btn, 56px btn height, 16px distamce to btn below
+  position: relative;
+}

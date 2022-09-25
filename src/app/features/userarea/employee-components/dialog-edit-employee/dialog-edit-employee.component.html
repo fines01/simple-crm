@@ -1,0 +1,97 @@
+<form action="" #editEmployeeForm="ngForm" class="dialog-container">
+  <!-- Progress bar -->
+  <mat-progress-bar *ngIf="loading" mode="indeterminate" class="progress-bar"></mat-progress-bar>
+
+  <!-- Title -->
+  <h1 mat-dialog-title>Edit Employee Details</h1>
+
+  <div mat-dialog-content>
+
+    <div class="">
+      <div class="">
+      <!-- First name -->
+      <mat-form-field appearance="outline" class="mr-16 width-50">
+        <mat-label>First Name</mat-label>
+        <input [(ngModel)]="employee.firstName" matInput [disabled]="loading" placeholder="First Name"
+          name="firstName" #firstNameInput="ngModel" required maxlength="25" class="form-control">
+        <mat-hint *ngIf="firstNameInput.pristine">First name</mat-hint>
+        <mat-error *ngIf="firstNameInput.errors && firstNameInput.errors['required']">First name is required</mat-error>
+        <mat-error *ngIf="firstNameInput.errors && firstNameInput.errors['maxlength']">Name should have max. 15 characters</mat-error>
+      </mat-form-field>
+      <!-- Last name -->
+      <mat-form-field appearance="outline" class="width-50">
+        <mat-label>Last Name</mat-label>
+        <input [(ngModel)]="employee.lastName" matInput [disabled]="loading" placeholder="Last Name"
+        name="lastName" #lastNameInput="ngModel" required maxlength="25" class="form-control">
+        <mat-hint *ngIf="lastNameInput.pristine">Last name</mat-hint>
+        <mat-error *ngIf="lastNameInput.errors && lastNameInput.errors['required']">Last name is required</mat-error>
+        <mat-error *ngIf="lastNameInput.errors && lastNameInput.errors['maxlength']">Name should have max. 15 characters</mat-error>
+      </mat-form-field>
+    </div>
+    </div>
+
+    <div class="">
+      <!-- E-mail -->
+      <mat-form-field appearance="outline" class="width-50 mr-16">
+        <mat-label>E-mail</mat-label>
+        <input type="email" [(ngModel)]="employee.email" matInput [disabled]="loading" placeholder="E-Mail"
+          name="email" required email #emailInput="ngModel" class="form-control" maxlength="50">
+        <mat-hint *ngIf="emailInput.pristine">E-Mail address</mat-hint>
+        <mat-error *ngIf="emailInput.errors && emailInput.errors['required']">E-mail is required</mat-error>
+         <mat-error *ngIf="emailInput.errors && emailInput.errors['email']">Please enter a valid e-mail address</mat-error>
+      </mat-form-field>
+      <!-- Phone -->
+      <mat-form-field appearance="outline" class="width-50">
+        <mat-label>Phone</mat-label>
+        <input [(ngModel)]="employee.phone" matInput [disabled]="loading" placeholder="phone"
+        name="phone" required #phoneInput="ngModel" class="form-control" maxlength="50">
+        <mat-hint *ngIf="phoneInput.pristine">Phone number</mat-hint>
+        <mat-error *ngIf="phoneInput.errors && phoneInput.errors['required']">Phone number is required</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="">
+      <!-- Birth date -->
+      <mat-form-field appearance="outline" class="width-50 mr-16">
+        <mat-label>Birth Date</mat-label>
+        <input [(ngModel)]="birthDate" matInput [matDatepicker]="picker1" [disabled]="loading" placeholder="Birthdate"
+          required name="birthDate" #dateInput="ngModel" class="form-control">
+        <mat-hint *ngIf="dateInput.pristine">Birthdate (MM/DD/YYYY)</mat-hint>
+        <mat-error *ngIf="dateInput.invalid">Birth date is required</mat-error>
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+      </mat-form-field>
+      <!-- Department -->
+      <mat-form-field appearance="outline" class="width-50">
+        <mat-label class="form-selector">Select Department</mat-label>
+        <mat-select [(ngModel)]="employee.department" [disabled]="loading" placeholder="Department"
+          name="department" #departmentInput="ngModel" required class="form-control">
+          <mat-option *ngFor="let dep of companyDepartments" [value]="dep">{{ dep }}</mat-option>
+        </mat-select>
+        <mat-hint *ngIf="departmentInput.pristine">Department</mat-hint>
+        <mat-error *ngIf="departmentInput.errors && departmentInput.errors['required']">Enter employee's department</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="color-inputs">
+      <mat-form-field appearance="outline" class="width-50 color-btn-box">
+        <mat-label>Header color</mat-label>
+        <input [(ngModel)]="employee.colorCode" matInput [disabled]="loading" placeholder="{{ employee.colorCode }}" name="color">
+        <mat-hint>Enter a Hex-Color Code</mat-hint>
+      </mat-form-field>
+      <!-- or choose random color: button -->
+      <div class="width-50 color-btn-box">
+        <button mat-button (click)="getRandomColor()"
+          [style.background-color]="employee.colorCode">{{ employee.colorCode }}</button>
+        <mat-hint class="color-btn-label">Or generate a random color</mat-hint>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div mat-dialog-actions>
+    <button mat-button (click)="closeDialog()">Cancel</button>
+    <button mat-button [disabled]="!editEmployeeForm.form.valid" (click)="editEmployeeForm.form.valid && saveEdit()" cdkFocusInitial>Save</button>
+  </div>
+</form>

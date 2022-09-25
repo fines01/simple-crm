@@ -1,0 +1,76 @@
+<div class="dialog-container">
+  <!-- Progress bar -->
+  <mat-progress-bar *ngIf="loading" mode="indeterminate" class="progress-bar"></mat-progress-bar>
+  <!-- Title -->
+  <h1 mat-dialog-title>Edit Project</h1>
+
+  <!-- Main-Content: form fields -->
+  <form mat-dialog-content action="" #editProjectForm="ngForm">
+
+    <div class="">
+      <mat-form-field appearance="outline" class="width-100">
+        <mat-label>Project Name</mat-label>
+        <input [(ngModel)]="project.name" matInput [disabled]="loading" placeholder="Project name" name="name"
+          #nameInput="ngModel" required maxlength="25" class="form-control">
+        <mat-hint *ngIf="nameInput.pristine">Enter a project name (max. 15 characters)</mat-hint>
+        <mat-error *ngIf="nameInput.errors && nameInput.errors['required']">Project name is required</mat-error>
+        <mat-error *ngIf="nameInput.errors && nameInput.errors['maxlength']">Name should have max. 15 characters</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="">
+      <mat-form-field appearance="outline" class="width-100">
+        <mat-label>Description</mat-label>
+        <textarea [(ngModel)]="project.description" (keyup)="countStrLength()" matInput [disabled]="loading" placeholder="Further Infos"
+          name="description" #descriptionInput="ngModel" [maxlength]="descriptionMaxLength" class="form-control">
+            {{ project.description }}
+        </textarea>
+        <!-- <mat-hint *ngIf="descriptionInput.pristine">Project description (optional)</mat-hint> -->
+        <mat-hint *ngIf="!descriptionInput.errors"><span>{{ descriptionCounter }}</span> of {{ descriptionMaxLength }} characters left</mat-hint>
+      </mat-form-field>
+    </div>
+
+    <div class="">
+      <mat-form-field appearance="outline" class="width-50 mr-16">
+        <mat-label class="form-selector">Manager</mat-label>
+        <mat-select [(ngModel)]="managerID" [disabled]="loading" name="manager" #managerInput="ngModel" required class="form-control">
+          <mat-option *ngFor="let e of employees" [value]="e.objID">
+            {{ e.firstName }} {{ e.lastName }}
+          </mat-option>
+        </mat-select>
+        <mat-hint *ngIf="managerInput.pristine">Responsible project manager</mat-hint>
+        <mat-error *ngIf="managerInput.invalid">Please enter a manager</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="width-50">
+        <mat-label>Client name</mat-label>
+        <input [(ngModel)]="project.client" matInput [disabled]="loading" placeholder="Client name" required name="client"
+          #clientInput="ngModel" required maxlength="25" class="form-control">
+        <mat-hint *ngIf="clientInput.pristine">Enter main client</mat-hint>
+        <mat-error *ngIf="clientInput.invalid">Enter a client name (max 15 characters)</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="">
+      <!-- Date picker -->
+      <mat-form-field appearance="outline" class="width-100">
+        <mat-label>Due date</mat-label>
+        <input [(ngModel)]="dueDate" matInput [matDatepicker]="picker1" [disabled]="loading" placeholder="Due date"
+          required name="dueDate" #dateInput="ngModel" class="form-control">
+        <mat-hint *ngIf="dateInput.pristine">Please enter the due date (MM/DD/YYYY)</mat-hint>
+        <mat-error *ngIf="dateInput.invalid">Due date is required</mat-error>
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+  </form>
+  <!-- END: main-content (form-fields) -->
+
+  <!-- Buttons -->
+  <div mat-dialog-actions>
+    <button mat-button (click)="closeDialog()">Cancel</button>
+    <button mat-button [disabled]="!editProjectForm.form.valid" (click)="editProjectForm.form.valid && saveEdit()" cdkFocusInitial>Save</button>
+  </div>
+
+</div>

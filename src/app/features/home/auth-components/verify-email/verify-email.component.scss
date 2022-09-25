@@ -1,0 +1,45 @@
+.link {
+  text-decoration: underline;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.form-info {
+  font-size: 0.75rem;
+  margin-top: 1rem;
+}
+
+.form-buttons {
+  margin: 1rem 0;
+  display: flex;
+  justify-content: center;
+}
+
+button {
+  box-shadow: 0 0 1px 1px rgba(255, 255, 255, 0.13);
+}
+
+.mat-card {
+  padding: 2rem;
+}
+
+.cards-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 15vh;
+}
+
+.align-center {
+  text-align: center;
+}
+
+h3 {
+  margin-bottom: 0;
+  font-weight: 500;
+}
+
+p {
+    margin: 2rem 2rem;
+    line-height: 2;
+}

@@ -1,0 +1,27 @@
+.delete-btn {
+  background-color: rgb(244, 67, 54, 0.4);
+  transition: all 125ms linear;
+
+  &:hover {
+    background-color: rgb(244, 67, 54); // color 'arn'
+  }
+}
+
+.dialog-message {
+  line-height: 2;
+}
+
+.cancel-btn {
+  background-color: rgb(105, 240, 174, 0.4); // color 'accent'
+  transition: all 125ms linear;
+
+  &:hover {
+    background-color: rgb(105, 240, 174); // color 'accent'
+    color: rgb(66, 66, 66);
+  }
+}
+
+.mat-dialog-container:has(.delete-failure) {
+  background-color: rgb(105, 240, 174);
+  border: 2px solid orange;
+}

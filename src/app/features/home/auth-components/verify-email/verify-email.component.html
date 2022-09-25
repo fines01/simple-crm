@@ -1,0 +1,25 @@
+<div class="cards-container">
+
+  <mat-card>
+    <mat-card-title class="align-center">Thank you for registering!</mat-card-title>
+    <div class="" *ngIf="!checkUserData() as user">
+      <p class="align-center">We have sent a confirmation mail to <strong>{{testMail}}
+        </strong>. <br>
+        Please check your mail and click on the link to verfiy your E-Mail address.
+      </p>
+    </div>
+
+    <div class="form-buttons " mat-dialog-actions>
+      <!-- TODO add into btn: redo icon -->
+      <button mat-button class="" (click)="requestVerificationMail()" >Resend verification E-mail</button>
+    </div>
+
+    <div class="width-100 form-info align-center">
+      Go back to <span class="link" [routerLink]="'/sign-up'">Sign Up</span>
+    </div>
+    <div class="width-100 form-info align-center">
+      Go to <span class="link" [routerLink]="'/sign-in'">Log In</span>
+    </div>
+  </mat-card>
+
+</div>
