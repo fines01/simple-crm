@@ -58,7 +58,6 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.allSubscriptions.forEach( ((subscription, index) => {
       if(subscription) subscription.unsubscribe();
-      else console.log('UNDEFINED:', index);
     }));
   }
 

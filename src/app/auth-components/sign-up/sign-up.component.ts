@@ -24,7 +24,8 @@ export class SignUpComponent implements OnInit {
     this.authService.signUp(this.userEmail, this.userPassword)
   }
 
-  googleSignUp() {
+  // calling googleAuth Api from authService
+  googleSignIn() {
     this.authService.googleAuth();
   }
 

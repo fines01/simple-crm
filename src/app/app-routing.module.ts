@@ -11,10 +11,11 @@ import { SignInComponent } from './auth-components/sign-in/sign-in.component';
 import { SignUpComponent } from './auth-components/sign-up/sign-up.component';
 import { ResetPasswordComponent } from './auth-components/reset-password/reset-password.component';
 import { VerifyEmailComponent } from './auth-components/verify-email/verify-email.component';
+import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
   // {path: '404', component: NotFoundComponent} // TODO maybe make 404 page
-  //{path: '', component: LandingPageComponent},
+  {path: '', component: HomeComponent},
   {path: 'dashboard', component: DashboardComponent}, // TODO: change link in navbar
   {path: 'clients', component: ClientsComponent},
   {path: 'client/:id', component: ClientDetailComponent},
@@ -27,7 +28,7 @@ const routes: Routes = [
   {path: 'reset-password', component: ResetPasswordComponent},
   {path: 'verify-email', component: VerifyEmailComponent},
 
-  {path:'**', redirectTo: '/'},
+  {path:'**', redirectTo: ''},
 ];
 
 @NgModule({

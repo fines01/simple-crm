@@ -118,6 +118,29 @@ body {
   // box-sizing: border-box;
 }
 
+.btn-logo {
+
+  .mat-button-wrapper {
+    display: flex;
+    align-items:center;
+  }
+}
+
+.btn-icon {
+  width: 16px;
+  margin-right: 16px;
+}
+
+.avatar {
+  width: 32px;
+}
+
+.user-name {
+  font-size: 14px;
+  margin-right: 8px;
+  margin-left: 16px
+}
+
 // Media queries
 
 @media screen and (max-width: 850px) {

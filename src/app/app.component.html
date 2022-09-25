@@ -1,3 +1,5 @@
+
+
 <!-- Material Sidenav -->
 <mat-drawer-container class="mat-drawer-container" autosize>
   <mat-drawer #drawer class="mat-sidenav" [mode]="mobileQuery.matches ? 'over' : 'side'" [opened]="mobileQuery.matches ? false : true">
@@ -39,7 +41,7 @@
     </ul>
   </mat-drawer>
 
-  <!-- Material Toolbar (inside sidenav container, s.t. sidenav is over toolbar if opened, change for mobile-view?) -->
+<!-- Material Toolbar (inside sidenav container, s.t. sidenav is over toolbar if opened, change for mobile-view?) -->
   <mat-toolbar color="primary" class="toolbar">
     <mat-toolbar-row>
       <button (click)="drawer.toggle()" color="accent" mat-icon-button class=""
@@ -48,18 +50,23 @@
       </button>
       <span>Simple CRM</span>
       <span class="toolbar-spacer"></span>
-      <button mat-icon-button class="favorite-icon" aria-label="Lightmode icon">
+      <!-- <button mat-icon-button class="favorite-icon" aria-label="Lightmode icon">
         <mat-icon #tooltip="matTooltip" matTooltip="Switch to light mode" [matTooltipPosition]="'above'"
           matTooltipHideDelay="500" class="lightmode-icon">
           lightbulb
         </mat-icon>
-      </button>
+      </button> -->
       <button mat-icon-button class="" aria-label="Settings icon">
         <mat-icon #tooltip="matTooltip" matTooltip="Open settings">settings</mat-icon>
+      </button>
+      <span class="user-name">User Name</span>
+      <button mat-icon-button>
+        <img src="./assets/img/undraw_female_avatar_white.svg" alt="avatar" class="avatar">
       </button>
     </mat-toolbar-row>
   </mat-toolbar>
   <!-- END toolbar -->
+  
 
   <div class="content-container">
     <router-outlet></router-outlet>

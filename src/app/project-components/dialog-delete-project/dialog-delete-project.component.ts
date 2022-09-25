@@ -18,7 +18,7 @@ export class DialogDeleteProjectComponent implements OnInit, OnDestroy {
 
   junctionSubscription!: Subscription;
 
-  dialogTitle ='Delete project?';
+  dialogTitle ='Delete Project?';
   dialogMessage = 'Do you really want to delete the project?';
 
   constructor(
@@ -28,7 +28,7 @@ export class DialogDeleteProjectComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     if (this.projectName) {
-      this.dialogTitle =`Delete project <b>${this.projectName}</b>`;
+      this.dialogTitle =`Delete Project <b>${this.projectName}</b>`;
       this.dialogMessage = `Do you really want to delete the project?`;//`The project is still in stage: <b>initialized</b>.<br>Do you really want to delete it?`;
     }
   }

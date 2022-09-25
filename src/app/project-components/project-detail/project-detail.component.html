@@ -44,13 +44,16 @@
         <mat-menu #employeesMenu="matMenu">
           <button mat-menu-item (click)="openEditEmployees()">Edit</button>
         </mat-menu>
-        <h2 class="card-title">Assigned team members</h2>
-        <span 
-          *ngFor="let ass of assignedEmployees" 
-          class="card-detail assigned-person"
-          [style.color]="ass.colorCode"
-          [routerLink]="['/employee/'+ ass.objID]"
-          >{{ ass.firstName }} {{ ass.lastName }}</span>
+        <h2 class="card-title">Assigned Team Members</h2>
+        <div class="team-container">
+          <span 
+            *ngFor="let ass of assignedEmployees" 
+            class="team-member"
+            [style.color]="ass.colorCode"
+            [routerLink]="['/employee/'+ ass.objID]"
+            >{{ ass.firstName }} {{ ass.lastName }}
+          </span>
+        </div>
       </mat-card-content>
     </mat-card>
 

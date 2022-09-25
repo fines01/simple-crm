@@ -60,6 +60,7 @@ import { SignUpComponent } from './auth-components/sign-up/sign-up.component';
 import { VerifyEmailComponent } from './auth-components/verify-email/verify-email.component';
 import { AuthService } from './shared/services/auth.service';
 import { ResetPasswordComponent } from './auth-components/reset-password/reset-password.component';
+import { HomeComponent } from './home/home.component';
 
 
 
@@ -88,7 +89,8 @@ import { ResetPasswordComponent } from './auth-components/reset-password/reset-p
     SignInComponent,
     SignUpComponent,
     VerifyEmailComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

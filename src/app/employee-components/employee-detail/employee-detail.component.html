@@ -20,6 +20,62 @@
 
     <mat-card class="mt-32 info-detail-card">
       <mat-card-content class="card-content">
+        <button mat-icon-button [matMenuTriggerFor]="headerMenu" class="btn-right-upper-corner">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #headerMenu="matMenu">
+          <button mat-menu-item (click)="openEditHeader()">Edit</button>
+        </mat-menu>
+        <h2 class="card-title">Details</h2>
+        <div class="card-detail">Department: {{ employee.department }}</div>
+        <div class="card-detail">Birth date: {{ localFormatDate }}</div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card *ngIf=" managedProjects && managedProjects.length > 0" class="mt-32 info-detail-card">
+      <mat-card-content class="card-content">
+        <h2 class="card-title">Managed Projects</h2>
+        <div *ngFor="let p of managedProjects" class="card-detail card-detail-link" [routerLink]="'/project/'+p.objID">
+          {{ p.name }}</div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card *ngIf="assignedProjects && assignedProjects.length > 0" class="mt-32 info-detail-card">
+      <mat-card-content class="card-content">
+        <h2 class="card-title">Project Team Member In:</h2>
+        <div *ngFor="let p of assignedProjects" class="card-detail card-detail-link" [routerLink]="'/project/'+p.objID">
+          {{ p.name }}</div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card *ngIf="!isAssigned" class="mt-32 info-detail-card">
+      <mat-card-content class="card-content">
+        <div class="card-detail"></div>
+        <p class="admin-alert">Dear Admin:</p>
+        <p>The employee {{ employee.firstName }} {{ employee.lastName }} is currently not assigned to any projects. <br>
+          Please give them something to do!
+        </p>
+        <p>Go to <span class="card-detail-link underline" [routerLink]="'/projects'">Projects</span> and set assignments
+          there.</p>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- <mat-card class="mt-32 info-detail-card">
+      <mat-card-content class="card-content">
+        <button mat-icon-button [matMenuTriggerFor]="headerMenu" class="btn-right-upper-corner">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #headerMenu="matMenu">
+          <button mat-menu-item (click)="openEditHeader()">Edit</button>
+        </mat-menu>
+        <h2 class="card-title">Further Infos</h2>
+        <div class="card-detail">Department: {{ employee.department }}</div>
+        <div class="card-detail">Birth date: {{ localFormatDate }}</div>
+      </mat-card-content>
+    </mat-card> -->
+
+    <mat-card class="mt-32 info-detail-card">
+      <mat-card-content class="card-content">
         <button mat-icon-button [matMenuTriggerFor]="addressMenu" class="btn-right-upper-corner">
           <mat-icon>more_vert</mat-icon>
         </button>
@@ -33,45 +89,12 @@
       </mat-card-content>
     </mat-card>
 
-    <mat-card *ngIf=" managedProjects && managedProjects.length > 0" class="mt-32 info-detail-card">
-      <mat-card-content class="card-content">
-        <h2 class="card-title">Managed projects:</h2>
-        <div *ngFor="let p of managedProjects" class="card-detail card-detail-link" [routerLink]="'/project/'+p.objID">{{ p.name }}</div>
-      </mat-card-content>
-    </mat-card>
-
-    <mat-card *ngIf="assignedProjects && assignedProjects.length > 0" class="mt-32 info-detail-card">
-      <mat-card-content class="card-content">
-        <h2 class="card-title">Project team member in:</h2>
-        <div *ngFor="let p of assignedProjects" class="card-detail card-detail-link" [routerLink]="'/project/'+p.objID">{{ p.name }}</div>
-      </mat-card-content>
-    </mat-card>
-    
-    <mat-card *ngIf="!isAssigned" class="mt-32 info-detail-card">
-      <mat-card-content class="card-content">
-        <div class="card-detail"></div>
-        <p>Dear Admin:</p>
-        <p>The employee {{ employee.firstName }} {{ employee.lastName }} is currently not assigned to any projects. <br> 
-          Please give them something to do!
-        </p>
-        <p>Go to <span class="card-detail-link underline"[routerLink]="'/projects'">Projects</span> and set assignments there.</p>
-      </mat-card-content>
-    </mat-card>
-
-    <mat-card class="mt-32 info-detail-card">
-      <mat-card-content class="card-content">
-        <h2 class="card-title">Further Infos</h2>
-        <div class="card-detail">Department: {{ employee.department }}</div>
-        <div class="card-detail">Birth date: {{ localFormatDate }}</div>
-      </mat-card-content>
-    </mat-card>
-
   </div>
   <!-- END: detail-cards -->
 
   <!-- delete button: -->
   <div class="delete-btn-container">
-    <button mat-fab color="warn" class="delete-client-btn" #tooltip="matTooltip" matTooltip="Delete employee"
+    <button mat-fab color="warn" class="delete-btn" #tooltip="matTooltip" matTooltip="Delete employee"
       [matTooltipPosition]="'above'" matTooltipHideDelay="500" (click)="openDeleteDialog()">
       <mat-icon>delete</mat-icon>
     </button>

@@ -63,24 +63,36 @@ a {
 
 .header-detail {
   cursor: pointer;
+  transition: all 125ms linear;
+
+  a {
+    transition: all 125ms linear;
+  }
 
   &:hover, a:hover {
     color: rgb(219, 219, 219);
-    font-weight: bold;
+    font-weight: 500;
   }
 }
 
 .manager-name {
   font-size: 1rem;
+  font-weight: 500;
 }
 
-.assigned-person {
+.team-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 8px;
+}
+
+.team-member {
   cursor: pointer;
   font-weight: bold;
   background-color: rgb(0,0,0,0.5);
   border-radius: 0.25rem;;
   padding: 0.25rem;
-  margin-right: 0.5rem;
+  border: 1px solid gray;
 
   &:hover {
     background-color: rgb(0,0,0);
