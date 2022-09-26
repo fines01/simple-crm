@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
@@ -15,6 +16,7 @@ export class SignInComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -22,8 +24,13 @@ export class SignInComponent implements OnInit {
 
   //call signIn Api from authService
 
-  usernameSignIn() {
-    this.authService.signIn(this.userName, this.userPassword);
+  emailSignIn() {
+    this.authService.signIn(this.userEmail, this.userPassword)
+      .then( ()=> {
+        // RM when
+        this.router.navigate(['dashboard']);
+      });
+
   }
 
   googleSignIn() {

@@ -40,49 +40,57 @@ export class AuthService {
         this.setUserData(result.user);
         this.afAuth.authState.subscribe((user) => {
           if (user) {
-            this.router.navigate(['dashboard']);
+            //this.router.navigate(['dashboard']);
+            console.log( auth.getAuth().currentUser )
           }
         });
       })
       .catch((error) => {
-        window.alert(error.message);
+        console.log('%c'+error.message, 'color: yellow; background-color: black');
       });
   }
 
   // Sign up with email/password
-  signUp(email: string, password: string) {
+  signUp(email: string, password: string, username: string) {
     return this.afAuth
       .createUserWithEmailAndPassword(email, password)
       .then((result) => {
+        if (result) console.log(result, result.user, result.user?.displayName);
+        //if (result.user) result.user.displayNmae = username;
         /* Call the SendVerificaitonMail() function when new user sign 
         up and returns promise */
         this.sendVerificationMail();
         this.setUserData(result.user);
+        this.updateUser(result.user, username)
+        this.router.navigate(['home/verify-email']);
       })
       .catch((error) => {
-        window.alert(error.message);
+        console.log('%c'+error.message, 'color: yellow; background-color: black');
       });
   }
 
   // Send email verfificaiton when new user signs up
   sendVerificationMail() {
     return this.afAuth.currentUser
-      .then((u: any) => u.sendEmailVerification())
-      .then(() => {
-        this.router.navigate(['verify-email-address']);
-      });
+      .then((user: any) => {
+        user.sendEmailVerification();
+        this.router.navigate(['verify-email']);
+      })
+     .catch( (error) => console.log('%c'+error, 'color: yellow; background-color: black'));
   }
 
   // Reset forgotten password
   resetPassword(passwordResetEmail: string) {
     return this.afAuth
       .sendPasswordResetEmail(passwordResetEmail)
-      .then(() => {
-        window.alert('Password reset email sent, please check your inbox.');
+        .then(() => {
+          console.log('Password reset email sent, please check your inbox.');
       })
-      .catch((error) => {
-        window.alert(error);
-      });
+        .catch((error) => console.log('%c'+error, 'color: yellow; background-color: black'));
+  }
+
+  getAuthUser() {
+    return auth.getAuth().currentUser
   }
 
   // Returns true when user is looged in and email is verified
@@ -108,8 +116,16 @@ export class AuthService {
         this.setUserData(result.user);
       })
       .catch((error) => {
-        window.alert(error);
+        console.log('%c'+error, 'color: yellow; background-color: black');
       });
+  }
+
+  updateUser(user: any, username?: string, profilePic?: string) {
+    //const authUsr = auth.getAuth().currentUser;
+    auth.updateProfile(user, {
+      displayName: username ? username : user.displayName,
+      photoURL: profilePic ? profilePic : user.photoURL
+    })
   }
 
   /* Setting up user data when sign in with username/password, 
@@ -125,7 +141,7 @@ export class AuthService {
       displayName: user.displayName,
       photoURL: user.photoURL,
       emailVerified: user.emailVerified,
-      isAdmin: user.isAdmin, // TODO or initialize with false
+      isAdmin: user.isAdmin ? user.isAdmin : false,
     };
     return userRef.set(userData, {
       merge: true,
@@ -137,7 +153,7 @@ export class AuthService {
     return this.afAuth.signOut()
       .then(() => {
         localStorage.removeItem('user');
-        this.router.navigate(['sign-in']); // later: navigate to landing-page
+        //this.router.navigate(['sign-in']); // later: navigate to landing-page
     });
   }
   

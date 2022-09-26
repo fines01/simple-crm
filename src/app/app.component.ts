@@ -1,33 +1,62 @@
 import {MediaMatcher} from '@angular/cdk/layout';
-import {ChangeDetectorRef, Component, OnDestroy, TemplateRef, ViewChild } from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, OnChanges, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
 import { AuthService } from './shared/services/auth.service';
+import { ActivatedRoute, Router, NavigationEnd, RouterModule } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnDestroy{
+export class AppComponent implements OnInit, OnDestroy{
   
   title = 'simple-crm';
   mobileQuery!: MediaQueryList;
+  currentRoute!: string;
+  routerSubscription!: Subscription;
   // get template ref variables
   @ViewChild('drawer', {static: true}) drawer!: MatDrawer;
 
   private _mobileQueryListener: () => void;
 
   constructor(
+    private router: Router,
     private authService: AuthService,
-    changeDetectorRef: ChangeDetectorRef, media: MediaMatcher
+    changeDetectorRef: ChangeDetectorRef,
+    media: MediaMatcher
     ) {
     this.mobileQuery = media.matchMedia('(max-width: 815px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
   }
+  
+  ngOnInit() {
+    this.routerSubscription = this.router.events.subscribe( (events: any) => {
+      if (events instanceof NavigationEnd) this.currentRoute = events.url;
+      //if (this.currentRoute) console.log('current route: ', this.currentRoute, 'home:',this.currentRoute.includes('home'));
+      console.log(this.isLoggedIn())
+    });
+  }
+  
+  isHome() {
+    this.currentRoute && this.currentRoute.includes('home');
+  }
+
+  isLoggedIn() {
+    return this.authService.isLoggedIn;
+
+    console.log(this.authService.getAuthUser())
+  }
+
+  getUser() {
+    return this.authService.getAuthUser();
+  }
 
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);
+    if (this.routerSubscription) this.routerSubscription.unsubscribe();
   }
 
   isAuth() {

@@ -15,7 +15,7 @@ import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
   // {path: '404', component: NotFoundComponent} // TODO maybe make 404 page
-  {path: '', component: HomeComponent},
+  {path: 'home', component: HomeComponent},
   {path: 'dashboard', component: DashboardComponent}, // TODO: change link in navbar
   {path: 'clients', component: ClientsComponent},
   {path: 'client/:id', component: ClientDetailComponent},
@@ -23,10 +23,10 @@ const routes: Routes = [
   {path: 'employee/:id', component: EmployeeDetailComponent},
   {path: 'projects', component: ProjectsComponent},
   {path: 'project/:id', component: ProjectDetailComponent},
-  {path: 'sign-in', component: SignInComponent},
-  {path: 'sign-up', component: SignUpComponent},
-  {path: 'reset-password', component: ResetPasswordComponent},
-  {path: 'verify-email', component: VerifyEmailComponent},
+  {path: 'home/sign-in', component: SignInComponent},
+  {path: 'home/sign-up', component: SignUpComponent},
+  {path: 'home/reset-password', component: ResetPasswordComponent},
+  {path: 'home/verify-email', component: VerifyEmailComponent},
 
   {path:'**', redirectTo: ''},
 ];

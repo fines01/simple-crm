@@ -1,12 +1,12 @@
 <mat-toolbar color="primary" class="toolbar">
   <mat-toolbar-row>
     <!-- IF AUTH && NOT HOME -->
-    <button (click)="emitOpenDrawerEvent()" color="accent" mat-icon-button class=""
+    <button *ngIf="isLoggedIn()" (click)="emitOpenDrawerEvent()" color="accent" mat-icon-button class=""
       aria-label="Example icon-button with menu icon" #tooltip="matTooltip" matTooltip="Toggle side-navigation">
       <mat-icon>menu</mat-icon>
     </button>
     <!-- -->
-    <span>Simple CRM</span>
+    <span class="home-link" [routerLink]="'/home'">Simple CRM</span>
     <span class="toolbar-spacer"></span>
     <!-- <button mat-icon-button class="favorite-icon" aria-label="Lightmode icon">
         <mat-icon #tooltip="matTooltip" matTooltip="Switch to light mode" [matTooltipPosition]="'above'"
@@ -16,27 +16,32 @@
       </button> -->
 
     <!-- IF UNAUTH: -->
-    <span *ngIf="false" class="unauth-navicons">
+    <span *ngIf="!isLoggedIn()" class="unauth-navicons">
       <span class="navbar-icon-label">Log In</span>
-      <button mat-icon-button class="" aria-label="Settings icon">
+      <button mat-icon-button class="" [routerLink]="'/home/sign-in'">
         <mat-icon #tooltip="matTooltip" matTooltip="">login</mat-icon>
       </button>
       <span class="navbar-icon-label">Register</span>
-      <button mat-icon-button>
+      <button mat-icon-button [routerLink]="'/home/sign-up'">
         <mat-icon class="avatar">app_registration</mat-icon>
         <!-- <img src="./assets/img/undraw_female_avatar_white.svg" alt="avatar" class="avatar"> -->
       </button>
     </span>
 
     <!-- IF AUTH: -->
-    <span class="auth-navicons">
+    <span *ngIf="isLoggedIn()" class="auth-navicons">
       <button mat-icon-button class="" aria-label="Settings icon">
         <mat-icon #tooltip="matTooltip" matTooltip="Open settings">settings</mat-icon>
       </button>
       <span class="user-name">User Name</span>
-      <button mat-icon-button>
+      <button mat-icon-button [matMenuTriggerFor]="userMenu" #usrIconTooltip="matTooltip" matTooltip="Open user settings">
         <img src="./assets/img/undraw_female_avatar_white.svg" alt="avatar" class="avatar">
       </button>
+      <mat-menu #userMenu="matMenu">
+        <button mat-menu-item (click)="logOut()">
+          <mat-icon>logout</mat-icon><span class="menu-icon-label">Log out</span>
+        </button>
+      </mat-menu>
     </span>
   </mat-toolbar-row>
 </mat-toolbar>

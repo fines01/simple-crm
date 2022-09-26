@@ -11,11 +11,11 @@
 
       <div class="">
         <mat-form-field appearance="outline" class="width-100">
-          <mat-label>Username</mat-label>
-          <input type="text" [(ngModel)]="userName" matInput name="username" #usernameInput="ngModel"
-            class="form-control" placeholder="Username" required>
-          <mat-hint>Username</mat-hint>
-          <mat-error>Please enter a username</mat-error>
+          <mat-label>E-Mail</mat-label>
+          <input type="text" [(ngModel)]="userEmail" matInput name="username" #usernameInput="ngModel"
+            class="form-control" placeholder="Username" email required>
+          <mat-hint>E-mail</mat-hint>
+          <mat-error>Please enter a valid E-mail</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="width-100">
@@ -29,7 +29,7 @@
       <!-- TODO checkbox: remember me -->
       <!-- TODO guest sign-in -->
       <div class="form-buttons " mat-dialog-actions>
-        <button mat-button class=" width-50 mr-16 btn-login" (click)="usernameSignIn()" >Log In</button>
+        <button mat-button class=" width-50 mr-16 btn-login" (click)="emailSignIn()" >Log In</button>
         <button mat-button class="width-50 btn-guest-login" disabled (click)="guestSignIn()">Log in as guest</button>
       </div>
 

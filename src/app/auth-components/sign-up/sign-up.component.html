@@ -7,6 +7,15 @@
        </mat-card-title>
 
        <div class="">
+
+        <mat-form-field appearance="outline" class="width-100">
+           <mat-label>Username</mat-label>
+           <input type="email" [(ngModel)]="userName" matInput name="username" #emailInput="ngModel" class="form-control"
+             required>
+           <mat-hint>Username</mat-hint>
+           <mat-error>Please choose a username</mat-error>
+         </mat-form-field>
+
          <mat-form-field appearance="outline" class="width-100">
            <mat-label>Email</mat-label>
            <input type="email" [(ngModel)]="userEmail" matInput name="email" #emailInput="ngModel" class="form-control"

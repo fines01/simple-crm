@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/services/auth.service'; 
 
 @Component({
@@ -10,18 +11,24 @@ export class SignUpComponent implements OnInit {
 
 
   userEmail!: string;
+  userName!: string;
   userPassword!: string;
   userPasswordConfirmation!: string;
 
   constructor(
     private authService: AuthService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
   }
 
   emailSignUp() {
-    this.authService.signUp(this.userEmail, this.userPassword)
+    this.authService.signUp(this.userEmail, this.userPassword, this.userName)
+      .then( ()=> {
+        // Rm when
+        this.router.navigate(['home/verify-email']);
+      });
   }
 
   // calling googleAuth Api from authService
