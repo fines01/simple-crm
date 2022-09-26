@@ -33,7 +33,7 @@
       <button mat-icon-button class="" aria-label="Settings icon">
         <mat-icon #tooltip="matTooltip" matTooltip="Open settings">settings</mat-icon>
       </button>
-      <span class="user-name">User Name</span>
+      <span class="user-name">{{ userName }}</span>
       <button mat-icon-button [matMenuTriggerFor]="userMenu" #usrIconTooltip="matTooltip" matTooltip="Open user settings">
         <img src="./assets/img/undraw_female_avatar_white.svg" alt="avatar" class="avatar">
       </button>

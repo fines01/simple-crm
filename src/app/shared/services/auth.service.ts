@@ -36,37 +36,52 @@ export class AuthService {
   signIn(email: string, password: string) {
     return this.afAuth
       .signInWithEmailAndPassword(email, password)
-      .then((result) => {
-        this.setUserData(result.user);
-        this.afAuth.authState.subscribe((user) => {
-          if (user) {
-            //this.router.navigate(['dashboard']);
-            console.log( auth.getAuth().currentUser )
-          }
+        .then((result) => {
+          this.setUserData(result.user);
+          this.afAuth.authState.subscribe((user) => {
+            if (user) {
+              console.log( user, auth.getAuth().currentUser )
+            }
+          });
+        })
+        .catch((error) => {
+          console.log('%c'+error.message, 'color: yellow; background-color: black');
         });
-      })
-      .catch((error) => {
-        console.log('%c'+error.message, 'color: yellow; background-color: black');
-      });
   }
 
   // Sign up with email/password
   signUp(email: string, password: string, username: string) {
     return this.afAuth
       .createUserWithEmailAndPassword(email, password)
-      .then((result) => {
-        if (result) console.log(result, result.user, result.user?.displayName);
-        //if (result.user) result.user.displayNmae = username;
-        /* Call the SendVerificaitonMail() function when new user sign 
-        up and returns promise */
-        this.sendVerificationMail();
+        .then((result) => {
+          if (result) console.log(result, result.user, result.user?.displayName);
+          //if (result.user) result.user.displayNmae = username;
+          /* Call the SendVerificaitonMail() function when new user sign 
+          up and returns promise */
+          this.sendVerificationMail();
+          this.setUserData(result.user);
+          this.updateUser(result.user, username)
+          // this.router.navigate(['home/verify-email']);
+        })
+        .catch((error) => {
+          console.log('%c'+error.message, 'color: yellow; background-color: black');
+        });
+  }
+
+  anonymousSignIn() {
+    return this.afAuth.signInAnonymously()
+      .then( (result)=> {
+        console.log(result);
+
         this.setUserData(result.user);
-        this.updateUser(result.user, username)
-        this.router.navigate(['home/verify-email']);
+        this.updateUser(result.user, 'Guest');
+
+      //   this.afAuth.onAuthStateChanged((user) => {
+      //     if (user) this.updateUser(user, 'Guest'); // user is signed in
+      //   })
+      
       })
-      .catch((error) => {
-        console.log('%c'+error.message, 'color: yellow; background-color: black');
-      });
+      .catch ( (error)=> console.log('%c'+error, 'color: yellow; background-color: black'));
   }
 
   // Send email verfificaiton when new user signs up
@@ -96,8 +111,14 @@ export class AuthService {
   // Returns true when user is looged in and email is verified
   get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user')!);
-    return user !== null && user.emailVerified !== false ? true : false;
+    // return user !== null && user.emailVerified !== false ? true : false;
+    return (user !== null) || (auth.getAuth().currentUser?.isAnonymous) ? true : false; // for now I won't check for verified emails (change in production etc.)
   }
+
+  // get isAnonymousUser(): boolean {
+  //   if (auth.getAuth().currentUser?.isAnonymous) return true;
+  //   return false;
+  // }
 
   // Sign in with Google
   googleAuth() {

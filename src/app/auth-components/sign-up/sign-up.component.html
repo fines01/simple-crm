@@ -44,7 +44,7 @@
        <!-- TODO checkbox: remember me -->
 
        <div class="form-buttons " mat-dialog-actions>
-         <button mat-button class=" width-50 mr-16 btn-login" (click)="emailSignUp()">Sign Up</button>
+         <button [disabled]="authForm.form.invalid" mat-button class=" width-50 mr-16 btn-login" (click)="emailSignUp()">Sign Up</button>
          <!-- <button mat-button class="width-50 btn-guest-login" (click)="guestSignIn()">Log in as guest</button> -->
        </div>
 

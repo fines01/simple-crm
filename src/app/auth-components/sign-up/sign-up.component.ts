@@ -27,7 +27,7 @@ export class SignUpComponent implements OnInit {
     this.authService.signUp(this.userEmail, this.userPassword, this.userName)
       .then( ()=> {
         // Rm when
-        this.router.navigate(['home/verify-email']);
+        this.router.navigate(['dashboard']); // if email verification is required: redirect to 'home/verify-email'
       });
   }
 

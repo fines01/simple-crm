@@ -28,7 +28,7 @@ export class SignInComponent implements OnInit {
     this.authService.signIn(this.userEmail, this.userPassword)
       .then( ()=> {
         // RM when
-        this.router.navigate(['dashboard']);
+        this.router.navigate(['dashboard']); //TODO: check success!!!
       });
 
   }
@@ -39,7 +39,11 @@ export class SignInComponent implements OnInit {
 
   //anonymous log in for demo purposes
   guestSignIn() {
-
+    this.authService.anonymousSignIn()
+      .then( ()=> {
+        this.router.navigate(['dashboard']);
+        }
+      );
   }
 
 }

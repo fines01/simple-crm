@@ -17,7 +17,7 @@ export class AppComponent implements OnInit, OnDestroy{
   currentRoute!: string;
   routerSubscription!: Subscription;
   // get template ref variables
-  @ViewChild('drawer', {static: true}) drawer!: MatDrawer;
+  @ViewChild('drawer') drawer!: MatDrawer;
 
   private _mobileQueryListener: () => void;
 
@@ -35,8 +35,6 @@ export class AppComponent implements OnInit, OnDestroy{
   ngOnInit() {
     this.routerSubscription = this.router.events.subscribe( (events: any) => {
       if (events instanceof NavigationEnd) this.currentRoute = events.url;
-      //if (this.currentRoute) console.log('current route: ', this.currentRoute, 'home:',this.currentRoute.includes('home'));
-      console.log(this.isLoggedIn())
     });
   }
   
@@ -47,7 +45,6 @@ export class AppComponent implements OnInit, OnDestroy{
   isLoggedIn() {
     return this.authService.isLoggedIn;
 
-    console.log(this.authService.getAuthUser())
   }
 
   getUser() {

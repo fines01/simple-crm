@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../shared/services/auth.service';
 
@@ -9,6 +9,8 @@ import { AuthService } from '../shared/services/auth.service';
 })
 export class ToolbarComponent implements OnInit {
 
+  userName = '';
+
   @Output() openDrawer = new EventEmitter();
 
   constructor(
@@ -18,12 +20,13 @@ export class ToolbarComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+  
   emitOpenDrawerEvent(): void {
     this.openDrawer.emit();
   }
-
+  
   isLoggedIn() {
+    this.userName = this.getUserName(); //
     return this.authService.isLoggedIn;
   }
 
@@ -32,7 +35,11 @@ export class ToolbarComponent implements OnInit {
       .then( ()=> {
         this.router.navigate(['home/sign-in']); // RM when: set route guards
       } );
+  }
 
+  getUserName() {
+    const user = this.authService.getAuthUser();
+    return user?.displayName ? user.displayName : '';
   }
 
 }
