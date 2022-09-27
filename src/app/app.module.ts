@@ -58,7 +58,7 @@ import { DialogEditProjectEmployeesComponent } from './project-components/dialog
 import { SignInComponent } from './auth-components/sign-in/sign-in.component';
 import { SignUpComponent } from './auth-components/sign-up/sign-up.component';
 import { VerifyEmailComponent } from './auth-components/verify-email/verify-email.component';
-import { AuthService } from './shared/services/auth.service';
+import { AuthService } from './services/auth.service';
 import { ResetPasswordComponent } from './auth-components/reset-password/reset-password.component';
 import { HomeComponent } from './home/home.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';

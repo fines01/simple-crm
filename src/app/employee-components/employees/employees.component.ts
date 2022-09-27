@@ -6,7 +6,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Sort, MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
-import { FirestoreService } from 'src/app/shared/services/firestore.service';
+import { FirestoreService } from 'src/app/services/firestore.service';
 import { DialogAddEmployeeComponent } from '../dialog-add-employee/dialog-add-employee.component';
 
 @Component({

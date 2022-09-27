@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { Client } from 'src/models/client.class';
-import { FirestoreService } from 'src/app/shared/services/firestore.service';
+import { FirestoreService } from 'src/app/services/firestore.service';
 
 export interface DialogData {}
 

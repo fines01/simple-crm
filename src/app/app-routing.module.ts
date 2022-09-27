@@ -12,23 +12,25 @@ import { SignUpComponent } from './auth-components/sign-up/sign-up.component';
 import { ResetPasswordComponent } from './auth-components/reset-password/reset-password.component';
 import { VerifyEmailComponent } from './auth-components/verify-email/verify-email.component';
 import { HomeComponent } from './home/home.component';
+import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
   // {path: '404', component: NotFoundComponent} // TODO maybe make 404 page
   {path: 'home', component: HomeComponent},
-  {path: 'dashboard', component: DashboardComponent}, // TODO: change link in navbar
-  {path: 'clients', component: ClientsComponent},
-  {path: 'client/:id', component: ClientDetailComponent},
-  {path: 'employees', component: EmployeesComponent},
-  {path: 'employee/:id', component: EmployeeDetailComponent},
-  {path: 'projects', component: ProjectsComponent},
-  {path: 'project/:id', component: ProjectDetailComponent},
   {path: 'home/sign-in', component: SignInComponent},
   {path: 'home/sign-up', component: SignUpComponent},
   {path: 'home/reset-password', component: ResetPasswordComponent},
   {path: 'home/verify-email', component: VerifyEmailComponent},
+  // auth
+  {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]}, // TODO: change link in navbar
+  {path: 'clients', component: ClientsComponent, canActivate: [AuthGuard]},
+  {path: 'client/:id', component: ClientDetailComponent, canActivate: [AuthGuard]},
+  {path: 'employees', component: EmployeesComponent, canActivate: [AuthGuard]},
+  {path: 'employee/:id', component: EmployeeDetailComponent, canActivate: [AuthGuard]},
+  {path: 'projects', component: ProjectsComponent, canActivate: [AuthGuard]},
+  {path: 'project/:id', component: ProjectDetailComponent, canActivate: [AuthGuard]},
 
-  {path:'**', redirectTo: ''},
+  {path:'**', redirectTo: 'home'},
 ];
 
 @NgModule({

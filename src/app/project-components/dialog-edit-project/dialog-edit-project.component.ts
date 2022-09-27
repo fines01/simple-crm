@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { FirestoreService } from 'src/app/shared/services/firestore.service';
+import { FirestoreService } from 'src/app/services/firestore.service';
 import { Project } from 'src/models/project.class';
 
 @Component({

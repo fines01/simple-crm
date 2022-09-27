@@ -3,7 +3,7 @@ import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn,
 import { MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-import { FirestoreService } from 'src/app/shared/services/firestore.service';
+import { FirestoreService } from 'src/app/services/firestore.service';
 import { Project } from 'src/models/project.class';
 
 

@@ -1,7 +1,7 @@
 import {MediaMatcher} from '@angular/cdk/layout';
 import {AfterViewInit, ChangeDetectorRef, Component, OnChanges, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
-import { AuthService } from './shared/services/auth.service';
+import { AuthService } from './services/auth.service';
 import { ActivatedRoute, Router, NavigationEnd, RouterModule } from '@angular/router';
 import { Subscription } from 'rxjs';
 
