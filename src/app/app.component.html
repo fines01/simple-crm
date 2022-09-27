@@ -1,7 +1,7 @@
 <mat-drawer-container class="mat-drawer-container" autosize>
 
   <!-- Material Sidenav (IF AUTH && NOT HOME) -->
-  <mat-drawer *ngIf="isLoggedIn()" #drawer class="mat-sidenav" [mode]="mobileQuery.matches ? 'over' : 'side'" [opened]="mobileQuery.matches ? false : true">
+  <mat-drawer *ngIf="isLoggedIn()" #drawer class="mat-sidenav" [mode]="mobileQuery.matches ? 'over' : 'side'" [opened]="checkSidenavOpen()">
     <app-sidenav></app-sidenav>
   </mat-drawer>
 
@@ -12,6 +12,6 @@
   </div>
 
   <!-- IF UNAUTH OR HOME -->
-  <footer *ngIf="isHome()">FOOTER</footer>
+  <!-- <footer *ngIf="isHome()">FOOTER</footer> -->
 
 </mat-drawer-container>

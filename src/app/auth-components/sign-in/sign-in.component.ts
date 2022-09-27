@@ -11,8 +11,9 @@ import { AuthService } from 'src/app/services/auth.service';
 export class SignInComponent implements OnInit {
 
   userName!: string;
-  userEmail!: string; // TODO maybe sign in via email instead of username (or both)
+  userEmail!: string;
   userPassword!: string;
+  emailSignInSubmitted = false;
 
   constructor(
     private authService: AuthService,
@@ -23,8 +24,8 @@ export class SignInComponent implements OnInit {
   }
 
   //call signIn Api from authService
-
   emailSignIn() {
+    this.emailSignInSubmitted = true;
     this.authService.signIn(this.userEmail, this.userPassword)
       .then( ()=> {
         // RM when
@@ -39,6 +40,7 @@ export class SignInComponent implements OnInit {
 
   //anonymous log in for demo purposes
   guestSignIn() {
+    this.emailSignInSubmitted = false;
     this.authService.anonymousSignIn()
       .then( ()=> {
         this.router.navigate(['dashboard']);

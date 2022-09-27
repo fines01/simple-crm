@@ -1,1 +1,18 @@
-<p>dashboard works!</p>
+
+    <!-- Main content -->
+    <main role="main" class="">
+        <h1 class="h2">Test Dashboard: User Profile</h1>
+        <!-- Show user data when logged in -->
+        <div class="row" *ngIf="getUserData() as user">
+              <img class="dashboard-avatar" src="{{(user.photoURL) ? user.photoURL : './assets/img/undraw_male_avatar_green.svg'}}"
+                alt="{{user.displayName}}">
+              <div class="">
+                <h1>Hello: <strong>{{(user.displayName) ? user.displayName : 'Guest User'}}</strong></h1>
+                <p>User ID: <strong>{{user.uid}}</strong></p>
+                <p>Email: <strong>{{(user.email) ? user.email : 'You are logged in as a guest'}}</strong></p>
+                <p>Email Verified: <strong>{{user.emailVerified}}</strong></p>
+              </div>
+ 
+        </div>
+    </main>
+  

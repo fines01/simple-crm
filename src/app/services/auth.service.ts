@@ -39,9 +39,7 @@ export class AuthService {
         .then((result) => {
           this.setUserData(result.user);
           this.afAuth.authState.subscribe((user) => {
-            if (user) {
-              console.log( user, auth.getAuth().currentUser )
-            }
+            if (user) console.log( user, auth.getAuth().currentUser );
           });
         })
         .catch((error) => {
@@ -71,15 +69,8 @@ export class AuthService {
   anonymousSignIn() {
     return this.afAuth.signInAnonymously()
       .then( (result)=> {
-        console.log(result);
-
         this.setUserData(result.user);
-        this.updateUser(result.user, 'Guest');
-
-      //   this.afAuth.onAuthStateChanged((user) => {
-      //     if (user) this.updateUser(user, 'Guest'); // user is signed in
-      //   })
-      
+        //this.updateUser(result.user, 'Guest'); // TODO maybe don't update username with 'Guest'
       })
       .catch ( (error)=> console.log('%c'+error, 'color: yellow; background-color: black'));
   }
@@ -169,12 +160,14 @@ export class AuthService {
     });
   }
 
-  // Sign out
+  // Sign out // TODO rememberMe functionality
   signOut() {
+    let user = auth.getAuth().currentUser;
+    if (user?.isAnonymous) return user.delete(); //delete except usr wants to be remembered?
+
     return this.afAuth.signOut()
       .then(() => {
         localStorage.removeItem('user');
-        //this.router.navigate(['sign-in']); // later: navigate to landing-page
     });
   }
   

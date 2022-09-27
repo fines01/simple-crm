@@ -39,12 +39,15 @@ export class AppComponent implements OnInit, OnDestroy{
   }
   
   isHome() {
-    this.currentRoute && this.currentRoute.includes('home');
+    return this.currentRoute && this.currentRoute.includes('home');
   }
 
   isLoggedIn() {
     return this.authService.isLoggedIn;
+  }
 
+  checkSidenavOpen() {
+    return (this.mobileQuery.matches || this.isHome()) ? false : true;
   }
 
   getUser() {

@@ -39,7 +39,7 @@ export class ToolbarComponent implements OnInit {
 
   getUserName() {
     const user = this.authService.getAuthUser();
-    return user?.displayName ? user.displayName : '';
+    return user?.displayName ? user.displayName : 'Guest';
   }
 
 }
