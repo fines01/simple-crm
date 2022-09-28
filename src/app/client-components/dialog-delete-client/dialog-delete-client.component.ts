@@ -34,7 +34,6 @@ export class DialogDeleteClientComponent implements OnInit {
 
   closeDelete() {
     setTimeout(()=> {
-      //this.router.navigate(['/clients']); // instead --> checkRouteExists() in client-detail
       this.closeDialog()
     },2500);
   }

@@ -31,7 +31,7 @@ export class DialogAddClientComponent implements OnInit {
 
   saveClient() {
     this.loading = true;
-    this.fireService.add(this.client, 'clients')
+    this.fireService.add(this.client.toJSON(), 'clients')
       .then( (result: any) => {
         this.loading = false;
         this.closeDialog();
