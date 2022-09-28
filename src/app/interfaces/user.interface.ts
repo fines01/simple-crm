@@ -6,5 +6,6 @@ export interface User {
     photoURL: string;
     emailVerified: boolean;
     isAdmin: boolean;
+    userTasks: object[];
     
 }

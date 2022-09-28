@@ -12,6 +12,8 @@ import { Subscription } from 'rxjs';
 })
 export class AppComponent implements OnInit, OnDestroy{
   
+  testVar!: number;
+
   title = 'simple-crm';
   mobileQuery!: MediaQueryList;
   currentRoute!: string;
@@ -30,6 +32,8 @@ export class AppComponent implements OnInit, OnDestroy{
     this.mobileQuery = media.matchMedia('(max-width: 815px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
+
+    this.testVar = 123;
   }
   
   ngOnInit() {
@@ -50,9 +54,9 @@ export class AppComponent implements OnInit, OnDestroy{
     return (this.mobileQuery.matches || this.isHome()) ? false : true;
   }
 
-  getUser() {
-    return this.authService.getAuthUser();
-  }
+  // getUser() {
+  //   return this.authService.getAuthUser();
+  // }
 
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);

@@ -63,6 +63,7 @@ import { ResetPasswordComponent } from './auth-components/reset-password/reset-p
 import { HomeComponent } from './home/home.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
+import { UserTasksComponent } from './user-tasks/user-tasks.component';
 
 
 
@@ -94,7 +95,8 @@ import { SidenavComponent } from './sidenav/sidenav.component';
     ResetPasswordComponent,
     HomeComponent,
     ToolbarComponent,
-    SidenavComponent
+    SidenavComponent,
+    UserTasksComponent
   ],
   imports: [
     BrowserModule,

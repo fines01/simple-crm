@@ -1,16 +1,23 @@
 
     <!-- Main content -->
     <main role="main" class="">
-        <h1 class="h2">Test Dashboard: User Profile</h1>
+        <h1 class="h2">Test Dashboard (User Profile)</h1>
         <!-- Show user data when logged in -->
-        <div class="row" *ngIf="getUserData() as user">
+        <div class="" *ngIf="userData as user">
               <img class="dashboard-avatar" src="{{(user.photoURL) ? user.photoURL : './assets/img/undraw_male_avatar_green.svg'}}"
                 alt="{{user.displayName}}">
               <div class="">
                 <h1>Hello: <strong>{{(user.displayName) ? user.displayName : 'Guest User'}}</strong></h1>
                 <p>User ID: <strong>{{user.uid}}</strong></p>
-                <p>Email: <strong>{{(user.email) ? user.email : 'You are logged in as a guest'}}</strong></p>
-                <p>Email Verified: <strong>{{user.emailVerified}}</strong></p>
+                <p>Email: <strong>{{ !authUser.isAnonymous ? user.email : 'You are logged in as a guest'}}</strong></p>
+                <p *ngIf="!authUser.isAnonymous">Email Verified: <strong>{{user.emailVerified}}</strong></p>
+                <p *ngIf="!authUser.isAnonymous">Admin: <strong>{{ user.isAdmin ? 'true' : 'false' }}</strong></p>
+                <p *ngIf="authUser.isAnonymous">Admin: <strong> guest - admin</strong></p>
+              </div>
+
+              <div class="">
+                <h2>My Tasks:</h2>
+                <p *ngFor="let task of user.userTasks, let i = index">{{ task.body }} <button (click)="removeTask(i)">delete</button></p>
               </div>
  
         </div>

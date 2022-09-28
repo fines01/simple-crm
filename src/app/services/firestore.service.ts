@@ -71,6 +71,14 @@ export class FirestoreService {
       .doc(customID).set(documentJson);
   }
 
+  // save user tasks in new collection inside users???
+  // addUserTask(userID: string, task: object) {    
+  //   this.firestore
+  //     .doc(`users/${userID}`)
+  //     .collection('tasks')
+  //     .add(task);
+  // }
+
   // isJSON(data: any) {
   //   try {
   //     JSON.parse(data);
@@ -80,5 +88,4 @@ export class FirestoreService {
   //   return true;
   // }
   
-  // archive() {} // or move() {} // move to objName trash / archivedXyz collection
 }

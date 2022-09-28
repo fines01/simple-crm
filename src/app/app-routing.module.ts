@@ -13,6 +13,7 @@ import { ResetPasswordComponent } from './auth-components/reset-password/reset-p
 import { VerifyEmailComponent } from './auth-components/verify-email/verify-email.component';
 import { HomeComponent } from './home/home.component';
 import { AuthGuard } from './auth.guard';
+import { UserTasksComponent } from './user-tasks/user-tasks.component';
 
 const routes: Routes = [
   // {path: '404', component: NotFoundComponent} // TODO maybe make 404 page
@@ -29,6 +30,7 @@ const routes: Routes = [
   {path: 'employee/:id', component: EmployeeDetailComponent, canActivate: [AuthGuard]},
   {path: 'projects', component: ProjectsComponent, canActivate: [AuthGuard]},
   {path: 'project/:id', component: ProjectDetailComponent, canActivate: [AuthGuard]},
+  {path: 'tasks', component: UserTasksComponent, canActivate: [AuthGuard]},
 
   {path:'**', redirectTo: 'home'},
 ];
