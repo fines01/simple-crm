@@ -15,6 +15,7 @@ export class DialogAddEmployeeComponent implements OnInit {
   loading = false;
   countries!: string[];
   companyDepartments = this.employee.departments;
+  minBirthDate!: Date;
 
   constructor( 
     private dialogRef: MatDialogRef<DialogAddEmployeeComponent>,
@@ -23,6 +24,14 @@ export class DialogAddEmployeeComponent implements OnInit {
 
   ngOnInit(): void {
     this.countries = this.employee.countries;
+    this.setMinBirthdate();
+  }
+  
+  setMinBirthdate(){
+    let currentYear = new Date().getFullYear();
+    let currentMonth = new Date().getMonth();
+    let currentDay = new Date().getDate(); // toISOString() & 1. split ab T, 2. split at -
+    this.minBirthDate = new Date(currentYear - 16, currentMonth, currentDay); // currentYear & current Month (1st) - 16 years as minimum age of employee
   }
 
   closeDialog(): void {

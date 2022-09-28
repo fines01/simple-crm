@@ -10,7 +10,7 @@
     <div class="">
       <div class="">
       <!-- First name -->
-      <mat-form-field appearance="outline" class="mr-16 width-50">
+      <mat-form-field appearance="outline" color="accent" class="mr-16 width-50">
         <mat-label>First Name</mat-label>
         <input [(ngModel)]="employee.firstName" matInput [disabled]="loading" placeholder="First Name"
           name="firstName" #firstNameInput="ngModel" required maxlength="25" class="form-control">
@@ -19,7 +19,7 @@
         <mat-error *ngIf="firstNameInput.errors && firstNameInput.errors['maxlength']">Name should have max. 15 characters</mat-error>
       </mat-form-field>
       <!-- Last name -->
-      <mat-form-field appearance="outline" class="width-50">
+      <mat-form-field appearance="outline" color="accent" class="width-50">
         <mat-label>Last Name</mat-label>
         <input [(ngModel)]="employee.lastName" matInput [disabled]="loading" placeholder="Last Name"
         name="lastName" #lastNameInput="ngModel" required maxlength="25" class="form-control">
@@ -32,7 +32,7 @@
 
     <div class="">
       <!-- E-mail -->
-      <mat-form-field appearance="outline" class="width-50 mr-16">
+      <mat-form-field appearance="outline" color="accent" class="width-50 mr-16">
         <mat-label>E-mail</mat-label>
         <input type="email" [(ngModel)]="employee.email" matInput [disabled]="loading" placeholder="E-Mail"
           name="email" required email #emailInput="ngModel" class="form-control" maxlength="50">
@@ -41,7 +41,7 @@
          <mat-error *ngIf="emailInput.errors && emailInput.errors['email']">Please enter a valid e-mail address</mat-error>
       </mat-form-field>
       <!-- Phone -->
-      <mat-form-field appearance="outline" class="width-50">
+      <mat-form-field appearance="outline" color="accent" class="width-50">
         <mat-label>Phone</mat-label>
         <input [(ngModel)]="employee.phone" matInput [disabled]="loading" placeholder="phone"
         name="phone" required #phoneInput="ngModel" class="form-control" maxlength="50">
@@ -52,9 +52,9 @@
 
     <div class="">
       <!-- Birth date -->
-      <mat-form-field appearance="outline" class="width-50 mr-16">
+      <mat-form-field appearance="outline" color="accent" class="width-50 mr-16">
         <mat-label>Birth Date</mat-label>
-        <input [(ngModel)]="birthDate" matInput [matDatepicker]="picker1" [disabled]="loading" placeholder="Birthdate"
+        <input [(ngModel)]="birthDate" matInput [matDatepicker]="picker1" [max]="minBirthDate" [disabled]="loading" placeholder="Birthdate"
           required name="birthDate" #dateInput="ngModel" class="form-control">
         <mat-hint *ngIf="dateInput.pristine">Birthdate (MM/DD/YYYY)</mat-hint>
         <mat-error *ngIf="dateInput.invalid">Birth date is required</mat-error>
@@ -62,7 +62,7 @@
         <mat-datepicker #picker1></mat-datepicker>
       </mat-form-field>
       <!-- Department -->
-      <mat-form-field appearance="outline" class="width-50">
+      <mat-form-field appearance="outline" color="accent" class="width-50">
         <mat-label class="form-selector">Select Department</mat-label>
         <mat-select [(ngModel)]="employee.department" [disabled]="loading" placeholder="Department"
           name="department" #departmentInput="ngModel" required class="form-control">
@@ -74,7 +74,7 @@
     </div>
 
     <div class="color-inputs">
-      <mat-form-field appearance="outline" class="width-50 color-btn-box">
+      <mat-form-field appearance="outline" color="accent" class="width-50 color-btn-box">
         <mat-label>Header color</mat-label>
         <input [(ngModel)]="employee.colorCode" matInput [disabled]="loading" placeholder="{{ employee.colorCode }}" name="color">
         <mat-hint>Enter a Hex-Color Code</mat-hint>

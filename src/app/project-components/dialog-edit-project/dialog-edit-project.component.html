@@ -8,7 +8,7 @@
   <form mat-dialog-content action="" #editProjectForm="ngForm">
 
     <div class="">
-      <mat-form-field appearance="outline" class="width-100">
+      <mat-form-field appearance="outline" color="accent" class="width-100">
         <mat-label>Project Name</mat-label>
         <input [(ngModel)]="project.name" matInput [disabled]="loading" placeholder="Project name" name="name"
           #nameInput="ngModel" required maxlength="25" class="form-control">
@@ -19,7 +19,7 @@
     </div>
 
     <div class="">
-      <mat-form-field appearance="outline" class="width-100">
+      <mat-form-field appearance="outline" color="accent" class="width-100">
         <mat-label>Description</mat-label>
         <textarea [(ngModel)]="project.description" (keyup)="countStrLength()" matInput [disabled]="loading" placeholder="Further Infos"
           name="description" #descriptionInput="ngModel" [maxlength]="descriptionMaxLength" class="form-control">
@@ -31,7 +31,7 @@
     </div>
 
     <div class="">
-      <mat-form-field appearance="outline" class="width-50 mr-16">
+      <mat-form-field appearance="outline" color="accent" class="width-50 mr-16">
         <mat-label class="form-selector">Manager</mat-label>
         <mat-select [(ngModel)]="managerID" [disabled]="loading" name="manager" #managerInput="ngModel" required class="form-control">
           <mat-option *ngFor="let e of employees" [value]="e.objID">
@@ -42,7 +42,7 @@
         <mat-error *ngIf="managerInput.invalid">Please enter a manager</mat-error>
       </mat-form-field>
 
-      <mat-form-field appearance="outline" class="width-50">
+      <mat-form-field appearance="outline" color="accent" class="width-50">
         <mat-label>Client name</mat-label>
         <input [(ngModel)]="project.client" matInput [disabled]="loading" placeholder="Client name" required name="client"
           #clientInput="ngModel" required maxlength="25" class="form-control">
@@ -53,9 +53,9 @@
 
     <div class="">
       <!-- Date picker -->
-      <mat-form-field appearance="outline" class="width-100">
+      <mat-form-field appearance="outline" color="accent" class="width-100">
         <mat-label>Due date</mat-label>
-        <input [(ngModel)]="dueDate" matInput [matDatepicker]="picker1" [disabled]="loading" placeholder="Due date"
+        <input [(ngModel)]="dueDate" matInput [matDatepicker]="picker1" [min]="minDuedate" [disabled]="loading" placeholder="Due date"
           required name="dueDate" #dateInput="ngModel" class="form-control">
         <mat-hint *ngIf="dateInput.pristine">Please enter the due date (MM/DD/YYYY)</mat-hint>
         <mat-error *ngIf="dateInput.invalid">Due date is required</mat-error>

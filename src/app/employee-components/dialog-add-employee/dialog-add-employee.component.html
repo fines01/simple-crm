@@ -9,7 +9,7 @@
 
     <div class="">
       <!-- First name -->
-      <mat-form-field appearance="outline" class="mr-16 width-50">
+      <mat-form-field appearance="outline" color="accent" class="mr-16 width-50">
         <mat-label>First Name</mat-label>
         <input [(ngModel)]="employee.firstName" matInput [disabled]="loading" placeholder="First Name" name="firstName"
           #firstNameInput="ngModel" required maxlength="25" class="form-control">
@@ -19,7 +19,7 @@
           characters</mat-error>
       </mat-form-field>
       <!-- Last name -->
-      <mat-form-field appearance="outline" class="width-50">
+      <mat-form-field appearance="outline" color="accent" class="width-50">
         <mat-label>Last Name</mat-label>
         <input [(ngModel)]="employee.lastName" matInput [disabled]="loading" placeholder="Last Name" name="lastName"
           #lastNameInput="ngModel" required maxlength="25" class="form-control">
@@ -32,7 +32,7 @@
 
     <div class="">
       <!-- E-mail -->
-      <mat-form-field appearance="outline" class="width-50 mr-16">
+      <mat-form-field appearance="outline" color="accent" class="width-50 mr-16">
         <mat-label>E-mail</mat-label>
         <input type="email" [(ngModel)]="employee.email" matInput [disabled]="loading" placeholder="E-Mail" name="email"
           required email #emailInput="ngModel" class="form-control" maxlength="50">
@@ -42,7 +42,7 @@
         </mat-error>
       </mat-form-field>
       <!-- Phone -->
-      <mat-form-field appearance="outline" class="width-50">
+      <mat-form-field appearance="outline" color="accent" class="width-50">
         <mat-label>Phone</mat-label>
         <input [(ngModel)]="employee.phone" matInput [disabled]="loading" placeholder="phone" name="phone" required
           #phoneInput="ngModel" class="form-control" maxlength="50">
@@ -53,17 +53,17 @@
 
     <div class="">
       <!-- Birth date -->
-      <mat-form-field appearance="outline" class="width-50 mr-16">
+      <mat-form-field color="accent" appearance="outline" class="width-50 mr-16">
         <mat-label>Birth Date</mat-label>
-        <input [(ngModel)]="birthDate" matInput [matDatepicker]="picker1" [disabled]="loading" placeholder="Birthdate"
+        <input [(ngModel)]="birthDate" matInput [matDatepicker]="picker1" [max]="minBirthDate" [disabled]="loading" placeholder="Birthdate"
           required name="birthDate" #dateInput="ngModel" class="form-control">
-        <mat-hint *ngIf="dateInput.pristine">Birthdate (MM/DD/YYYY)</mat-hint>
+        <mat-hint *ngIf="dateInput.pristine">Birthdate (MM/DD/YYYY) (min. 16 Years)</mat-hint>
         <mat-error *ngIf="dateInput.invalid">Birth date is required</mat-error>
         <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
         <mat-datepicker #picker1></mat-datepicker>
       </mat-form-field>
       <!-- Department -->
-      <mat-form-field appearance="outline" class="width-50">
+      <mat-form-field appearance="outline" color="accent" class="width-50">
         <mat-label class="form-selector">Select Department</mat-label>
         <mat-select [(ngModel)]="employee.department" [disabled]="loading" placeholder="Department" name="department"
           #departmentInput="ngModel" required class="form-control">
@@ -77,7 +77,7 @@
 
     <div class="">
       <!-- Street -->
-      <mat-form-field appearance="outline" class="width-75 mr-16">
+      <mat-form-field appearance="outline" color="accent" class="width-75 mr-16">
         <mat-label>Street</mat-label>
         <input [(ngModel)]="employee.street" matInput [disabled]="loading" placeholder="Street" name="street"
           #streetInput="ngModel" required maxlength="30" class="form-control">
@@ -85,7 +85,7 @@
         <mat-error *ngIf="streetInput.errors && streetInput.errors['required']">Street name is required</mat-error>
       </mat-form-field>
       <!-- Street No. -->
-      <mat-form-field appearance="outline" class="width-25">
+      <mat-form-field appearance="outline" color="accent" class="width-25">
         <mat-label>No.</mat-label>
         <input [(ngModel)]="employee.streetNo" matInput [disabled]="loading" placeholder="No." name="streetNo"
           #streetNoInput="ngModel" required maxlength="30" class="form-control">
@@ -96,7 +96,7 @@
 
     <div class="">
       <!-- Zip Code -->
-      <mat-form-field appearance="outline" class="width-33 mr-16">
+      <mat-form-field appearance="outline" color="accent" class="width-33 mr-16">
         <mat-label>Zip code</mat-label>
         <input [(ngModel)]="employee.zipCode" matInput [disabled]="loading" placeholder="Zip Code" name="zipCode"
           #zipInput="ngModel" required maxlength="10" class="form-control">
@@ -104,7 +104,7 @@
         <mat-error *ngIf="zipInput.errors && zipInput.errors['required']">Enter a Zip code</mat-error>
       </mat-form-field>
       <!-- City -->
-      <mat-form-field appearance="outline" class="width-33 mr-16">
+      <mat-form-field appearance="outline" color="accent" class="width-33 mr-16">
         <mat-label>City</mat-label>
         <input [(ngModel)]="employee.city" matInput [disabled]="loading" placeholder="City" name="city"
           #cityInput="ngModel" required maxlength="30" class="form-control">
@@ -112,7 +112,7 @@
         <mat-error *ngIf="cityInput.errors && cityInput.errors['required']">City is required</mat-error>
       </mat-form-field>
       <!-- Country -->
-      <mat-form-field appearance="outline" class="width-33">
+      <mat-form-field appearance="outline" color="accent" class="width-33">
         <mat-label class="country-selector">Select Country</mat-label>
         <mat-select [(ngModel)]="employee.countryCode" [disabled]="loading" placeholder="Country" name="country"
           #countryInput="ngModel" required class="form-control">

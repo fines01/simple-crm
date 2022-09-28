@@ -24,6 +24,7 @@ export class DialogAddProjectComponent implements OnInit {
   descriptionCounter!: number;
   descriptionLength!: number;
   descriptionMaxLength!: number;
+  minDuedate!: Date;
   
   // access template reference variables 
   // @ViewChild('addProjectForm',{static:true}) addProjectForm!: ElementRef;
@@ -37,6 +38,7 @@ export class DialogAddProjectComponent implements OnInit {
     ngOnInit(): void {
       this.subscribeEmployees();
       this.descriptionMaxLength = this.project.descriptionMaxLength;
+      this.minDuedate = new Date();
     }
     
   //getErrorMessages() { }

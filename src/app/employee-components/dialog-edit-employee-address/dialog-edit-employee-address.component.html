@@ -7,7 +7,7 @@
 
     <div class="">
       <!-- Street -->
-      <mat-form-field appearance="outline" class="width-75 mr-16">
+      <mat-form-field appearance="outline" color="accent" class="width-75 mr-16">
         <mat-label>Street</mat-label>
         <input [(ngModel)]="employee.street" matInput [disabled]="loading" placeholder="Street"
           name="street" #streetInput="ngModel" required maxlength="30" class="form-control">
@@ -15,7 +15,7 @@
         <mat-error *ngIf="streetInput.errors && streetInput.errors['required']">Street name is required</mat-error>
       </mat-form-field>
       <!-- Street No. -->
-       <mat-form-field appearance="outline" class="width-25">
+       <mat-form-field appearance="outline" color="accent" class="width-25">
         <mat-label>No.</mat-label>
         <input [(ngModel)]="employee.streetNo" matInput [disabled]="loading" placeholder="No."
           name="streetNo" #streetNoInput="ngModel" required maxlength="30" class="form-control">
@@ -26,7 +26,7 @@
 
     <div class="">
       <!-- Zip Code -->
-      <mat-form-field appearance="outline" class="width-33 mr-16">
+      <mat-form-field appearance="outline" color="accent" class="width-33 mr-16">
         <mat-label>Zip code</mat-label>
         <input [(ngModel)]="employee.zipCode" matInput [disabled]="loading" placeholder="Zip Code"
           name="zipCode" #zipInput="ngModel" required maxlength="10" class="form-control">
@@ -34,7 +34,7 @@
         <mat-error *ngIf="zipInput.errors && zipInput.errors['required']">Enter a Zip code</mat-error>
       </mat-form-field>
       <!-- City -->
-      <mat-form-field appearance="outline" class="width-33 mr-16">
+      <mat-form-field appearance="outline" color="accent" class="width-33 mr-16">
         <mat-label>City</mat-label>
         <input [(ngModel)]="employee.city" matInput [disabled]="loading" placeholder="City"
            name="city" #cityInput="ngModel" required maxlength="30" class="form-control">
@@ -42,7 +42,7 @@
         <mat-error *ngIf="cityInput.errors && cityInput.errors['required']">City is required</mat-error>
       </mat-form-field>
       <!-- Country -->
-      <mat-form-field appearance="outline" class="width-33">
+      <mat-form-field appearance="outline" color="accent" class="width-33">
         <mat-label class="country-selector">Select Country</mat-label>
         <mat-select [(ngModel)]="employee.countryCode" [disabled]="loading" placeholder="Country" name="country" #countryInput="ngModel" required class="form-control">
           <mat-option *ngFor="let c of countries" [value]="c">{{ c }}</mat-option>

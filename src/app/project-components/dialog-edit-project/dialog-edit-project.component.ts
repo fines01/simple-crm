@@ -20,6 +20,7 @@ export class DialogEditProjectComponent implements OnInit {
   descriptionCounter!: number;
   descriptionLength!: number;
   descriptionMaxLength!: number;
+  minDuedate!: Date;
 
   constructor(
     private dialogRef: MatDialogRef<DialogEditProjectComponent>, 
@@ -32,6 +33,7 @@ export class DialogEditProjectComponent implements OnInit {
     if(date instanceof Date) this.dueDate = date;
     this.descriptionMaxLength = this.project.descriptionMaxLength;
     this.countStrLength();
+    this.minDuedate = new Date();
   }
 
   closeDialog() {

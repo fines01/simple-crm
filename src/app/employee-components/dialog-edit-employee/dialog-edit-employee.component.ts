@@ -18,6 +18,7 @@ export class DialogEditEmployeeComponent implements OnInit {
   loading = false;
   birthDate!: Date;
   companyDepartments!: string[];
+  minBirthDate!: Date;
 
   constructor(
     private dialogRef: MatDialogRef<DialogEditEmployeeComponent>, 
@@ -29,6 +30,14 @@ export class DialogEditEmployeeComponent implements OnInit {
     let date = new FormControl(new Date(this.employee.birthDate)).value; // FormControl necessary? or instead just new Date(...)?
     if (date instanceof Date) this.birthDate = date;
     if (this.employee) this.companyDepartments = this.employee.departments;
+    this.setMinBirthdate();
+  }
+
+   setMinBirthdate(){
+    let currentYear = new Date().getFullYear();
+    let currentMonth = new Date().getMonth();
+    let currentDay = new Date().getDate(); // toISOString() & 1. split ab T, 2. split at -
+    this.minBirthDate = new Date(currentYear - 16, currentMonth, currentDay); // currentYear & current Month (1st) - 16 years as minimum age of employee
   }
 
   closeDialog() {
