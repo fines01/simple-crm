@@ -64,6 +64,7 @@ import { HomeComponent } from './home/home.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { UserTasksComponent } from './user-tasks/user-tasks.component';
+import { ConfirmPasswordDirective } from './directives/confirm-password.directive';
 
 
 
@@ -96,7 +97,8 @@ import { UserTasksComponent } from './user-tasks/user-tasks.component';
     HomeComponent,
     ToolbarComponent,
     SidenavComponent,
-    UserTasksComponent
+    UserTasksComponent,
+    ConfirmPasswordDirective
   ],
   imports: [
     BrowserModule,
