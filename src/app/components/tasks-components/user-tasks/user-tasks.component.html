@@ -2,37 +2,61 @@
 
   <mat-card *ngFor="let task of userData.userTasks, let i = index" class="task-card">
 
-      <mat-card-content class="card-content">
+    <mat-card-content class="card-content">
 
-        <mat-card-title>
-          <h3 class="task-title">{{ i+1 }}.: {{ task.taskTitle }}</h3>
-        </mat-card-title>
+      <mat-card-title>
+        <h3 class="task-title">{{ task.taskTitle }}</h3>
+      </mat-card-title>
 
-        <p>{{ task.taskBody }}</p>
+      <p>{{ task.taskBody }}</p>
+
+
+
+      <div class="task-classification">
 
         <div class="task-category">
           <mat-hint class="label-small">Category:</mat-hint> <br>
           <span>{{ task.taskCategory }}</span>
         </div>
 
-        <div class="task-classification">
-          <mat-hint class="label-small">Urgency</mat-hint>
-          <mat-icon color="{{ task.taskUrgency === 'urgent' ? 'warn' : 'accent' }}">priority_high</mat-icon>
-          <!-- <br> -->
-          <mat-hint class="label-small">Importance</mat-hint>
-          <mat-icon color="{{ task.taskImportance === 'important' ? 'warn' : 'accent' }}">label_important</mat-icon>
+        <div class="d-flex">
+
+          <div *ngIf="(task.taskUrgency == 'urgent')" class="task-urgency">
+            <!-- <mat-hint class="label-small">Urgency</mat-hint> -->
+            <mat-icon color="warn" #tooltip="matTooltip" matTooltip="{{ task.taskUrgency }}" [matTooltipPosition]="'above'">priority_high</mat-icon>
+            <!-- <mat-icon color="warn">priority_high</mat-icon> -->
+          </div>
+  
+          <div *ngIf="!(task.taskUrgency === 'urgent')" class="task-urgency">
+            <!-- <mat-hint class="label-small">Urgency</mat-hint> -->
+            <mat-icon color="accent" #tooltip="matTooltip" matTooltip="{{ task.taskUrgency }}" [matTooltipPosition]="'above'">priority_high</mat-icon>
+          </div>
+  
+          <div *ngIf="(task.taskImportance == 'important')" class="task-importance">
+            <!-- <mat-hint class="label-small">Importance</mat-hint> -->
+            <mat-icon color="warn" #tooltip="matTooltip" matTooltip="{{ task.taskImportance }}" [matTooltipPosition]="'above'">label_important</mat-icon>
+            <!-- <mat-icon color="warn">label_important</mat-icon> -->
+          </div>
+  
+          <div *ngIf="!(task.taskImportance == 'important')" class="task-importance">
+            <!-- <mat-hint class="label-small">Importance</mat-hint> -->
+            <mat-icon color="accent" #tooltip="matTooltip" matTooltip="{{ task.taskImportance }}" [matTooltipPosition]="'above'">label_important</mat-icon>
+          </div>
+
         </div>
 
+      </div>
 
-        
-        <!-- Buttons -->
-        <div class="card-buttons">
-          <button mat-button (click)="editTask(i)">Edit</button>
-          <button mat-button (click)="removeTask(i)">Delete</button>
-        </div>
 
-      </mat-card-content>
-    
+
+      <!-- Buttons -->
+      <div class="card-buttons">
+        <button class="edit-btn" mat-button (click)="editTask(i)">Edit</button>
+        <button class="delete-btn" mat-button (click)="removeTask(i)">Delete</button>
+      </div>
+
+    </mat-card-content>
+
   </mat-card>
 
 
