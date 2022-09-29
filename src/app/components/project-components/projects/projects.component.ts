@@ -103,7 +103,7 @@ export class ProjectsComponent implements OnInit, OnDestroy {
         case 'name':
           return this.compare(a['name'], b['name'], isAsc);
         case 'manager':
-          return this.compare(a['manager'], b['manager'], isAsc);
+          return this.compare(a['manager.lastName'], b['manager.lastName'], isAsc);
         case 'client':
           return this.compare(a['client'], b['client'], isAsc);
         case 'dueDate':

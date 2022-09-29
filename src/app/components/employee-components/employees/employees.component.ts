@@ -19,11 +19,13 @@ export class EmployeesComponent implements OnInit, AfterViewInit {
   employee: Employee = new Employee();
   allEmployees = [];
   sortedEmployees!: any[];
-  displayedColumns: string[] = ['firstName', 'lastName', 'email', 'phone', 'address', 'department']; // countryCode?, address, + index ?
+  displayedColumns: string[] = ['firstName', 'lastName','email', 'phone', 'department','countryCode'];
+  displayedColumns_L = ['firstName', 'lastName','email', 'phone', 'address', 'department','countryCode'];
+  displayedColumns_S = ['firstName', 'lastName', 'contact', 'department'];
   dataSource = new MatTableDataSource(this.sortedEmployees);
   
   @ViewChild(MatPaginator) paginator = <MatPaginator>{};
-  // @ViewChild(MatSort) sort = <MatSort>{}; // neccessary?
+  // @ViewChild(MatSort) sort = <MatSort>{}; //
 
   constructor(
     private dialog: MatDialog,
@@ -74,7 +76,9 @@ export class EmployeesComponent implements OnInit, AfterViewInit {
           return this.compare(a['lastName'], b['lastName'], isAsc);
         case 'zip-code':
           return this.compare(a['zipCode'], b['zipCode'], isAsc);
-        case ('country-code'):
+        case 'department':
+          return this.compare(a['department'], b['department'], isAsc);
+        case 'countryCode':
           return this.compare(a['countryCode'], b['countryCode'], isAsc);
         default:
           return 0;

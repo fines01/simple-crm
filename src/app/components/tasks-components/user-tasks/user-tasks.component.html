@@ -1,0 +1,46 @@
+<div *ngIf="userData" class="card-container">
+
+  <mat-card *ngFor="let task of userData.userTasks, let i = index" class="task-card">
+
+      <mat-card-content class="card-content">
+
+        <mat-card-title>
+          <h3 class="task-title">{{ i+1 }}.: {{ task.taskTitle }}</h3>
+        </mat-card-title>
+
+        <p>{{ task.taskBody }}</p>
+
+        <div class="task-category">
+          <mat-hint class="label-small">Category:</mat-hint> <br>
+          <span>{{ task.taskCategory }}</span>
+        </div>
+
+        <div class="task-classification">
+          <mat-hint class="label-small">Urgency</mat-hint>
+          <mat-icon color="{{ task.taskUrgency === 'urgent' ? 'warn' : 'accent' }}">priority_high</mat-icon>
+          <!-- <br> -->
+          <mat-hint class="label-small">Importance</mat-hint>
+          <mat-icon color="{{ task.taskImportance === 'important' ? 'warn' : 'accent' }}">label_important</mat-icon>
+        </div>
+
+
+        
+        <!-- Buttons -->
+        <div class="card-buttons">
+          <button mat-button (click)="editTask(i)">Edit</button>
+          <button mat-button (click)="removeTask(i)">Delete</button>
+        </div>
+
+      </mat-card-content>
+    
+  </mat-card>
+
+
+</div>
+
+<!-- <div class="button-container"> -->
+<button mat-fab color="accent" class="add-btn" #tooltip="matTooltip" matTooltip="Add a new task"
+  [matTooltipPosition]="'above'" matTooltipHideDelay="500" (click)="openDialog()">
+  <!-- [matTooltipPosition]="position.value!" -->
+  <mat-icon>add</mat-icon>
+</button>

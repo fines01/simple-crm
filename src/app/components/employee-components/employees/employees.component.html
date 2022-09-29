@@ -3,7 +3,7 @@
 
 <h3 class="table-caption-outside">Employees</h3>
 
-<mat-form-field appearance="standard">
+<mat-form-field appearance="standard" color="accent">
   <mat-label>Filter Employees</mat-label>
   <input matInput (keyup)="applyFilter($event)" placeholder="Filter" #input>
 </mat-form-field>
@@ -24,6 +24,12 @@
       <td mat-cell *matCellDef="let dataRow"> {{dataRow.lastName}} </td>
     </ng-container>
 
+    <!-- small views:? -->
+     <ng-container matColumnDef="contact">
+      <th mat-header-cell *matHeaderCellDef>Contact</th>
+      <td mat-cell *matCellDef="let dataRow"> {{dataRow.email}} <br> {{dataRow.phone}} </td>
+    </ng-container>
+
     <ng-container matColumnDef="email">
       <th mat-header-cell *matHeaderCellDef>Email</th>
       <td mat-cell *matCellDef="let dataRow"> {{dataRow.email}} </td>
@@ -40,13 +46,13 @@
     </ng-container>
 
     <ng-container matColumnDef="department">
-      <th mat-header-cell *matHeaderCellDef>Department</th>
+      <th mat-sort-header mat-header-cell *matHeaderCellDef>Department</th>
       <td mat-cell *matCellDef="let dataRow"> {{dataRow.department}} </td>
     </ng-container>
 
     <ng-container matColumnDef="countryCode">
-      <th mat-sort-header="country-code" mat-header-cell *matHeaderCellDef>Country</th>
-      <td mat-cell *matCellDef="let dataRow"> {{dataRow.countryCode}} </td>
+      <th mat-sort-header mat-header-cell *matHeaderCellDef>Country</th>
+      <td mat-cell *matCellDef="let dataRow" class="country-code-td"> {{dataRow.countryCode}} </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>

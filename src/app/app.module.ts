@@ -11,11 +11,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { ClientsComponent } from './client-components/clients/clients.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { ClientsComponent } from './components/client-components/clients/clients.component';
 import { MatCardModule } from '@angular/material/card';
-import { ClientDetailComponent } from './client-components/client-detail/client-detail.component';
-import { DialogAddClientComponent } from './client-components/dialog-add-client/dialog-add-client.component';
+import { ClientDetailComponent } from './components/client-components/client-detail/client-detail.component';
+import { DialogAddClientComponent } from './components/client-components/dialog-add-client/dialog-add-client.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -38,33 +38,37 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { DialogEditClientComponent } from './client-components/dialog-edit-client/dialog-edit-client.component';
-import { DialogEditAddressComponent } from './client-components/dialog-edit-address/dialog-edit-address.component';
-import { DialogDeleteClientComponent } from './client-components/dialog-delete-client/dialog-delete-client.component';
-import { EmployeesComponent } from './employee-components/employees/employees.component';
-import { DialogAddEmployeeComponent } from './employee-components/dialog-add-employee/dialog-add-employee.component';
-import { EmployeeDetailComponent } from './employee-components/employee-detail/employee-detail.component';
-import { DialogEditEmployeeComponent } from './employee-components/dialog-edit-employee/dialog-edit-employee.component';
-import { DialogEditEmployeeAddressComponent } from './employee-components/dialog-edit-employee-address/dialog-edit-employee-address.component';
-import { DialogDeleteEmployeeComponent } from './employee-components/dialog-delete-employee/dialog-delete-employee.component';
-import { ProjectsComponent } from './project-components/projects/projects.component';
-import { DialogAddProjectComponent } from './project-components/dialog-add-project/dialog-add-project.component';
-import { DialogEditProjectComponent } from './project-components/dialog-edit-project/dialog-edit-project.component';
-import { ProjectDetailComponent } from './project-components/project-detail/project-detail.component';
-import { DialogDeleteProjectComponent } from './project-components/dialog-delete-project/dialog-delete-project.component';
+import { DialogEditClientComponent } from './components/client-components/dialog-edit-client/dialog-edit-client.component';
+import { DialogEditAddressComponent } from './components/client-components/dialog-edit-address/dialog-edit-address.component';
+import { DialogDeleteClientComponent } from './components/client-components/dialog-delete-client/dialog-delete-client.component';
+import { EmployeesComponent } from './components/employee-components/employees/employees.component';
+import { DialogAddEmployeeComponent } from './components/employee-components/dialog-add-employee/dialog-add-employee.component';
+import { EmployeeDetailComponent } from './components/employee-components/employee-detail/employee-detail.component';
+import { DialogEditEmployeeComponent } from './components/employee-components/dialog-edit-employee/dialog-edit-employee.component';
+import { DialogEditEmployeeAddressComponent } from './components/employee-components/dialog-edit-employee-address/dialog-edit-employee-address.component';
+import { DialogDeleteEmployeeComponent } from './components/employee-components/dialog-delete-employee/dialog-delete-employee.component';
+import { ProjectsComponent } from './components/project-components/projects/projects.component';
+import { DialogAddProjectComponent } from './components/project-components/dialog-add-project/dialog-add-project.component';
+import { DialogEditProjectComponent } from './components/project-components/dialog-edit-project/dialog-edit-project.component';
+import { ProjectDetailComponent } from './components/project-components/project-detail/project-detail.component';
+import { DialogDeleteProjectComponent } from './components/project-components/dialog-delete-project/dialog-delete-project.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ReactiveFormsModule } from '@angular/forms';
-import { DialogEditProjectEmployeesComponent } from './project-components/dialog-edit-project-employees/dialog-edit-project-employees.component';
-import { SignInComponent } from './auth-components/sign-in/sign-in.component';
-import { SignUpComponent } from './auth-components/sign-up/sign-up.component';
-import { VerifyEmailComponent } from './auth-components/verify-email/verify-email.component';
+import { DialogEditProjectEmployeesComponent } from './components/project-components/dialog-edit-project-employees/dialog-edit-project-employees.component';
+import { SignInComponent } from './components/auth-components/sign-in/sign-in.component';
+import { SignUpComponent } from './components/auth-components/sign-up/sign-up.component';
+import { VerifyEmailComponent } from './components/auth-components/verify-email/verify-email.component';
 import { AuthService } from './services/auth.service';
-import { ResetPasswordComponent } from './auth-components/reset-password/reset-password.component';
-import { HomeComponent } from './home/home.component';
-import { ToolbarComponent } from './toolbar/toolbar.component';
-import { SidenavComponent } from './sidenav/sidenav.component';
-import { UserTasksComponent } from './user-tasks/user-tasks.component';
+import { ResetPasswordComponent } from './components/auth-components/reset-password/reset-password.component';
+import { HomeComponent } from './components/home/home.component';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { SidenavComponent } from './components/sidenav/sidenav.component';
+import { UserTasksComponent } from './components/tasks-components/user-tasks/user-tasks.component';
 import { ConfirmPasswordDirective } from './directives/confirm-password.directive';
+import { DialogAddTaskComponent } from './components/tasks-components/dialog-add-task/dialog-add-task.component';
+// import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatRadioModule}  from '@angular/material/radio';
+
 
 
 
@@ -98,7 +102,8 @@ import { ConfirmPasswordDirective } from './directives/confirm-password.directiv
     ToolbarComponent,
     SidenavComponent,
     UserTasksComponent,
-    ConfirmPasswordDirective
+    ConfirmPasswordDirective,
+    DialogAddTaskComponent
   ],
   imports: [
     BrowserModule,
@@ -116,6 +121,8 @@ import { ConfirmPasswordDirective } from './directives/confirm-password.directiv
     MatFormFieldModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    // MatCheckboxModule,
+    MatRadioModule,
     MatProgressBarModule,
     FormsModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),

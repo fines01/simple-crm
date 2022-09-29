@@ -1,19 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { ClientsComponent } from './client-components/clients/clients.component';
-import { ClientDetailComponent } from './client-components/client-detail/client-detail.component';
-import { EmployeesComponent } from './employee-components/employees/employees.component';
-import { EmployeeDetailComponent } from './employee-components/employee-detail/employee-detail.component';
-import { ProjectsComponent } from './project-components/projects/projects.component';
-import { ProjectDetailComponent } from './project-components/project-detail/project-detail.component';
-import { SignInComponent } from './auth-components/sign-in/sign-in.component';
-import { SignUpComponent } from './auth-components/sign-up/sign-up.component';
-import { ResetPasswordComponent } from './auth-components/reset-password/reset-password.component';
-import { VerifyEmailComponent } from './auth-components/verify-email/verify-email.component';
-import { HomeComponent } from './home/home.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { ClientsComponent } from './components/client-components/clients/clients.component';
+import { ClientDetailComponent } from './components/client-components/client-detail/client-detail.component';
+import { EmployeesComponent } from './components/employee-components/employees/employees.component';
+import { EmployeeDetailComponent } from './components/employee-components/employee-detail/employee-detail.component';
+import { ProjectsComponent } from './components/project-components/projects/projects.component';
+import { ProjectDetailComponent } from './components/project-components/project-detail/project-detail.component';
+import { SignInComponent } from './components/auth-components/sign-in/sign-in.component';
+import { SignUpComponent } from './components/auth-components/sign-up/sign-up.component';
+import { ResetPasswordComponent } from './components/auth-components/reset-password/reset-password.component';
+import { VerifyEmailComponent } from './components/auth-components/verify-email/verify-email.component';
+import { HomeComponent } from './components/home/home.component';
 import { AuthGuard } from './auth.guard';
-import { UserTasksComponent } from './user-tasks/user-tasks.component';
+import { UserTasksComponent } from './components/tasks-components/user-tasks/user-tasks.component';
 
 const routes: Routes = [
   // {path: '404', component: NotFoundComponent} // TODO maybe make 404 page

@@ -1,24 +1,23 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { AuthService } from '../services/auth.service';
-
-import { FirestoreService } from '../services/firestore.service';
+import { AuthService } from '../../services/auth.service';
+import { FirestoreService } from '../../services/firestore.service';
 
 @Component({
-  selector: 'app-user-tasks',
-  templateUrl: './user-tasks.component.html',
-  styleUrls: ['./user-tasks.component.scss']
+  selector: 'app-dashboard',
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.scss']
 })
-export class UserTasksComponent implements OnInit, OnDestroy {
+export class DashboardComponent implements OnInit, OnDestroy {
 
-  // TODO one sub?
   userData!: any;
   authUser!: any;
+  userID!: string;
+
   authStateSubscription!: Subscription;
   userSubscription!: Subscription;
 
-  @Input() testVar!: number;
-  
+  //TODO move
   userTasks: object[] = [];
   taskBody!: string;
 
@@ -51,6 +50,10 @@ export class UserTasksComponent implements OnInit, OnDestroy {
         // if (this.user) this.userTasks = this.user.userTasks
       });
   }
+
+  // signOut() {
+  //   this.authService.signOut()
+  // }
 
   //move to user tasks 
   addTask() {

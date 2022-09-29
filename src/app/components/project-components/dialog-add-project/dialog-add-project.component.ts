@@ -47,6 +47,7 @@ export class DialogAddProjectComponent implements OnInit {
     this.dialogRef.close();  
   }
 
+  // maybe put into a util file (needed also in other components like: tasks: task body)
   countStrLength() {
     this.descriptionLength = this.project.description.length;
     this.descriptionCounter = this.descriptionMaxLength - this.project.description.length;
