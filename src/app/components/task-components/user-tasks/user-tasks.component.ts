@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { AuthService } from '../../../services/auth.service';
 import { DialogAddTaskComponent } from '../dialog-add-task/dialog-add-task.component';
 import { FirestoreService } from '../../../services/firestore.service';
+import { DialogEditTaskComponent } from '../dialog-edit-task/dialog-edit-task.component';
 
 @Component({
   selector: 'app-user-tasks',
@@ -18,6 +19,8 @@ export class UserTasksComponent implements OnInit, OnDestroy {
   authStateSubscription!: Subscription;
   userSubscription!: Subscription;
   newTaskSubscription!: Subscription;
+  updatedTaskSubscription!: Subscription;
+
   taskBodyMaxLength: number = 300;
   
   userTasks: object[] = [];
@@ -37,6 +40,7 @@ export class UserTasksComponent implements OnInit, OnDestroy {
     if (this.authStateSubscription) this.authStateSubscription.unsubscribe();
     if (this.userSubscription) this.userSubscription.unsubscribe();
     if (this.newTaskSubscription) this.newTaskSubscription.unsubscribe();
+    if (this.updatedTaskSubscription) this.updatedTaskSubscription.unsubscribe();
   }
 
   subscribeAuthState() {
@@ -59,27 +63,39 @@ export class UserTasksComponent implements OnInit, OnDestroy {
     this.fireService.update({userTasks:this.userData.userTasks}, this.authUser.uid, 'users');
   }
 
-  removeTask(index: number) {
-    this.userData.userTasks.splice(index, 1);
-    this.updateTasks();
-  }
-
-  editTask(index: number) {
-
-  }
-
-  openDialog() {
+  
+  addTaskDialog() {
     let dialogRef = this.dialog.open(DialogAddTaskComponent);
     
     dialogRef.componentInstance.bodyMaxLength = this.taskBodyMaxLength;
     this.newTaskSubscription = dialogRef.afterClosed()
+    .subscribe( (result) => {
+      if (result) {
+        this.userData.userTasks.push(result);
+        this.updateTasks();
+      }
+    });
+    
+  }
+  
+  onDeleteTask(index:number) {
+    this.userData.userTasks.splice(index, 1);
+    this.updateTasks();
+  }
+
+  onEditTask(index:number) {
+    let dialogRef = this.dialog.open(DialogEditTaskComponent);
+    dialogRef.componentInstance.targetTask = this.userData.userTasks[index];
+
+    this.updatedTaskSubscription = dialogRef.afterClosed()
       .subscribe( (result) => {
         if (result) {
-          this.userData.userTasks.push(result);
+          console.log( 'updated task: ', result)
+          this.userData.userTasks[index] = result;
           this.updateTasks();
         }
       });
-    
   }
+  
 
 }

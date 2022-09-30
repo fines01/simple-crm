@@ -1,0 +1,18 @@
+<div *ngIf="userData" class="card-container">
+
+  <app-task-card
+    class="task-card"
+    *ngFor="let task of userData.userTasks, let i = index"
+    [task]="task"
+    [index]="i"
+    (deleteTask)="onDeleteTask($event)"
+    (editTask)="onEditTask($event)">
+  </app-task-card>
+  
+ </div>
+
+<!-- <div class="button-container"> -->
+<button mat-fab color="accent" class="add-btn" #tooltip="matTooltip" matTooltip="Add a new task"
+  [matTooltipPosition]="'above'" matTooltipHideDelay="500" (click)="addTaskDialog()">
+  <mat-icon>add</mat-icon>
+</button>

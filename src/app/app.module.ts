@@ -63,11 +63,13 @@ import { ResetPasswordComponent } from './components/auth-components/reset-passw
 import { HomeComponent } from './components/home/home.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
-import { UserTasksComponent } from './components/tasks-components/user-tasks/user-tasks.component';
+import { UserTasksComponent } from './components/task-components/user-tasks/user-tasks.component';
 import { ConfirmPasswordDirective } from './directives/confirm-password.directive';
-import { DialogAddTaskComponent } from './components/tasks-components/dialog-add-task/dialog-add-task.component';
+import { DialogAddTaskComponent } from './components/task-components/dialog-add-task/dialog-add-task.component';
 // import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule}  from '@angular/material/radio';
+import { DialogEditTaskComponent } from './components/task-components/dialog-edit-task/dialog-edit-task.component';
+import { TaskCardComponent } from './components/task-components/task-card/task-card.component';
 
 
 
@@ -103,7 +105,9 @@ import { MatRadioModule}  from '@angular/material/radio';
     SidenavComponent,
     UserTasksComponent,
     ConfirmPasswordDirective,
-    DialogAddTaskComponent
+    DialogAddTaskComponent,
+    DialogEditTaskComponent,
+    TaskCardComponent
   ],
   imports: [
     BrowserModule,

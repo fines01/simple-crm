@@ -1,10 +1,10 @@
 export interface UserTask {
 
-    taskTitle: string;
-    taskBody: string;
-    taskUrgency: string | undefined;
-    taskImportance: string | undefined;
-    taskCategory: string;
+    title: string;
+    body: string;
+    urgency: string | undefined;
+    importance: string | undefined;
+    category: string;
     //bodyMaxLength: number; //
     
 }

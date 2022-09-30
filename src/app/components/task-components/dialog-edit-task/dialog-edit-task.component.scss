@@ -1,0 +1,32 @@
+.check-row {
+  display: flex;
+  margin: 16px 0;
+  align-content: center;
+  align-items: center;
+  // height: 60px;
+}
+
+.check-label {
+  // margin: 0 8px;
+  margin-right: 24px;
+  width: 100%;
+}
+
+// .mat-radio-button~.mat-radio-button {
+//   margin-left: 16px;
+// }
+
+.task-options {
+  display: flex;
+  margin-top: 8px;
+}
+
+.check-row {
+  text-transform: capitalize;
+}
+
+mat-radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}

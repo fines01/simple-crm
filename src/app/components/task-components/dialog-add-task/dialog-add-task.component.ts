@@ -12,11 +12,11 @@ export class DialogAddTaskComponent implements OnInit {
 
   loading: boolean = false;
   
-  taskTitle!: string;
-  taskBody!: string;
-  taskUrgency!: string;
-  taskImportance!: string;
-  taskCategory!: string;
+  title!: string;
+  body!: string;
+  urgency!: string;
+  importance!: string;
+  category!: string;
   
   bodyMaxLength!: number;;
   bodyLength!: number;
@@ -25,7 +25,7 @@ export class DialogAddTaskComponent implements OnInit {
   // where to put those: maybe into user.tasks (as parent)
   urgencyOptions: string[] = ['urgent', 'not urgent'];
   importanceOptions: string[] = ['important', 'not important']
-  eisenhowerMatrixOptions: string[] = ['Do now','Delegate','Do later','Ignore']; //
+  //eisenhowerMatrixOptions: string[] = ['Do now','Delegate','Do later','Ignore']; //
   taskCategories: string[] = ['To Do (Backlog)','Do Next','In Progress', 'Testing', 'Done']
 
   constructor(
@@ -33,22 +33,24 @@ export class DialogAddTaskComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.taskCategory = this.taskCategories[0];
+    this.category = this.taskCategories[0];
+    this.urgency = this.urgencyOptions[1];
+    this.importance = this.importanceOptions[1];
   }
 
   // maybe put into a util file (needed also in other components like: tasks: task body)
   countStrLength() {
     //this.bodyLength = this.project.description.length;
-    this.bodyCharacterCounter = this.bodyMaxLength - this.taskBody.length;
+    this.bodyCharacterCounter = this.bodyMaxLength - this.body.length;
   }
 
   setTaskData() {
     const task: UserTask = {
-      taskTitle: this.taskTitle,
-      taskBody: this.taskBody,
-      taskUrgency: this.taskUrgency,
-      taskImportance: this.taskImportance,
-      taskCategory: this.taskCategory,
+      title: this.title,
+      body: this.body ? this.body : '', // body can be empty
+      urgency: this.urgency,
+      importance: this.importance,
+      category: this.category,
       //bodyMaxLength: this.bodyMaxLength,
     }
     return task;

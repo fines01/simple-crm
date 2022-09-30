@@ -1,0 +1,118 @@
+// .task-card {
+//   width: 225px;
+//   height: 100%;
+//   transition: all 235ms;
+//   position: relative;
+// }
+
+button {
+  background: rgba(41, 41, 41, 0.3);
+}
+
+.card-buttons {
+  margin-top: 8px;
+  display: flex;
+  justify-content: space-between;
+  // gap: 16px;
+}
+
+.delete-btn {
+
+  &:hover {
+    background-color: rgb(244, 67, 54, 0.25);
+  }
+
+}
+
+.edit-btn {
+
+  &:hover {
+    background-color: rgb(105, 240, 174, 0.25);
+  }
+}
+
+.task-title {
+  font-weight: 500;
+  margin-bottom: 8px;
+  margin-right: 45px;
+}
+
+.task-body {
+  margin-bottom: 16px;
+}
+
+.task-category {
+  margin-bottom: 8px;
+  font-size: 12px;
+  margin-right: 16px;
+}
+
+.task-urgency,
+.task-importance {
+  margin-top: 14px;
+}
+
+.task-classification {
+  display: flex;
+  // justify-content: space-between;
+}
+
+.label-small {
+  font-size: 12px;
+}
+
+.card-content {
+  height: 225px;
+  overflow: auto;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  margin-right: -16px;
+  padding-right: 16px;
+
+  p {
+    white-space: pre-line;
+    word-wrap: break-word;
+    line-height: 1.2;
+  }
+
+  &::-webkit-scrollbar {
+    width: 0.35rem;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: #424242;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #69f0ae;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #00b395;
+  }
+}
+
+.task-flags {
+  display: flex;
+  position: absolute;
+  top: -13px;
+  right: 5px;
+}
+
+.mat-card-title {
+  width: 100%;
+  position: relative;
+  box-sizing: border-box;
+
+  mat-icon {
+    cursor: help;
+    width: 16px;
+    height: 16px;
+    overflow: visible;
+  }
+}

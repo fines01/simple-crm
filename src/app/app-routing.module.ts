@@ -13,7 +13,7 @@ import { ResetPasswordComponent } from './components/auth-components/reset-passw
 import { VerifyEmailComponent } from './components/auth-components/verify-email/verify-email.component';
 import { HomeComponent } from './components/home/home.component';
 import { AuthGuard } from './auth.guard';
-import { UserTasksComponent } from './components/tasks-components/user-tasks/user-tasks.component';
+import { UserTasksComponent } from './components/task-components/user-tasks/user-tasks.component';
 
 const routes: Routes = [
   // {path: '404', component: NotFoundComponent} // TODO maybe make 404 page

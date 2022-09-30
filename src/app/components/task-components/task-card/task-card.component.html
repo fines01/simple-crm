@@ -1,0 +1,33 @@
+ <mat-card *ngIf="task" class="task-card">
+    <mat-card-content class="card-content">
+      <mat-card-title>
+        <h3 class="task-title">{{ task.title }}</h3>
+        <div class="task-flags">
+          <div *ngIf="(task.urgency == 'urgent')" class="task-urgency">
+            <mat-icon color="warn" #tooltip="matTooltip" matTooltip="{{ task.urgency }}" [matTooltipPosition]="'above'">priority_high</mat-icon>
+          </div>
+          <div *ngIf="!(task.urgency === 'urgent')" class="task-urgency">
+            <mat-icon color="accent" #tooltip="matTooltip" matTooltip="{{ task.urgency }}" [matTooltipPosition]="'above'">priority_high</mat-icon>
+          </div>
+          <div *ngIf="(task.importance == 'important')" class="task-importance">
+            <mat-icon color="warn" #tooltip="matTooltip" matTooltip="{{ task.importance }}" [matTooltipPosition]="'above'">label_important</mat-icon>
+          </div>
+          <div *ngIf="!(task.importance == 'important')" class="task-importance">
+            <mat-icon color="accent" #tooltip="matTooltip" matTooltip="{{ task.importance }}" [matTooltipPosition]="'above'">label_important</mat-icon>
+          </div>
+        </div>
+      </mat-card-title>
+      <p>{{ task.body }}</p>
+      <div class="task-classification">
+        <div class="task-category">
+          <mat-hint class="label-small">Category:</mat-hint> <br>
+          <span>{{ task.category }}</span>
+        </div>
+      </div>
+      <!-- Buttons -->
+      <div class="card-buttons">
+        <button class="edit-btn" mat-button (click)="emitEditEvent()">Edit</button>
+        <button class="delete-btn" mat-button (click)="emitDeleteEvent()">Delete</button>
+      </div>
+    </mat-card-content>
+  </mat-card>
