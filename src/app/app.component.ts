@@ -41,7 +41,8 @@ export class AppComponent implements OnInit, OnDestroy{
   }
   
   isHome() {
-    return this.currentRoute && this.currentRoute.includes('home');
+    if (this.currentRoute && this.currentRoute.includes('home')) return true;
+    return false;
   }
 
   isLoggedIn() {
@@ -61,9 +62,9 @@ export class AppComponent implements OnInit, OnDestroy{
     if (this.routerSubscription) this.routerSubscription.unsubscribe();
   }
 
-  isAuth() {
-    return this.authService.isLoggedIn;
-  }
+  // isAuth() {
+  //   return this.authService.isLoggedIn;
+  // }
 
   onOpenDrawer() {
     if (this.drawer) this.drawer.toggle();

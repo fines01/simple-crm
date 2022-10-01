@@ -26,6 +26,7 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
   managerColorCode!: string; // color-code of employee who manages the project
   junctionTableDocs!: any[];
   localFormatDate!: string;
+  dueDateExpired!: boolean;
   
   projectSubscription!: Subscription;
   employeesSubscription!: Subscription;
@@ -53,6 +54,7 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
       this.assigneesSubscription, 
       this.managerSubscription
     ];
+
   }
 
   ngOnDestroy(): void {
@@ -76,6 +78,7 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
         this.project = new Project(project); // convert JSON iton Objekt
         if (project && project.managerID && project.managerID.trim().length > 0) this.subscribeProjectmanager(project.managerID);
         this.localFormatDate = new Date(project.dueDate).toLocaleDateString();
+        this.dueDateExpired = this.checkDateExpired();
       });
   }
 
@@ -116,6 +119,19 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
     });
   }
 
+  setMinDate() {
+    let now = new Date();
+    return new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59);
+  }
+
+  checkDateExpired() {
+    let today = new Date();
+    let endOfCurrentDay = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 23, 59 ,59 );
+    let dueDate = new Date(this.project.dueDate);
+    let endOfDueDate = new Date(dueDate.getFullYear(), dueDate.getMonth(), 23, 59, 59);
+    return endOfCurrentDay >= endOfDueDate
+  }
+
   // wh
   openDialog(dialogComponent: ComponentType<any>) {
     let dialog: MatDialogRef<any> = this.dialog.open(dialogComponent);
@@ -128,6 +144,7 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
     dialog.componentInstance.projectID = this.projectID;
     dialog.componentInstance.employees = this.employees;
     dialog.componentInstance.managerID = this.project.managerID;
+    dialog.componentInstance.dueDateExpired = this.dueDateExpired;
   }
   
   openEditDetails() {

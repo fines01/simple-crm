@@ -5,7 +5,7 @@
     <app-sidenav></app-sidenav>
   </mat-drawer>
 
-  <app-toolbar (openDrawer)="onOpenDrawer()"></app-toolbar>
+  <app-toolbar [isHomepage]="isHome()" [usrIsAuth]="isLoggedIn()" (openDrawer)="onOpenDrawer()"></app-toolbar>
 
   <div class="content-container">
     <router-outlet></router-outlet>

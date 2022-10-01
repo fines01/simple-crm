@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { FirestoreService } from 'src/app/services/firestore.service';
@@ -9,7 +9,7 @@ import { Project } from 'src/models/project.class';
   templateUrl: './dialog-edit-project.component.html',
   styleUrls: ['./dialog-edit-project.component.scss']
 })
-export class DialogEditProjectComponent implements OnInit {
+export class DialogEditProjectComponent implements OnInit, AfterViewInit {
 
   loading = false;
   project!: Project;
@@ -21,6 +21,9 @@ export class DialogEditProjectComponent implements OnInit {
   descriptionLength!: number;
   descriptionMaxLength!: number;
   minDuedate!: Date;
+  dueDateExpired!: boolean;
+
+  @ViewChild('dateInputElement') dateInput!: ElementRef;
 
   constructor(
     private dialogRef: MatDialogRef<DialogEditProjectComponent>, 
@@ -33,7 +36,18 @@ export class DialogEditProjectComponent implements OnInit {
     if(date instanceof Date) this.dueDate = date;
     this.descriptionMaxLength = this.project.descriptionMaxLength;
     this.countStrLength();
-    this.minDuedate = new Date();
+    this.minDuedate = this.setMinDate();
+  }
+  
+  ngAfterViewInit(): void {
+    setTimeout( ()=> {
+      if (this.dueDateExpired) this.dateInput.nativeElement.click();
+    });
+  }
+
+   setMinDate() {
+    let now = new Date();
+    return new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59);
   }
 
   closeDialog() {
@@ -48,12 +62,13 @@ export class DialogEditProjectComponent implements OnInit {
   saveEdit() {
     this.loading = true;
     this.project.managerID = this.managerID;// this.manager.objID;
+    this.project.dueDate = this.dueDate.getTime();
     this.fireService.update(this.project.toJSON(), this.projectID ,'projects')
       .then( (res)=>{
-        console.info('%c SUCCESS updating project ', 'color: white; background: #333399');
+        //console.info('%c SUCCESS updating project ', 'color: white; background: #333399');
         this.afterSaveSuccess();
       })
-      .catch ( (err) => console.warn('%c ERROR updating employee: '+err, 'color: blue') )
+      .catch ( (err) => console.warn('%c ERROR updating employee: '+err, 'color: orange') )
       .finally (()=> console.info('%c Project update completed ', 'color: white; background: #333399'));
   }
 

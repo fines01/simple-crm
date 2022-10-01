@@ -1,7 +1,7 @@
 <mat-toolbar color="primary" class="toolbar">
   <mat-toolbar-row>
     <!-- IF AUTH && NOT HOME -->
-    <button *ngIf="isLoggedIn()" (click)="emitOpenDrawerEvent()" color="accent" mat-icon-button class=""
+    <button *ngIf="usrIsAuth && !isHomepage" (click)="emitOpenDrawerEvent()" color="accent" mat-icon-button class=""
       aria-label="Example icon-button with menu icon" #tooltip="matTooltip" matTooltip="Toggle side-navigation">
       <mat-icon>menu</mat-icon>
     </button>
@@ -16,7 +16,7 @@
       </button> -->
 
     <!-- IF UNAUTH: -->
-    <span *ngIf="!isLoggedIn()" class="unauth-navicons">
+    <span *ngIf="!usrIsAuth" class="unauth-navicons">
       <span class="navbar-icon-label">Log In</span>
       <button mat-icon-button class="" [routerLink]="'/home/sign-in'">
         <mat-icon #tooltip="matTooltip" matTooltip="">login</mat-icon>
@@ -29,7 +29,7 @@
     </span>
 
     <!-- IF AUTH: -->
-    <span *ngIf="isLoggedIn()" class="auth-navicons">
+    <span *ngIf="usrIsAuth" class="auth-navicons">
       <button mat-icon-button class="settings-btn" aria-label="Settings icon">
         <mat-icon #tooltip="matTooltip" matTooltip="Open settings">settings</mat-icon>
       </button>

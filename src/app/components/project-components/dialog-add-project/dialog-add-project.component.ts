@@ -38,8 +38,13 @@ export class DialogAddProjectComponent implements OnInit {
     ngOnInit(): void {
       this.subscribeEmployees();
       this.descriptionMaxLength = this.project.descriptionMaxLength;
-      this.minDuedate = new Date();
+      this.minDuedate = this.setMinDate();
     }
+
+    setMinDate() {
+    let now = new Date();
+    return new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59);
+  }
     
   //getErrorMessages() { }
   

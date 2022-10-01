@@ -12,7 +12,7 @@
         <mat-label>Project Name</mat-label>
         <input [(ngModel)]="project.name" matInput [disabled]="loading" placeholder="Project name" name="name"
           #nameInput="ngModel" required maxlength="25" class="form-control">
-        <mat-hint *ngIf="nameInput.pristine">Enter a project name (max. 15 characters)</mat-hint>
+        <mat-hint *ngIf="!nameInput.errors">Enter a project name (max. 15 characters)</mat-hint>
         <mat-error *ngIf="nameInput.errors && nameInput.errors['required']">Project name is required</mat-error>
         <mat-error *ngIf="nameInput.errors && nameInput.errors['maxlength']">Name should have max. 15 characters</mat-error>
       </mat-form-field>
@@ -38,7 +38,7 @@
             {{ e.firstName }} {{ e.lastName }}
           </mat-option>
         </mat-select>
-        <mat-hint *ngIf="managerInput.pristine">Responsible project manager</mat-hint>
+        <mat-hint *ngIf="!managerInput.invalid">Responsible project manager</mat-hint>
         <mat-error *ngIf="managerInput.invalid">Please enter a manager</mat-error>
       </mat-form-field>
 
@@ -46,7 +46,7 @@
         <mat-label>Client name</mat-label>
         <input [(ngModel)]="project.client" matInput [disabled]="loading" placeholder="Client name" required name="client"
           #clientInput="ngModel" required maxlength="25" class="form-control">
-        <mat-hint *ngIf="clientInput.pristine">Enter main client</mat-hint>
+        <mat-hint *ngIf="!clientInput.invalid">Enter main client</mat-hint>
         <mat-error *ngIf="clientInput.invalid">Enter a client name (max 15 characters)</mat-error>
       </mat-form-field>
     </div>
@@ -56,9 +56,10 @@
       <mat-form-field appearance="outline" color="accent" class="width-100">
         <mat-label>Due date</mat-label>
         <input [(ngModel)]="dueDate" matInput [matDatepicker]="picker1" [min]="minDuedate" [disabled]="loading" placeholder="Due date"
-          required name="dueDate" #dateInput="ngModel" class="form-control">
-        <mat-hint *ngIf="dateInput.pristine">Please enter the due date (MM/DD/YYYY)</mat-hint>
-        <mat-error *ngIf="dateInput.invalid">Due date is required</mat-error>
+          required name="dueDate" #dateInput="ngModel" class="form-control" #dateInputElement>
+        <mat-hint *ngIf="!dateInput.invalid && !dueDateExpired">Due date (MM/DD/YYYY)</mat-hint>
+        <mat-error *ngIf="dateInput.invalid && !dueDateExpired">Due date is required</mat-error>
+        <mat-error *ngIf="dueDateExpired">Due date is expired!</mat-error>
         <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
         <mat-datepicker #picker1></mat-datepicker>
       </mat-form-field>
@@ -70,7 +71,7 @@
   <!-- Buttons -->
   <div mat-dialog-actions>
     <button mat-button (click)="closeDialog()">Cancel</button>
-    <button mat-button [disabled]="!editProjectForm.form.valid" (click)="editProjectForm.form.valid && saveEdit()" cdkFocusInitial>Save</button>
+    <button mat-button [disabled]="!editProjectForm.form.valid" (click)="editProjectForm.form.valid && saveEdit()">Save</button>
   </div>
 
 </div>
