@@ -10,11 +10,11 @@ import { DialogEditTaskComponent } from '../dialog-edit-task/dialog-edit-task.co
 })
 export class TaskCardComponent implements OnInit {
 
-  @Input() task!: UserTask;
+  @Input() task!: UserTask; // issue? prop is bound and value automatically updates card when writing in edit form?
   @Input() index!: number;
 
   @Output() deleteTask = new EventEmitter<number>();
-  @Output() editTask = new EventEmitter<number>();
+  @Output() editTask = new EventEmitter<[number, UserTask]>();
 
   constructor(private dialog: MatDialog) { }
 
@@ -26,7 +26,7 @@ export class TaskCardComponent implements OnInit {
   }
 
   emitEditEvent() {
-    this.editTask.emit(this.index);
+    this.editTask.emit([this.index, this.task]);
   }
 
 }

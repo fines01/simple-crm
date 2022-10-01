@@ -81,3 +81,53 @@ mat-card {
   padding-bottom: 104px; //32px margin-bottom of btn, 56px btn height, 16px distamce to btn below
   position: relative;
 }
+
+@media screen and (min-width: 1025px) {
+  .address-col-country {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 1024px){
+  .mat-column-countryCode {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 769px) {
+  .mat-column-contact {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .mat-column-email,
+  .mat-column-phone {
+    display:none;
+  }
+}
+
+@media screen and (max-width:978px) {
+  .m-lg {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .mat-column-address {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .mat-column-countryCode {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 339px) {
+  .mat-column-contact {
+    display: none;
+  }
+
+}

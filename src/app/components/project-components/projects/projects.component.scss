@@ -73,3 +73,21 @@ mat-card {
   padding-bottom: 104px; //32px margin-bottom of btn, 56px btn height, 16px distamce to btn below
   position: relative;
 }
+
+@media screen and (max-width: 600px) {
+  .mat-column-dueDate {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .mat-column-status {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .mat-column-client {
+    display: none;
+  }
+}

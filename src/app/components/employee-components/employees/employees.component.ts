@@ -1,7 +1,6 @@
 import { AfterViewInit, ViewChild, Component, OnInit} from '@angular/core';
 import { Employee } from 'src/models/employee.class';
 import { MatDialog } from '@angular/material/dialog';
-// import { DialogAddEmployeeComponent } from '../dialog-add-employee/dialog-add-employee.component';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Sort, MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -19,9 +18,9 @@ export class EmployeesComponent implements OnInit, AfterViewInit {
   employee: Employee = new Employee();
   allEmployees = [];
   sortedEmployees!: any[];
-  displayedColumns: string[] = ['firstName', 'lastName','email', 'phone', 'department','countryCode'];
-  displayedColumns_L = ['firstName', 'lastName','email', 'phone', 'address', 'department','countryCode'];
-  displayedColumns_S = ['firstName', 'lastName', 'contact', 'department'];
+  displayedColumns: string[] = ['firstName', 'lastName', 'contact', 'email', 'phone', 'department','countryCode'];
+  // displayedColumns_L = ['firstName', 'lastName','email', 'phone', 'address', 'department','countryCode'];
+  // displayedColumns_S = ['firstName', 'lastName', 'contact', 'department'];
   dataSource = new MatTableDataSource(this.sortedEmployees);
   
   @ViewChild(MatPaginator) paginator = <MatPaginator>{};
@@ -55,7 +54,6 @@ export class EmployeesComponent implements OnInit, AfterViewInit {
   openDialog() {
     let dialogRef = this.dialog.open(DialogAddEmployeeComponent);
   }
-
 
   // refactor and outsource table - sort code (same as in ex. clients, projects, all tables...)
   sortData(sort: any | Sort) {

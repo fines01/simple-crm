@@ -30,7 +30,7 @@
 
     <!-- IF AUTH: -->
     <span *ngIf="isLoggedIn()" class="auth-navicons">
-      <button mat-icon-button class="" aria-label="Settings icon">
+      <button mat-icon-button class="settings-btn" aria-label="Settings icon">
         <mat-icon #tooltip="matTooltip" matTooltip="Open settings">settings</mat-icon>
       </button>
       <span class="user-name">{{ userName }}</span>

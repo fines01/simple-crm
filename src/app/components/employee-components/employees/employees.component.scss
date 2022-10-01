@@ -77,3 +77,27 @@ mat-card {
 // .country-code-td {
 //   text-align: center;
 // }
+
+@media screen and (min-width: 769px) {
+  .mat-column-contact {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .mat-column-phone, .mat-column-email {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .mat-column-countryCode, .hide-m {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .mat-column-contact {
+    display: none;
+  }
+}

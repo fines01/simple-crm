@@ -5,6 +5,7 @@ import { AuthService } from '../../../services/auth.service';
 import { DialogAddTaskComponent } from '../dialog-add-task/dialog-add-task.component';
 import { FirestoreService } from '../../../services/firestore.service';
 import { DialogEditTaskComponent } from '../dialog-edit-task/dialog-edit-task.component';
+import { UserTask } from 'src/app/interfaces/user-task.interface';
 
 @Component({
   selector: 'app-user-tasks',
@@ -83,9 +84,12 @@ export class UserTasksComponent implements OnInit, OnDestroy {
     this.updateTasks();
   }
 
-  onEditTask(index:number) {
+  onEditTask(event: [number, UserTask]) { //TODO: maybe passing task is not necessary --> this.userData.userTasks[index]; 
+    let [index, task] = event;
+
     let dialogRef = this.dialog.open(DialogEditTaskComponent);
-    dialogRef.componentInstance.targetTask = this.userData.userTasks[index];
+    dialogRef.componentInstance.targetTask = task;
+    //somehow bound to prop i send into app-card (when working on edit the cards get updated as well w.o. saving, only in view & not db)
 
     this.updatedTaskSubscription = dialogRef.afterClosed()
       .subscribe( (result) => {

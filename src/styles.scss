@@ -43,7 +43,7 @@ body {
 }
 
 .width-33 {
-  width: calc(33% - 9px ); // three el per row, 2x mr-16 = 16px, 32/3 = 10.67 (but 9.8 seems better?)
+  width: calc(33% - 9px); // three el per row, 2x mr-16 = 16px, 32/3 = 10.67 (but 9.8 seems better?)
 }
 
 .width-25 {
@@ -70,33 +70,33 @@ body {
 .mat-dialog-container:has(.failure-message) {
   background-color: rgb(244, 67, 54, 0.45);
 
-  position:absolute;
+  position: absolute;
   bottom: 0;
-  left:0;
+  left: 0;
   height: 115px;
-  padding:16px 24px;
+  padding: 16px 24px;
   // width: 100vw;
   //overflow: hidden;
 
-   h1 {
-     margin: 0;
-   }
+  h1 {
+    margin: 0;
+  }
 }
 
 .mat-dialog-container:has(.success-message) {
   background-color: rgb(105, 240, 174, 0.45);
 
-  position:absolute;
+  position: absolute;
   bottom: 0;
-  left:0;
+  left: 0;
   height: 115px;
-  padding:16px 24px;
+  padding: 16px 24px;
   // width: 100vw;
   //overflow: hidden;
 
 
   h1 {
-    margin:0;
+    margin: 0;
   }
 }
 
@@ -112,7 +112,7 @@ body {
 }
 
 .mat-dialog-content {
-  max-height:95vh !important;
+  max-height: 95vh !important;
 }
 
 // // ruins open-close transition FIX:
@@ -162,7 +162,7 @@ body {
 
   .mat-button-wrapper {
     display: flex;
-    align-items:center;
+    align-items: center;
   }
 }
 
@@ -183,13 +183,14 @@ body {
 
 // Media queries
 
-@media screen and (max-width: 850px) {
+@media screen and (max-width: 880px) {
 
   :root {
     --width-sidenav: 200px;
   }
 
-  .mat-cell {
+  .mat-cell,
+  .mat-row {
     font-size: 13px;
   }
 
@@ -204,8 +205,8 @@ body {
 @media screen and (max-width: 815px) {
 
   .mat-drawer {
-    margin-top:56px;
-    width:100vw !important;
+    margin-top: 56px;
+    width: 100vw !important;
     height: 200px;
   }
 
@@ -225,11 +226,19 @@ body {
 
 }
 
-// big views
+@media screen and (max-width: 420px) {
+
+  .mat-cell,
+  .mat-row {
+    font-size: 12px;
+  }
+}
+
+
+// big screens
 @media screen and (min-width:1200px) {
 
   :root {
     --width-sidenav: 300px;
   }
 }
-

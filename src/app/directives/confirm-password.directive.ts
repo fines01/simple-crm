@@ -1,5 +1,5 @@
 import { Directive, Input } from '@angular/core';
-import { FormGroup, NG_VALIDATORS, ValidationErrors, Validator } from '@angular/forms';
+import { FormGroup, NG_VALIDATORS, ValidationErrors } from '@angular/forms';
 
 @Directive({
   selector: '[appConfirmPassword]',
@@ -16,12 +16,10 @@ export class ConfirmPasswordDirective {
 
       let control = formGroup.controls[controlStr];
       let checkControl = formGroup.controls[checkControlStr];
-
       if (checkControl?.errors && !checkControl.errors['validateEqual']) return null;
-
       if (control?.value !== checkControl?.value) {
         checkControl?.setErrors({validateEqual: true});
-        return { validateEqual: true }
+        return {validateEqual: true}
       } else {
         checkControl?.setErrors(null);
         return null;

@@ -2,13 +2,22 @@
   position: absolute;
   // bottom:0;
   top: 32px; //wie margin-bottom in content-container!
-  right: 44px; //wie m-r in content-container in app component
+  left: 44px; //wie m-r in content-container in app component
+
+  @media screen and (max-width: 535px){
+    left: calc( 50% - 28px);
+  }
 }
 
 .card-container {
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
+  padding-top: 88px;
+
+  @media screen and (max-width: 535px) {
+    justify-content: center;
+  }
 }
 
 .task-card {
@@ -16,5 +25,13 @@
   height: 100%;
   transition: all 235ms;
   position: relative;
+
+  @media screen and (max-width: 768px){
+    width: 210px;
+  }
+  
+  @media screen and (max-width: 480px){
+    width: 200px;
+  }
 }
 

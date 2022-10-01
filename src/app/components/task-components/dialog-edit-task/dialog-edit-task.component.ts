@@ -28,9 +28,7 @@ export class DialogEditTaskComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  // maybe put into a util file (needed also in other components like: tasks: task body)
   countStrLength() {
-    //this.bodyLength = this.project.description.length;
     this.bodyCharacterCounter = this.bodyMaxLength - this.targetTask.body.length;
   }
 
@@ -46,8 +44,7 @@ export class DialogEditTaskComponent implements OnInit {
     return task;
   }
 
-  closeDialog(data?:UserTask) {
-    console.log(data);
+  closeDialog(data?:UserTask) { // UserTask | undefined
     this.dialogRef.close(data);
   }
 
