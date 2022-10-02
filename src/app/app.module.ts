@@ -70,6 +70,7 @@ import { DialogAddTaskComponent } from './components/task-components/dialog-add-
 import { MatRadioModule}  from '@angular/material/radio';
 import { DialogEditTaskComponent } from './components/task-components/dialog-edit-task/dialog-edit-task.component';
 import { TaskCardComponent } from './components/task-components/task-card/task-card.component';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 
 
@@ -141,10 +142,10 @@ import { TaskCardComponent } from './components/task-components/task-card/task-c
     MatPaginatorModule,
     MatAutocompleteModule,
     ReactiveFormsModule,
-
     AngularFireAuthModule,
     AngularFireStorageModule,
     AngularFireDatabaseModule,
+    MatButtonToggleModule,
     
   ],
   providers: [AuthService],

@@ -88,6 +88,15 @@ export class ProjectsComponent implements OnInit, OnDestroy {
     return new Date(timestampMs).toLocaleDateString();
   }
 
+  // wh outsource? utils?
+  checkDateExpired(date: any) {
+    let today = new Date();
+    let dueDate = new Date(date);
+    let endOfCurrentDay = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 23, 59 ,59 );
+    let endOfDueDate = new Date(dueDate.getFullYear(), dueDate.getMonth(), 23, 59, 59);
+    return endOfCurrentDay >= endOfDueDate
+  }
+
   // refactor and outsource table - sort code (same as in ex. clients, projects, all tables...)
   sortData(sort: any | Sort) {
     let data = this.allProjects.slice();

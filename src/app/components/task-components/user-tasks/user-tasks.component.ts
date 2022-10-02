@@ -94,7 +94,6 @@ export class UserTasksComponent implements OnInit, OnDestroy {
     this.updatedTaskSubscription = dialogRef.afterClosed()
       .subscribe( (result) => {
         if (result) {
-          console.log( 'updated task: ', result)
           this.userData.userTasks[index] = result;
           this.updateTasks();
         }

@@ -1,18 +1,59 @@
 <div *ngIf="userData" class="card-container">
 
-  <app-task-card
-    class="task-card"
-    *ngFor="let task of userData.userTasks, let i = index"
-    [task]="task"
-    [index]="i"
-    (deleteTask)="onDeleteTask($event)"
-    (editTask)="onEditTask($event)">
-  </app-task-card>
-  
- </div>
+  <!-- Task controls to filter tasks (Todo: component) -->
+  <div class="task-controls">
+    <button mat-fab color="accent" class="add-btn" #tooltip="matTooltip" matTooltip="Add a new task"
+      [matTooltipPosition]="'above'" matTooltipHideDelay="500" (click)="addTaskDialog()">
+      <mat-icon>add</mat-icon>
+    </button>
+    <div class="filter-btns">
+      <div class="filter-eisenhower">
+        <div class="flex-column">
+          <mat-button-toggle-group name="eisenhower" aria-label="Ingredients" #tooltip="matTooltip"
+            matTooltip="Task Urgency">
+            <mat-button-toggle value="urgent">
+              <mat-icon color="warn">priority_high</mat-icon>
+              High
+            </mat-button-toggle>
+            <mat-button-toggle value="notUrgent">
+              <mat-icon color="accent">priority_high</mat-icon>
+              Low
+            </mat-button-toggle>
+          </mat-button-toggle-group>
+          <mat-hint>Urgency</mat-hint>
+        </div>
+        <div class="flex-column">
+          <mat-button-toggle-group name="eisenhower" aria-label="Ingredients" #tooltip="matTooltip"
+            matTooltip="Task Importance">
+            <mat-button-toggle value="important">
+              <mat-icon color="warn">label_important</mat-icon>
+              High
+            </mat-button-toggle>
+            <mat-button-toggle value="notImportant">
+              <mat-icon color="accent">label_important</mat-icon>
+              Low
+            </mat-button-toggle>
+          </mat-button-toggle-group>
+          <mat-hint>Importance</mat-hint>
+        </div>
+        <div class="filter-category">
+          <!-- <mat-hint>Status:</mat-hint> -->
+          <mat-form-field appearance="outline" color="accent" class="tasks-filter-category">
+            <mat-label>Select Status</mat-label>
+            <mat-select [disabled]="false">
+              <mat-option value="option1">Option 1</mat-option>
+              <mat-option value="option2" disabled>Option 2 (disabled)</mat-option>
+              <mat-option value="option3">Option 3</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- END: task controls -->
 
-<!-- <div class="button-container"> -->
-<button mat-fab color="accent" class="add-btn" #tooltip="matTooltip" matTooltip="Add a new task"
-  [matTooltipPosition]="'above'" matTooltipHideDelay="500" (click)="addTaskDialog()">
-  <mat-icon>add</mat-icon>
-</button>
+  <app-task-card class="task-card" *ngFor="let task of userData.userTasks, let i = index" [task]="task" [index]="i"
+    (deleteTask)="onDeleteTask($event)" (editTask)="onEditTask($event)">
+  </app-task-card>
+
+</div>

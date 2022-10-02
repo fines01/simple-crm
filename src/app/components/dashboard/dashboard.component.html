@@ -11,8 +11,8 @@
                 <p>User ID: <strong>{{user.uid}}</strong></p>
                 <p>Email: <strong>{{ !authUser.isAnonymous ? user.email : 'You are logged in as a guest'}}</strong></p>
                 <p *ngIf="!authUser.isAnonymous">Email Verified: <strong>{{user.emailVerified}}</strong></p>
-                <p *ngIf="!authUser.isAnonymous">Admin: <strong>{{ user.isAdmin ? 'true' : 'false' }}</strong></p>
-                <p *ngIf="authUser.isAnonymous">Admin: <strong> guest - admin</strong></p>
+                <p *ngIf="!authUser.isAnonymous">Status: <strong>{{ user.isAdmin ? 'Admin' : 'Standard user' }}</strong></p>
+                <p *ngIf="authUser.isAnonymous">Status: <strong> Guest admin</strong></p>
               </div>
  
         </div>
