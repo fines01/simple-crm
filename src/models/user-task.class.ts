@@ -11,8 +11,8 @@ export class UserTask implements Task {
     maxBodyLength = 300;
     urgencyOptions: string[] = ['urgent', 'not urgent'];
     importanceOptions: string[] = ['important', 'not important'];
-    //eisenhowerMatrixOptions: string[] = ['Do now','Delegate','Do later','Ignore']; //
     taskCategories: string[] = ['To Do (Backlog)','Do Next','In Progress', 'Testing', 'Done'];
+    //eisenhowerMatrixOptions: string[] = ['Do now','Delegate','Do later','Ignore']; //
 
     constructor(obj?: Task) {
         this.title = obj?.title ? obj.title : '';
