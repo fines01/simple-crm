@@ -35,15 +35,6 @@ export class DialogEditTaskComponent implements OnInit {
   }
 
   setTaskData() {
-    // const task: Task = {
-    //   title: this.targetTask.title,
-    //   body: this.targetTask.body ? this.targetTask.body : '', // body can be empty
-    //   urgency: this.targetTask.urgency,
-    //   importance: this.targetTask.importance,
-    //   category: this.targetTask.category,
-    //   //bodyMaxLength: this.bodyMaxLength,
-    // }
-    // return task;
     return this.targetTask.toJSON();
   }
 

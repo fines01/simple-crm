@@ -10,12 +10,12 @@
       <div class="filter-eisenhower">
         <div class="flex-column">
           <mat-button-toggle-group name="urgency" aria-label="Ingredients" #tooltip="matTooltip"
-            matTooltip="Task Urgency">
-            <mat-button-toggle value="urgent">
+            matTooltip="Task Urgency" matTooltipPosition="before">
+            <mat-button-toggle #btnUrgent value="{{ urgencyOptions[0] }}" (click)="onFilterUrgency(urgencyOptions[0], btnUrgent)">
               <mat-icon color="warn">priority_high</mat-icon>
               High
             </mat-button-toggle>
-            <mat-button-toggle value="notUrgent">
+            <mat-button-toggle #btnNotUrgent value="{{ urgencyOptions[1] }}" (click)="onFilterUrgency(urgencyOptions[1], btnNotUrgent)">
               <mat-icon color="accent">priority_high</mat-icon>
               Low
             </mat-button-toggle>
@@ -24,12 +24,12 @@
         </div>
         <div class="flex-column">
           <mat-button-toggle-group name="importance" aria-label="Ingredients" #tooltip="matTooltip"
-            matTooltip="Task Importance">
-            <mat-button-toggle value="important">
+            matTooltip="Task Importance" matTooltipPosition="before">
+            <mat-button-toggle #btnImportant value="{{ importanceOptions[0] }}" (click)="onFilterImportance(importanceOptions[0], btnImportant)">
               <mat-icon color="warn">label_important</mat-icon>
               High
             </mat-button-toggle>
-            <mat-button-toggle value="notImportant">
+            <mat-button-toggle #btnNotImportant value="{{ importanceOptions[1] }}" (click)="onFilterImportance(importanceOptions[1], btnNotImportant)">
               <mat-icon color="accent">label_important</mat-icon>
               Low
             </mat-button-toggle>
@@ -41,7 +41,7 @@
           <mat-form-field appearance="outline" color="accent" class="tasks-filter-category">
             <mat-label>Select Status</mat-label>
             <mat-select [ngModel]="selectedCategory" (ngModelChange)="onFilterCategory($event)">
-              <mat-option style="color: #ababab">Show All</mat-option>
+              <mat-option style="color: #ababab">All Categories</mat-option>
               <mat-option *ngFor="let cat of taskCategories" value="{{ cat }}">{{ cat }}</mat-option>
               <!-- <mat-option value="option1">Option 1</mat-option>
               <mat-option value="option2" disabled>Option 2 (disabled)</mat-option>

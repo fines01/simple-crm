@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../../services/auth.service';
@@ -7,6 +7,7 @@ import { FirestoreService } from '../../../services/firestore.service';
 import { DialogEditTaskComponent } from '../dialog-edit-task/dialog-edit-task.component';
 //import { Task } from 'src/app/interfaces/task.interface';
 import { UserTask } from 'src/models/user-task.class';
+import { MatButtonToggle } from '@angular/material/button-toggle';
 
 @Component({
   selector: 'app-user-tasks',
@@ -30,11 +31,11 @@ export class UserTasksComponent implements OnInit, OnDestroy {
   taskObj = new UserTask();
   taskCategories = this.taskObj.taskCategories;
   urgencyOptions = this.taskObj.urgencyOptions;
-  imprtanceOptions = this.taskObj.importanceOptions;
+  importanceOptions = this.taskObj.importanceOptions;
   
-  selectedCategory!: string;
-  selectedUrgency!: string;
-  selectedImportance!: string;
+  selectedCategory!: string | undefined;
+  selectedUrgency!: string | undefined;
+  selectedImportance!: string | undefined;
   filteredTasks!: object[];
 
   constructor(
@@ -54,17 +55,40 @@ export class UserTasksComponent implements OnInit, OnDestroy {
     if (this.updatedTaskSubscription) this.updatedTaskSubscription.unsubscribe();
   }
 
-  onFilterCategory(category: string) {
+  onFilterCategory(category: string): void {
     this.selectedCategory = category;
     this.filterTasks();
   }
 
-  filterTasks() {
-    if (this.selectedCategory) {
-      this.filteredTasks = this.userData.userTasks.filter( (task:any)=> task.category === this.selectedCategory);
-      console.log(this.filteredTasks)
+  onFilterUrgency(option: string, btn: MatButtonToggle): void {
+    if(this.selectedUrgency === option)  {
+      this.selectedUrgency = undefined;
+      btn.checked = false;
     }
-    else this.filteredTasks = this.userData.userTasks;
+    else this.selectedUrgency = option;
+    this.filterTasks();
+  }
+
+  onFilterImportance(option: string, btn: MatButtonToggle): void {
+    if (this.selectedImportance === option) {
+      this.selectedImportance = undefined;
+      btn.checked = false;
+    }
+    else this.selectedImportance = option;
+    this.filterTasks();
+  }
+
+  filterTasks(): void {
+    if (this.selectedCategory || this.selectedUrgency || this.selectedImportance) {
+      this.filteredTasks = this.userData.userTasks.filter( (task:any) => {
+        return (
+          ( (this.selectedUrgency && task.urgency === this.selectedUrgency) || !this.selectedUrgency ) && 
+          ( (this.selectedImportance && task.importance === this.selectedImportance) || !this.selectedImportance ) &&
+          ( (this.selectedCategory && task.category === this.selectedCategory) || !this.selectedCategory)
+        );
+      });
+    }
+    else this.filteredTasks = this.userData.userTasks;  
   }
 
   subscribeAuthState() {
@@ -78,8 +102,10 @@ export class UserTasksComponent implements OnInit, OnDestroy {
   subscribeUser() {
     this.userSubscription = this.fireService.getByID(this.authUser.uid, 'users')
       .subscribe( (user)=> {
-        if (user) this.userData = user;
-        if (this.userData) this.filterTasks();
+        if (user) {
+          this.userData = user;
+          this.filterTasks();
+        }
       });
   }
   
@@ -100,13 +126,20 @@ export class UserTasksComponent implements OnInit, OnDestroy {
     });
   }
   
-  onDeleteTask(index:number) {
-    this.userData.userTasks.splice(index, 1);
+  onDeleteTask(event: [number, UserTask]) {
+    let [index, task] = event;
+    let dbIndex = this.userData.userTasks.indexOf(task); /// fix: if edited from filteredTasks array (using a unique ID would be better)
+    console.log(index,dbIndex);
+
+    this.userData.userTasks.splice(dbIndex, 1);
     this.updateTasks();
   }
 
   onEditTask(event: [number, UserTask]) {
     let [index, task] = event;
+
+    let dbIndex = this.userData.userTasks.indexOf(task); /// fix: if edited from filteredTasks array (using a unique ID would be better)
+    console.log(index,dbIndex)
 
     let dialogRef = this.dialog.open(DialogEditTaskComponent);
     dialogRef.componentInstance.targetTask = new UserTask(task);
@@ -114,8 +147,9 @@ export class UserTasksComponent implements OnInit, OnDestroy {
     this.updatedTaskSubscription = dialogRef.afterClosed()
       .subscribe( (result) => {
         if (result) {
-          this.userData.userTasks[index] = result;
+          this.userData.userTasks[dbIndex] = result;
           this.updateTasks();
+          this.filterTasks();
         }
       });
   }
