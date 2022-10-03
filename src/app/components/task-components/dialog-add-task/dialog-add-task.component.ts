@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { UserTask } from 'src/app/interfaces/user-task.interface';
+import { MatSelect } from '@angular/material/select';
+import { UserTask } from 'src/models/user-task.class';
 
 @Component({
   selector: 'app-dialog-add-task',
@@ -9,59 +10,43 @@ import { UserTask } from 'src/app/interfaces/user-task.interface';
 })
 export class DialogAddTaskComponent implements OnInit {
 
+  @ViewChild('selectCategory', {static: false}) categorySelectRef!: MatSelect;
 
   loading: boolean = false;
-  
-  title!: string;
-  body!: string;
-  urgency!: string;
-  importance!: string;
-  category!: string;
-  
-  bodyMaxLength!: number;;
+  newTask = new UserTask();
+
   bodyLength!: number;
   bodyCharacterCounter!: number;
-
-  // where to put those: maybe into user.tasks (as parent)
-  urgencyOptions: string[] = ['urgent', 'not urgent'];
-  importanceOptions: string[] = ['important', 'not important']
-  //eisenhowerMatrixOptions: string[] = ['Do now','Delegate','Do later','Ignore']; //
-  taskCategories: string[] = ['To Do (Backlog)','Do Next','In Progress', 'Testing', 'Done']
 
   constructor(
     private dialogRef: MatDialogRef<DialogAddTaskComponent>,
   ) { }
 
   ngOnInit(): void {
-    this.category = this.taskCategories[0];
-    this.urgency = this.urgencyOptions[1];
-    this.importance = this.importanceOptions[1];
   }
 
-  // maybe put into a util file (needed also in other components like: tasks: task body)
   countStrLength() {
-    //this.bodyLength = this.project.description.length;
-    this.bodyCharacterCounter = this.bodyMaxLength - this.body.length;
+    this.bodyCharacterCounter = this.newTask.maxBodyLength - this.newTask.body.length;
   }
 
   setTaskData() {
-    const task: UserTask = {
-      title: this.title,
-      body: this.body ? this.body : '', // body can be empty
-      urgency: this.urgency,
-      importance: this.importance,
-      category: this.category,
-      //bodyMaxLength: this.bodyMaxLength,
-    }
-    return task;
+    return this.newTask.toJSON();
   }
 
   closeDialog(data?:any) {
     this.dialogRef.close(data);
   }
 
-  addTask(){
-    const newTask = this.setTaskData();
-    this.closeDialog(newTask);
+  focusCategoryIpt() {
+    //console.log(this.categorySelectRef)
+    this.categorySelectRef._elementRef.nativeElement.focus();
   }
+
+  addTask(){
+    this.loading = true;
+    const task = this.newTask.toJSON();
+    this.closeDialog(task);
+  }
+
+
 }

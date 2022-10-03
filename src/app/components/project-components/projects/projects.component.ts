@@ -93,7 +93,7 @@ export class ProjectsComponent implements OnInit, OnDestroy {
     let today = new Date();
     let dueDate = new Date(date);
     let endOfCurrentDay = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 23, 59 ,59 );
-    let endOfDueDate = new Date(dueDate.getFullYear(), dueDate.getMonth(), 23, 59, 59);
+    let endOfDueDate = new Date(dueDate.getFullYear(), dueDate.getMonth(), dueDate.getDate(), 23, 59, 59);
     return endOfCurrentDay >= endOfDueDate
   }
 

@@ -11,25 +11,24 @@
     <div class="">
       <mat-form-field appearance="outline" color="accent" class="width-100">
         <mat-label>Title</mat-label>
-        <input [(ngModel)]="title" matInput [disabled]="loading" placeholder="Title" name="taskTitle"
+        <input [(ngModel)]="newTask.title" matInput [disabled]="loading" placeholder="Title" name="taskTitle"
           #titleInput="ngModel" required maxlength="40" class="form-control">
-        <mat-hint *ngIf="titleInput.pristine">Task Title</mat-hint>
+        <mat-hint *ngIf="titleInput.pristine || titleInput.valid">Task Title</mat-hint>
         <mat-error *ngIf="titleInput.errors && titleInput.errors['required']">Please enter a title</mat-error>
-        <mat-error *ngIf="titleInput.errors && titleInput.errors['maxlength']">Title should have max. 40 characters
-        </mat-error>
+        <!-- <mat-error *ngIf="titleInput.errors && titleInput.errors['maxlength']">Title should have max. 40 characters </mat-error> -->
       </mat-form-field>
     </div>
 
     <div class="">
       <mat-form-field appearance="outline" color="accent" class="width-100">
         <mat-label>Description</mat-label>
-        <textarea [(ngModel)]="body" (keyup)="countStrLength()" matInput [disabled]="loading"
-          placeholder="Further Infos" name="description" #descriptionInput="ngModel" [maxlength]="bodyMaxLength"
+        <textarea [(ngModel)]="newTask.body" (keyup)="countStrLength()" matInput [disabled]="loading"
+          placeholder="Further Infos" name="description" #descriptionInput="ngModel" [maxlength]="newTask.maxBodyLength"
           class="form-control text-area">
-          {{ body }}
+          {{ newTask.body }}
         </textarea>
-        <mat-hint *ngIf="descriptionInput.pristine">Project description (max. {{ bodyMaxLength }} characters)</mat-hint>
-        <mat-hint *ngIf="descriptionInput.dirty"><span>{{ bodyCharacterCounter }}</span> of {{ bodyMaxLength }}
+        <mat-hint *ngIf="descriptionInput.pristine">Project Description (max. {{ newTask.maxBodyLength }} characters)</mat-hint>
+        <mat-hint *ngIf="descriptionInput.dirty"><span>{{ bodyCharacterCounter }}</span> of {{ newTask.maxBodyLength }}
           characters left</mat-hint>
       </mat-form-field>
     </div>
@@ -37,41 +36,41 @@
     <div class="">
       <mat-form-field appearance="outline" color="accent" class="width-100">
         <mat-label class="form-selector">Category</mat-label>
-        <mat-select [(ngModel)]="category" [disabled]="loading" placeholder="Importance" name="category"
-          #categoryInput="ngModel" required class="form-control">
-          <mat-option *ngFor="let cat of taskCategories" [value]="cat">{{ cat }}
+        <mat-select [(ngModel)]="newTask.category" [disabled]="loading" placeholder="Category" name="category"
+          #categoryInput="ngModel" required class="form-control" #selectCategory>
+          <mat-option *ngFor="let cat of newTask.taskCategories" [value]="cat">{{ cat }}
           </mat-option>
         </mat-select>
-        <mat-hint *ngIf="categoryInput.pristine">Coose a category</mat-hint>
-        <mat-error *ngIf="categoryInput.invalid">Please decide on the category</mat-error>
+        <mat-hint *ngIf="categoryInput.valid">Category</mat-hint>
+        <mat-error *ngIf="categoryInput.hasError('required')">Please enter a category</mat-error>
       </mat-form-field>
     </div>
 
       <!-- urgency and importance: (optional?) ...or use Angular materials Button-toggle instead (2x2-row?) -->
 
     <div class="check-row width-50">
-        <mat-radio-group [(ngModel)]="urgency" name="urgency">
+        <mat-radio-group [(ngModel)]="newTask.urgency" name="urgency">
           <!-- <label class="check-label">Urgency:</label> -->
           <mat-hint class="check-label">Choose Urgency:</mat-hint>
-          <mat-radio-button [disabled]="loading" class="check-label" value="{{ urgencyOptions[0] }}" color="warn">
-            {{ urgencyOptions[0] }}</mat-radio-button>
-          <mat-radio-button [disabled]="loading" class="check-label" value="{{ urgencyOptions[1] }}" color="accent">
-            {{ urgencyOptions[1] }}</mat-radio-button>
+          <mat-radio-button [disabled]="loading" class="check-label" value="{{ newTask.urgencyOptions[0] }}" color="warn">
+            {{ newTask.urgencyOptions[0] }}</mat-radio-button>
+          <mat-radio-button [disabled]="loading" class="check-label" value="{{ newTask.urgencyOptions[1] }}" color="accent">
+            {{ newTask.urgencyOptions[1] }}</mat-radio-button>
         </mat-radio-group>
 
-        <mat-radio-group [(ngModel)]="importance" name="importance">
+        <mat-radio-group [(ngModel)]="newTask.importance" name="importance">
           <mat-hint class="check-label">Choose Importance:</mat-hint>
-          <mat-radio-button [disabled]="loading" class="check-label" value="{{ importanceOptions[0] }}" color="warn">
-            {{ importanceOptions[0] }}</mat-radio-button>
-          <mat-radio-button [disabled]="loading" class="check-label" value="{{ importanceOptions[1] }}" color="accent" checked>
-            {{ importanceOptions[1] }}</mat-radio-button>
+          <mat-radio-button [disabled]="loading" class="check-label" value="{{ newTask.importanceOptions[0] }}" color="warn">
+            {{ newTask.importanceOptions[0] }}</mat-radio-button>
+          <mat-radio-button [disabled]="loading" class="check-label" value="{{ newTask.importanceOptions[1] }}" color="accent" checked>
+            {{ newTask.importanceOptions[1] }}</mat-radio-button>
         </mat-radio-group>
     </div>
 
      <!-- Buttons -->
       <div mat-dialog-actions>
         <button mat-button (click)="closeDialog()">Cancel</button>
-        <button mat-button [disabled]="!taskForm.form.valid" (click)="taskForm.form.valid && addTask()">Save</button>
+        <button mat-button (click)="taskForm.form.valid ? addTask() : focusCategoryIpt()">Save</button>
       </div>
 
   </div>

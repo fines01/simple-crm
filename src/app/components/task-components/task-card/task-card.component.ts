@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { UserTask } from 'src/app/interfaces/user-task.interface';
+import { Task } from 'src/app/interfaces/task.interface';
+import { UserTask } from 'src/models/user-task.class';
 import { DialogEditTaskComponent } from '../dialog-edit-task/dialog-edit-task.component';
 
 @Component({

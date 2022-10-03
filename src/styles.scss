@@ -22,7 +22,11 @@ body {
 }
 
 .warn {
-  color: #f44336; // mat theme col warn
+  color: #f44336 ; // mat theme col warn
+}
+
+.weak {
+  color: rgb(157, 157, 157);
 }
 
 .mr-16 {
@@ -227,7 +231,7 @@ body {
   .mat-drawer {
     margin-top: 56px;
     width: 100vw !important;
-    height: 200px;
+    height: 248px;
   }
 
   .mat-drawer-inner-container {

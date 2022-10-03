@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { UserTask } from 'src/app/interfaces/user-task.interface';
+import { Task } from 'src/app/interfaces/task.interface';
+import { UserTask } from 'src/models/user-task.class';
 
 @Component({
   selector: 'app-dialog-edit-task',
@@ -10,22 +11,23 @@ import { UserTask } from 'src/app/interfaces/user-task.interface';
 export class DialogEditTaskComponent implements OnInit {
 
   loading = false;
+  
   targetTask!: UserTask;
 
-  // //WH (char counter)
   bodyMaxLength!: number;;
   bodyLength!: number;
   bodyCharacterCounter!: number;
-  // wH task related options
-  urgencyOptions: string[] = ['urgent', 'not urgent'];
-  importanceOptions: string[] = ['important', 'not important']
-  //eisenhowerMatrixOptions: string[] = ['Do now','Delegate','Do later','Ignore']; 
-  taskCategories: string[] = ['To Do (Backlog)','Do Next','In Progress', 'Testing', 'Done'];
-  // // END WH
-
+  urgencyOptions!: string[]; // = ['urgent', 'not urgent'];
+  importanceOptions!: string[]; // = ['important', 'not important']
+  taskCategories!: string[]; // = ['To Do (Backlog)','Do Next','In Progress', 'Testing', 'Done'];
+  
   constructor(private dialogRef: MatDialogRef<DialogEditTaskComponent>) { }
 
   ngOnInit(): void {
+    this.bodyMaxLength = this.targetTask.maxBodyLength;
+    this.urgencyOptions = this.targetTask.urgencyOptions;
+    this.importanceOptions = this.targetTask.importanceOptions;
+    this.taskCategories = this.targetTask.taskCategories;
   }
 
   countStrLength() {
@@ -33,18 +35,19 @@ export class DialogEditTaskComponent implements OnInit {
   }
 
   setTaskData() {
-    const task: UserTask = {
-      title: this.targetTask.title,
-      body: this.targetTask.body ? this.targetTask.body : '', // body can be empty
-      urgency: this.targetTask.urgency,
-      importance: this.targetTask.importance,
-      category: this.targetTask.category,
-      //bodyMaxLength: this.bodyMaxLength,
-    }
-    return task;
+    // const task: Task = {
+    //   title: this.targetTask.title,
+    //   body: this.targetTask.body ? this.targetTask.body : '', // body can be empty
+    //   urgency: this.targetTask.urgency,
+    //   importance: this.targetTask.importance,
+    //   category: this.targetTask.category,
+    //   //bodyMaxLength: this.bodyMaxLength,
+    // }
+    // return task;
+    return this.targetTask.toJSON();
   }
 
-  closeDialog(data?:UserTask) { // UserTask | undefined
+  closeDialog(data?:Task) { // UserTask | undefined
     this.dialogRef.close(data);
   }
 

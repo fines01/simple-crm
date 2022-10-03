@@ -5,7 +5,8 @@ import { AuthService } from '../../../services/auth.service';
 import { DialogAddTaskComponent } from '../dialog-add-task/dialog-add-task.component';
 import { FirestoreService } from '../../../services/firestore.service';
 import { DialogEditTaskComponent } from '../dialog-edit-task/dialog-edit-task.component';
-import { UserTask } from 'src/app/interfaces/user-task.interface';
+//import { Task } from 'src/app/interfaces/task.interface';
+import { UserTask } from 'src/models/user-task.class';
 
 @Component({
   selector: 'app-user-tasks',
@@ -14,18 +15,27 @@ import { UserTask } from 'src/app/interfaces/user-task.interface';
 })
 export class UserTasksComponent implements OnInit, OnDestroy {
 
-  // TODO one sub?
   userData!: any;
   authUser!: any;
+
   authStateSubscription!: Subscription;
   userSubscription!: Subscription;
   newTaskSubscription!: Subscription;
   updatedTaskSubscription!: Subscription;
-
-  taskBodyMaxLength: number = 300;
   
-  userTasks: object[] = [];
-  taskBody!: string;
+  // userTasks: object[] = [];
+  // filteredTasks: object[] = this.userTasks;
+  //taskBody!: string;
+
+  taskObj = new UserTask();
+  taskCategories = this.taskObj.taskCategories;
+  urgencyOptions = this.taskObj.urgencyOptions;
+  imprtanceOptions = this.taskObj.importanceOptions;
+  
+  selectedCategory!: string;
+  selectedUrgency!: string;
+  selectedImportance!: string;
+  filteredTasks!: object[];
 
   constructor(
     private authService: AuthService,
@@ -44,6 +54,19 @@ export class UserTasksComponent implements OnInit, OnDestroy {
     if (this.updatedTaskSubscription) this.updatedTaskSubscription.unsubscribe();
   }
 
+  onFilterCategory(category: string) {
+    this.selectedCategory = category;
+    this.filterTasks();
+  }
+
+  filterTasks() {
+    if (this.selectedCategory) {
+      this.filteredTasks = this.userData.userTasks.filter( (task:any)=> task.category === this.selectedCategory);
+      console.log(this.filteredTasks)
+    }
+    else this.filteredTasks = this.userData.userTasks;
+  }
+
   subscribeAuthState() {
     this.authStateSubscription = this.authService.getAuthState()
       .subscribe( (user) => {
@@ -56,7 +79,7 @@ export class UserTasksComponent implements OnInit, OnDestroy {
     this.userSubscription = this.fireService.getByID(this.authUser.uid, 'users')
       .subscribe( (user)=> {
         if (user) this.userData = user;
-        // if (this.user) this.userTasks = this.user.userTasks
+        if (this.userData) this.filterTasks();
       });
   }
   
@@ -68,7 +91,6 @@ export class UserTasksComponent implements OnInit, OnDestroy {
   addTaskDialog() {
     let dialogRef = this.dialog.open(DialogAddTaskComponent);
     
-    dialogRef.componentInstance.bodyMaxLength = this.taskBodyMaxLength;
     this.newTaskSubscription = dialogRef.afterClosed()
     .subscribe( (result) => {
       if (result) {
@@ -76,7 +98,6 @@ export class UserTasksComponent implements OnInit, OnDestroy {
         this.updateTasks();
       }
     });
-    
   }
   
   onDeleteTask(index:number) {
@@ -84,12 +105,11 @@ export class UserTasksComponent implements OnInit, OnDestroy {
     this.updateTasks();
   }
 
-  onEditTask(event: [number, UserTask]) { //TODO: maybe passing task is not necessary --> this.userData.userTasks[index]; 
+  onEditTask(event: [number, UserTask]) {
     let [index, task] = event;
 
     let dialogRef = this.dialog.open(DialogEditTaskComponent);
-    dialogRef.componentInstance.targetTask = task;
-    //somehow bound to prop i send into app-card (when working on edit the cards get updated as well w.o. saving, only in view & not db)
+    dialogRef.componentInstance.targetTask = new UserTask(task);
 
     this.updatedTaskSubscription = dialogRef.afterClosed()
       .subscribe( (result) => {

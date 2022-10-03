@@ -45,21 +45,21 @@ export class DialogEditProjectComponent implements OnInit, AfterViewInit {
     });
   }
 
-   setMinDate() {
+   setMinDate(): Date {
     let now = new Date();
     return new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59);
   }
 
-  closeDialog() {
+  closeDialog(): void {
     this.dialogRef.close();
   }
 
-  countStrLength() {
+  countStrLength(): void {
     this.descriptionLength = this.project.description.length;
     this.descriptionCounter = this.descriptionMaxLength - this.project.description.length;
   }
 
-  saveEdit() {
+  saveEdit(): void {
     this.loading = true;
     this.project.managerID = this.managerID;// this.manager.objID;
     this.project.dueDate = this.dueDate.getTime();
@@ -72,7 +72,7 @@ export class DialogEditProjectComponent implements OnInit, AfterViewInit {
       .finally (()=> console.info('%c Project update completed ', 'color: white; background: #333399'));
   }
 
-  afterSaveSuccess(){
+  afterSaveSuccess(): void{
     this.loading = false;
     this.closeDialog();
   }

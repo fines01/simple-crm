@@ -128,7 +128,7 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
     let today = new Date();
     let endOfCurrentDay = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 23, 59 ,59 );
     let dueDate = new Date(this.project.dueDate);
-    let endOfDueDate = new Date(dueDate.getFullYear(), dueDate.getMonth(), 23, 59, 59);
+    let endOfDueDate = new Date(dueDate.getFullYear(), dueDate.getMonth(), dueDate.getDate(), 23, 59, 59);
     return endOfCurrentDay >= endOfDueDate
   }
 
@@ -139,7 +139,7 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
   }
 
   passEditDetailData(dialog: MatDialogRef<any>){
-    // pass a copy(!) of the current user object to the dialog component: else every typed change in the text field will be saved immediately into original (two-way-binding)
+    // pass a copy(!) of the current user object to the dialog component:
     dialog.componentInstance.project = new Project(this.project.toJSON());
     dialog.componentInstance.projectID = this.projectID;
     dialog.componentInstance.employees = this.employees;
