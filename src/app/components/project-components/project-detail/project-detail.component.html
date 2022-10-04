@@ -32,7 +32,7 @@
         <div class="card-detail project-description">{{ project.description }}</div>
         <!-- reference to client-details -->
         <div class="card-detail">Client: {{ project.client }}</div>
-        <div [class.date-expired]="dueDateExpired" class="card-detail">Due date: {{ localFormatDate }} <span *ngIf="dueDateExpired">(Expired!)</span></div>
+        <div [class.date-expired]="project.dueDateExpired()" class="card-detail">Due date: {{ localFormatDate }} <span *ngIf="project.dueDateExpired()">(Expired!)</span></div>
       </mat-card-content>
     </mat-card>
 

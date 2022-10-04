@@ -39,7 +39,7 @@
         <div class="filter-category">
           <!-- <mat-hint>Status:</mat-hint> -->
           <mat-form-field appearance="outline" color="accent" class="tasks-filter-category">
-            <mat-label>Select Status</mat-label>
+            <mat-label>Select Category</mat-label>
             <mat-select [ngModel]="selectedCategory" (ngModelChange)="onFilterCategory($event)">
               <mat-option style="color: #ababab">All Categories</mat-option>
               <mat-option *ngFor="let cat of taskCategories" value="{{ cat }}">{{ cat }}</mat-option>

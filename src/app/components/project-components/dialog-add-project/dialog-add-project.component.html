@@ -24,7 +24,7 @@
       <div class="">
         <mat-form-field appearance="outline" color="accent" class="width-100">
           <mat-label>Description</mat-label>
-          <textarea [(ngModel)]="project.description" (keyup)="countStrLength()" matInput [disabled]="loading" placeholder="Further Infos"
+          <textarea [(ngModel)]="project.description" (keyup)="counter()" matInput [disabled]="loading" placeholder="Further Infos"
             name="description" #descriptionInput="ngModel" [maxlength]="descriptionMaxLength" class="form-control">
           {{ project.description }}
         </textarea>

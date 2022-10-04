@@ -7,6 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { FirestoreService } from 'src/app/services/firestore.service';
 import { DialogAddEmployeeComponent } from '../dialog-add-employee/dialog-add-employee.component';
+import { TableSortService } from 'src/app/services/table-sort.service';
 
 @Component({
   selector: 'app-employees',
@@ -19,8 +20,6 @@ export class EmployeesComponent implements OnInit, AfterViewInit {
   allEmployees = [];
   sortedEmployees!: any[];
   displayedColumns: string[] = ['firstName', 'lastName', 'contact', 'email', 'phone', 'department','countryCode'];
-  // displayedColumns_L = ['firstName', 'lastName','email', 'phone', 'address', 'department','countryCode'];
-  // displayedColumns_S = ['firstName', 'lastName', 'contact', 'department'];
   dataSource = new MatTableDataSource(this.sortedEmployees);
   
   @ViewChild(MatPaginator) paginator = <MatPaginator>{};
@@ -28,8 +27,8 @@ export class EmployeesComponent implements OnInit, AfterViewInit {
 
   constructor(
     private dialog: MatDialog,
-    // private firestore: AngularFirestore,
     private fireService: FirestoreService,
+    private sortService: TableSortService
   ) {
     this.sortedEmployees = this.allEmployees.slice(); // tst: in ngOnInit
   }
@@ -55,44 +54,15 @@ export class EmployeesComponent implements OnInit, AfterViewInit {
     let dialogRef = this.dialog.open(DialogAddEmployeeComponent);
   }
 
-  // refactor and outsource table - sort code (same as in ex. clients, projects, all tables...)
-  sortData(sort: any | Sort) {
-
-    let data = this.allEmployees.slice();
-    if (!sort.active || sort.direction === '') {
-      this.sortedEmployees = this.allEmployees;
-      return;
-    }
-
-    this.sortedEmployees = data.sort((a, b) => {
-      const isAsc = sort.direction === 'asc';
-
-      switch (sort.active) {
-        case 'firstName':
-          return this.compare(a['firstName'], b['firstName'], isAsc);
-        case 'last-name':
-          return this.compare(a['lastName'], b['lastName'], isAsc);
-        case 'zip-code':
-          return this.compare(a['zipCode'], b['zipCode'], isAsc);
-        case 'department':
-          return this.compare(a['department'], b['department'], isAsc);
-        case 'countryCode':
-          return this.compare(a['countryCode'], b['countryCode'], isAsc);
-        default:
-          return 0;
-      }
-    });
-
+  sortEmployeeData(sort: any | Sort) {
+    let sortColumns = ['firstName', 'lastName', 'zipCode', 'department', 'countryCode'];
+    this.sortedEmployees = this.sortService.sortData(sort, this.allEmployees, sortColumns);
+    this.sortedEmployees = this.sortService.sortData(sort, this.allEmployees, sortColumns);
     this.dataSource = new MatTableDataSource(this.sortedEmployees);
     this.dataSource.paginator = this.paginator;
   }
 
-  // outsource sort functionalities
-  compare(a: number | string, b: number | string, isAsc: boolean) {
-    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
-  }
-
-  // outsource table sort functionalities
+  // table filter
   applyFilter(event: Event) {
     let filterValue = (event.target as HTMLInputElement).value;
     filterValue = filterValue.trim().toLowerCase();

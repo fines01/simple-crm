@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSelect } from '@angular/material/select';
 import { UserTask } from 'src/models/user-task.class';
+import { strCounter } from 'src/utils/str-counter';
 
 @Component({
   selector: 'app-dialog-add-task',
@@ -25,8 +26,8 @@ export class DialogAddTaskComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  countStrLength() {
-    this.bodyCharacterCounter = this.newTask.maxBodyLength - this.newTask.body.length;
+  counter(): void {
+    [this.bodyLength, this.bodyCharacterCounter] = strCounter(this.newTask.body, this.newTask.maxBodyLength);
   }
 
   setTaskData() {

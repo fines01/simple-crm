@@ -1,4 +1,4 @@
- <mat-card *ngIf="task" class="task-card">
+ <mat-card *ngIf="task" class="task-card" [class.weak]="task.category === 'Done'">
     <mat-card-content class="card-content">
       <mat-card-title>
         <h3 class="task-title">{{ task.title }}</h3>

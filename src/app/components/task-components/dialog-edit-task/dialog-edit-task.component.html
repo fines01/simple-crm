@@ -23,13 +23,13 @@
     <div class="">
       <mat-form-field appearance="outline" color="accent" class="width-100">
         <mat-label>Description</mat-label>
-        <textarea [(ngModel)]="targetTask.body" (keyup)="countStrLength()" matInput [disabled]="loading"
-          placeholder="Further Infos" name="description" #descriptionInput="ngModel" [maxlength]="bodyMaxLength"
+        <textarea [(ngModel)]="targetTask.body" (keyup)="counter()" matInput [disabled]="loading"
+          placeholder="Further Infos" name="description" #descriptionInput="ngModel" [maxlength]="targetTask.maxBodyLength"
           class="form-control text-area">
           {{ targetTask.body }}
         </textarea>
-        <mat-hint *ngIf="descriptionInput.pristine">Project description (max. {{ bodyMaxLength }} characters)</mat-hint>
-        <mat-hint *ngIf="descriptionInput.dirty"><span>{{ bodyCharacterCounter }}</span> of {{ bodyMaxLength }}
+        <mat-hint *ngIf="descriptionInput.pristine">Project description (max. {{ targetTask.maxBodyLength }} characters)</mat-hint>
+        <mat-hint *ngIf="descriptionInput.dirty"><span>{{ bodyCharacterCounter }}</span> of {{ targetTask.maxBodyLength }}
           characters left</mat-hint>
       </mat-form-field>
     </div>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Task } from 'src/app/interfaces/task.interface';
 import { UserTask } from 'src/models/user-task.class';
+import { strCounter } from 'src/utils/str-counter';
 
 @Component({
   selector: 'app-dialog-edit-task',
@@ -13,25 +14,22 @@ export class DialogEditTaskComponent implements OnInit {
   loading = false;
   
   targetTask!: UserTask;
-
-  bodyMaxLength!: number;;
   bodyLength!: number;
   bodyCharacterCounter!: number;
-  urgencyOptions!: string[]; // = ['urgent', 'not urgent'];
-  importanceOptions!: string[]; // = ['important', 'not important']
-  taskCategories!: string[]; // = ['To Do (Backlog)','Do Next','In Progress', 'Testing', 'Done'];
+  urgencyOptions!: string[]; 
+  importanceOptions!: string[]; 
+  taskCategories!: string[]; 
   
   constructor(private dialogRef: MatDialogRef<DialogEditTaskComponent>) { }
 
   ngOnInit(): void {
-    this.bodyMaxLength = this.targetTask.maxBodyLength;
     this.urgencyOptions = this.targetTask.urgencyOptions;
     this.importanceOptions = this.targetTask.importanceOptions;
     this.taskCategories = this.targetTask.taskCategories;
   }
 
-  countStrLength() {
-    this.bodyCharacterCounter = this.bodyMaxLength - this.targetTask.body.length;
+  counter(): void {
+    [this.bodyLength, this.bodyCharacterCounter] = strCounter(this.targetTask.body, this.targetTask.maxBodyLength);
   }
 
   setTaskData() {

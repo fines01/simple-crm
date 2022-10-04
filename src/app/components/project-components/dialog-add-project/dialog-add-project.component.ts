@@ -1,34 +1,11 @@
-import {
-  Component,
-  ElementRef,
-  OnInit,
-  ViewChild
-} from '@angular/core';
-import {
-  AbstractControl,
-  FormControl,
-  FormGroup,
-  ValidationErrors,
-  ValidatorFn,
-  Validators
-} from '@angular/forms';
-import {
-  MatDialogRef
-} from '@angular/material/dialog';
-import {
-  Observable
-} from 'rxjs';
-import {
-  map,
-  startWith
-} from 'rxjs/operators';
-import {
-  FirestoreService
-} from 'src/app/services/firestore.service';
-import {
-  Project
-} from 'src/models/project.class';
-
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
+import { FirestoreService } from 'src/app/services/firestore.service';
+import { Project } from 'src/models/project.class';
+import { strCounter } from 'src/utils/str-counter';
 
 @Component({
   selector: 'app-dialog-add-project',
@@ -75,10 +52,8 @@ export class DialogAddProjectComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  // maybe put into a util file (needed also in other components like: tasks: task body)
-  countStrLength() {
-    this.descriptionLength = this.project.description.length;
-    this.descriptionCounter = this.descriptionMaxLength - this.project.description.length;
+  counter(): void{
+    [this.descriptionLength, this.descriptionCounter] = strCounter(this.project.description, this.descriptionMaxLength);
   }
 
   async saveProject() {

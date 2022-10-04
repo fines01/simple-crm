@@ -33,7 +33,7 @@ button {
 
 .task-title {
   font-weight: 500;
-  margin-bottom: 8px;
+  margin-bottom: 0; //8px;
   margin-right: 45px;
 }
 
@@ -63,6 +63,7 @@ button {
 
 .card-content {
   height: 225px;
+
   overflow: auto;
 
   display: flex;
@@ -76,6 +77,30 @@ button {
     white-space: pre-line;
     word-wrap: break-word;
     line-height: 1.2;
+    // overflow: auto;
+
+    // border-top: 2px solid rgb(255, 255, 255, 0.1);
+    // border-bottom: 2px solid rgb(255, 255, 255, 0.1);
+    // padding: 8px 0;
+
+    &::-webkit-scrollbar {
+      width: 0.35rem;
+    }
+
+    &::-webkit-scrollbar-track {
+      background-color: #424242;
+      border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #69f0ae;
+      border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      background: #00b395;
+    }
+
   }
 
   &::-webkit-scrollbar {

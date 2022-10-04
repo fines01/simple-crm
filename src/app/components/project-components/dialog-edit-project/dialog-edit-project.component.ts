@@ -3,6 +3,7 @@ import { FormControl } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { FirestoreService } from 'src/app/services/firestore.service';
 import { Project } from 'src/models/project.class';
+import { strCounter } from 'src/utils/str-counter';
 
 @Component({
   selector: 'app-dialog-edit-project',
@@ -35,8 +36,9 @@ export class DialogEditProjectComponent implements OnInit, AfterViewInit {
     let date = new FormControl(new Date(this.project.dueDate)).value; // FormControl necessary? or instead just new Date(...)?
     if(date instanceof Date) this.dueDate = date;
     this.descriptionMaxLength = this.project.descriptionMaxLength;
-    this.countStrLength();
+    this.counter();
     this.minDuedate = this.setMinDate();
+    this.dueDateExpired = this.project.dueDateExpired();
   }
   
   ngAfterViewInit(): void {
@@ -54,9 +56,8 @@ export class DialogEditProjectComponent implements OnInit, AfterViewInit {
     this.dialogRef.close();
   }
 
-  countStrLength(): void {
-    this.descriptionLength = this.project.description.length;
-    this.descriptionCounter = this.descriptionMaxLength - this.project.description.length;
+  counter(): void{
+    [this.descriptionLength, this.descriptionCounter] = strCounter(this.project.description, this.descriptionMaxLength);
   }
 
   saveEdit(): void {

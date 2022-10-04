@@ -24,10 +24,6 @@ export class UserTasksComponent implements OnInit, OnDestroy {
   newTaskSubscription!: Subscription;
   updatedTaskSubscription!: Subscription;
   
-  // userTasks: object[] = [];
-  // filteredTasks: object[] = this.userTasks;
-  //taskBody!: string;
-
   taskObj = new UserTask();
   taskCategories = this.taskObj.taskCategories;
   urgencyOptions = this.taskObj.urgencyOptions;
@@ -129,18 +125,15 @@ export class UserTasksComponent implements OnInit, OnDestroy {
   onDeleteTask(event: [number, UserTask]) {
     let [index, task] = event;
     let dbIndex = this.userData.userTasks.indexOf(task); /// fix: if edited from filteredTasks array (using a unique ID would be better)
-    console.log(index,dbIndex);
-
+    //console.log(index,dbIndex);
     this.userData.userTasks.splice(dbIndex, 1);
     this.updateTasks();
   }
 
   onEditTask(event: [number, UserTask]) {
     let [index, task] = event;
-
-    let dbIndex = this.userData.userTasks.indexOf(task); /// fix: if edited from filteredTasks array (using a unique ID would be better)
-    console.log(index,dbIndex)
-
+    let dbIndex = this.userData.userTasks.indexOf(task); /// fix: if edited from filteredTasks array (using a unique ID would be better) ‾\_(ツ)_/‾
+    //console.log(index,dbIndex)
     let dialogRef = this.dialog.open(DialogEditTaskComponent);
     dialogRef.componentInstance.targetTask = new UserTask(task);
 

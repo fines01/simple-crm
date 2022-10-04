@@ -7,6 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { FirestoreService } from 'src/app/services/firestore.service';
 import { MediaMatcher } from '@angular/cdk/layout';
+import { TableSortService } from 'src/app/services/table-sort.service';
 
 @Component({
   selector: 'app-clients',
@@ -27,13 +28,13 @@ export class ClientsComponent implements OnInit, AfterViewInit {
   
   @ViewChild(MatPaginator) paginator = <MatPaginator>{};
   @ViewChild('table') table!:ElementRef;
-  // @ViewChild(MatSort) sort = <MatSort>{}; // neccessary?
   
   constructor(
     private dialog: MatDialog,
     private firesService: FirestoreService,
     private changeDetectorRef: ChangeDetectorRef,
     private media: MediaMatcher,
+    private sortService: TableSortService
     ) {
       this.sortedClients = this.allClients.slice(); // tst: in ngOnInit
     }
@@ -50,9 +51,6 @@ export class ClientsComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    // check screen sizes, adapt which table colums are shown
-    //this.setDisplayedTableColumns();
-
     if (this.dataSource) { 
       // this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
@@ -63,51 +61,12 @@ export class ClientsComponent implements OnInit, AfterViewInit {
     return this.changeDetectorRef.detectChanges();
   }
 
-  // @HostListener('window:resize', ['$event'])
-  // setDisplayedTableColumns(){
-  //   // if (this.checkMobileQuery('(max-width: 480px)') && this.checkMobileQuery('(min-width: 321px)')) this.displayedColumns = ['firstName', 'lastName', 'contact'];
-  //   // if (this.checkMobileQuery('(max-width: 768px)') && this.checkMobileQuery('(min-width: 481px)')) this.displayedColumns = ['firstName', 'lastName', 'email', 'phone', 'countryCode'];
-  //   // else if (this.checkMobileQuery('(min-width: 768px)')) this.displayedColumns =['firstName', 'lastName', 'email', 'phone', 'address', 'countryCode']; // + index ?
-  // }
-    
-  // checkMobileQuery(query: string) {
-  //   let mobileQuery: MediaQueryList;
-  //   mobileQuery = this.media.matchMedia(query)
-  //   this._mobileQueryListener; //= () => this.changeDetectorRef.detectChanges();
-  //   mobileQuery.addListener(this._mobileQueryListener);
-  //   return mobileQuery.matches;    
-  // }
-
-  sortClients(sort: any | Sort) {
-
-    let data = this.allClients.slice();
-    if (!sort.active || sort.direction === '') {
-      this.sortedClients = this.allClients;
-      return;
-    }
-    this.sortedClients = data.sort((a, b) => {
-      const isAsc = sort.direction === 'asc';
-
-      switch (sort.active) {
-        case 'firstName':
-          return this.compare(a['firstName'], b['firstName'], isAsc);
-        case 'last-name':
-          return this.compare(a['lastName'], b['lastName'], isAsc);
-        case 'zip-code':
-          return this.compare(a['zipCode'], b['zipCode'], isAsc);
-        case ('country-code'):
-          return this.compare(a['countryCode'], b['countryCode'], isAsc);
-        default:
-          return 0;
-      }
-    });
-
+  sortClientData(sort: any | Sort) {
+    let sortColumns = ['firstName', 'lastName', 'zipCode', 'countryCode'];
+    this.sortedClients = this.sortService.sortData(sort, this.allClients, sortColumns);
+    this.sortedClients = this.sortService.sortData(sort, this.allClients, sortColumns);
     this.dataSource = new MatTableDataSource(this.sortedClients);
     this.dataSource.paginator = this.paginator;
-  }
-
-  compare(a: number | string, b: number | string, isAsc: boolean) {
-    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
   }
 
   applyFilter(event: Event) {
@@ -118,10 +77,8 @@ export class ClientsComponent implements OnInit, AfterViewInit {
 
   openDialog() {
     let dialogRef = this.dialog.open(DialogAddClientComponent);
-    dialogRef.afterClosed().subscribe(result => {
-      //console.log('Dialog was closed');
-      // save result in variable
-    })
+    // dialogRef.afterClosed().subscribe(result => {
+    // })
   }
 
 }

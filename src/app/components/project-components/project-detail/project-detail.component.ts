@@ -26,7 +26,7 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
   managerColorCode!: string; // color-code of employee who manages the project
   junctionTableDocs!: any[];
   localFormatDate!: string;
-  dueDateExpired!: boolean;
+  //dueDateExpired!: boolean;
   
   projectSubscription!: Subscription;
   employeesSubscription!: Subscription;
@@ -78,7 +78,7 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
         this.project = new Project(project); // convert JSON iton Objekt
         if (project && project.managerID && project.managerID.trim().length > 0) this.subscribeProjectmanager(project.managerID);
         this.localFormatDate = new Date(project.dueDate).toLocaleDateString();
-        this.dueDateExpired = this.checkDateExpired();
+        //this.dueDateExpired = this.checkDateExpired();
       });
   }
 
@@ -124,13 +124,12 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
     return new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59);
   }
 
-  checkDateExpired() {
-    let today = new Date();
-    let endOfCurrentDay = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 23, 59 ,59 );
-    let dueDate = new Date(this.project.dueDate);
-    let endOfDueDate = new Date(dueDate.getFullYear(), dueDate.getMonth(), dueDate.getDate(), 23, 59, 59);
-    return endOfCurrentDay >= endOfDueDate
-  }
+  // checkDateExpired() {
+  //   let now = new Date();
+  //   let dueDate = new Date(this.project.dueDate);
+  //   let endOfDueDate = new Date(dueDate.getFullYear(), dueDate.getMonth(), dueDate.getDate(), 23, 59, 59);
+  //   return now >= endOfDueDate
+  // }
 
   // wh
   openDialog(dialogComponent: ComponentType<any>) {
@@ -144,7 +143,7 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
     dialog.componentInstance.projectID = this.projectID;
     dialog.componentInstance.employees = this.employees;
     dialog.componentInstance.managerID = this.project.managerID;
-    dialog.componentInstance.dueDateExpired = this.dueDateExpired;
+    //dialog.componentInstance.dueDateExpired = this.project.dueDateExpired();
   }
   
   openEditDetails() {

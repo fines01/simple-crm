@@ -11,7 +11,7 @@
 
 <mat-card>
 
-  <table #table mat-table [dataSource]="dataSource" matSort (matSortChange)="sortClients($event)" class="client-table">
+  <table #table mat-table [dataSource]="dataSource" matSort (matSortChange)="sortClientData($event)" class="client-table">
 
     <!-- mat-table columns -->
 
@@ -26,7 +26,7 @@
     </ng-container>
 
     <ng-container matColumnDef="lastName">
-      <th mat-sort-header="last-name" mat-header-cell *matHeaderCellDef> <span class="m-lg">Last &nbsp;</span>Name </th>
+      <th mat-sort-header mat-header-cell *matHeaderCellDef> <span class="m-lg">Last &nbsp;</span>Name </th>
       <td mat-cell *matCellDef="let client"> {{client.lastName}} </td>
     </ng-container>
 
@@ -46,7 +46,7 @@
     </ng-container>
 
     <ng-container matColumnDef="address">
-      <th mat-sort-header="zip-code" mat-header-cell *matHeaderCellDef>Address</th>
+      <th mat-sort-header="zipCode" mat-header-cell *matHeaderCellDef>Address</th>
       <td mat-cell *matCellDef="let client"> {{ client.zipCode }} {{ client.city }} <br> {{ client.street }} {{ client.streetNo }} <span class="address-col-country">, {{ client.countryCode }}</span> </td>
     </ng-container>
 
@@ -56,7 +56,7 @@
     </ng-container> -->
 
     <ng-container matColumnDef="countryCode">
-      <th mat-sort-header="country-code" mat-header-cell *matHeaderCellDef>Country</th>
+      <th mat-sort-header mat-header-cell *matHeaderCellDef>Country</th>
       <td mat-cell *matCellDef="let client"> {{client.countryCode}} </td>
     </ng-container>
 
