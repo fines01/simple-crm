@@ -24,16 +24,19 @@ export class SignUpComponent implements OnInit {
   }
 
   emailSignUp() {
-    this.authService.signUp(this.userEmail, this.userPassword, this.userName)
+    // If anonyous user: generate credential and link account
+    let currentUser = this.authService.getAuthUser();
+    if(currentUser && currentUser.isAnonymous) this.authService.linkAnonymousAccount(this.userEmail, this.userPassword, this.userName);
+    else this.authService.signUp(this.userEmail, this.userPassword, this.userName)
       .then( ()=> {
-        // Rm when
-        this.router.navigate(['dashboard']); // if email verification is required: redirect to 'home/verify-email'
+        this.router.navigate(['dashboard']);
       });
   }
 
   // calling googleAuth Api from authService
   googleSignIn() {
-    this.authService.googleAuth();
+    this.authService.googleAuth()
+      .then( ()=> this.router.navigate(['dashboard']) );
   }
 
 }

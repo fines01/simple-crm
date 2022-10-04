@@ -71,6 +71,7 @@ import { MatRadioModule}  from '@angular/material/radio';
 import { DialogEditTaskComponent } from './components/task-components/dialog-edit-task/dialog-edit-task.component';
 import { TaskCardComponent } from './components/task-components/task-card/task-card.component';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { DialogEditUserComponent } from './components/dialog-edit-user/dialog-edit-user.component';
 
 
 
@@ -108,7 +109,8 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
     ConfirmPasswordDirective,
     DialogAddTaskComponent,
     DialogEditTaskComponent,
-    TaskCardComponent
+    TaskCardComponent,
+    DialogEditUserComponent
   ],
   imports: [
     BrowserModule,

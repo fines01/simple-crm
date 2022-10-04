@@ -1,20 +1,89 @@
+<!-- Main content -->
+<main *ngIf="userData as user" role="main" class="">
 
-    <!-- Main content -->
-    <main role="main" class="">
-        <h1 class="h2">Test Dashboard (User Profile)</h1>
-        <!-- Show user data when logged in -->
-        <div class="" *ngIf="userData as user">
-              <img class="dashboard-avatar" src="{{(user.photoURL) ? user.photoURL : './assets/img/undraw_male_avatar_green.svg'}}"
-                alt="{{user.displayName}}">
-              <div class="">
-                <h1>Hello, <strong>{{(user.displayName) ? user.displayName : 'Guest User'}}</strong></h1>
-                <p>User ID: <strong>{{user.uid}}</strong></p>
-                <p>Email: <strong>{{ !authUser.isAnonymous ? user.email : 'You are logged in as a guest'}}</strong></p>
-                <p *ngIf="!authUser.isAnonymous">Email Verified: <strong>{{user.emailVerified}}</strong></p>
-                <p *ngIf="!authUser.isAnonymous">Status: <strong>{{ user.isAdmin ? 'Admin' : 'Standard user' }}</strong></p>
-                <p *ngIf="authUser.isAnonymous">Status: <strong> Guest admin</strong></p>
-              </div>
- 
-        </div>
-    </main>
+  <div *ngIf="authUser.isAnonymous" class="guest-banner">
+    <h4 class="warn">Guest Account</h4>
+    You are logged in as a guest. Your data will be deleted on sign-out. Please <span [routerLink]="'/home/sign-up'"
+      class="register-link">register</span> to save your data.
+  </div>
+
+  <mat-card class="user-card">
+    <mat-card-header>
+      <div *ngIf="!user.photoURL" mat-card-avatar class="card-avatar-img"></div>
+      <div *ngIf="user.photoURL" mat-card-avatar class="card-avatar-img"
+        [ngStyle]="{'background-image': 'url('+ user.photoURL +')'}" alt="Profile picture"></div>
+      <mat-card-title>Hello, {{ user.displayName ? user.displayName : 'Guest User' }}</mat-card-title>
+      <mat-card-subtitle *ngIf="!authUser.isAnonymous">Status: {{ user.isAdmin ? 'Admin' : 'Standard user' }}
+      </mat-card-subtitle>
+      <mat-card-subtitle *ngIf="authUser.isAnonymous">Status: Guest admin</mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image class="card-header-img" src="https://picsum.photos/1200/200?grayscale" alt="random picture">
+    <mat-card-content>
+      <div class="card-detail">Email: <span>{{ !authUser.isAnonymous ? user.email : 'Not provided'}}</span></div>
+      <!-- <div class="card-detail">You have currently {{ user.userTasks.length }} Tasks open</div> -->
+      <div *ngIf="!authUser.isAnonymous" class="card-detail">Email Verified: {{user.emailVerified}}</div>
+      <div class="card-detail">{{ user.uid }}</div>
+    </mat-card-content>
+  </mat-card>
+
+  <div class="d-flex mt-16">
+    <mat-card class="width-50 mr-16">
+      <mat-card-header>
+        <mat-card-title> Date </mat-card-title>
+        <mat-card-subtitle> Location: abc</mat-card-subtitle>
+        <mat-card-subtitle> Current weather at location: </mat-card-subtitle>
+      </mat-card-header>
+    </mat-card>
+
+    <mat-card class="width-50">
+      <mat-card-header>
+        <mat-card-title> Clock </mat-card-title>
+        <mat-card-subtitle> Nice designed watch </mat-card-subtitle>
+        <div class="card-detail">Countdown to xyz release</div>
+      </mat-card-header>
+    </mat-card>
+
+  </div>
   
+  <div class="d-flex mt-16">
+    <mat-card class="width-50 mr-16">
+      <mat-card-header>
+        <mat-card-title>You have {{ user.userTasks.length }} tasks </mat-card-title>
+        <mat-card-subtitle>xy of {{ user.userTasks.length }} tasks with status 'done'</mat-card-subtitle>
+        <mat-card-subtitle>yz tasks are still open</mat-card-subtitle>
+      </mat-card-header>
+    </mat-card>
+    <mat-card class="width-50">
+      <mat-card-header>
+        <mat-card-title> Notifications </mat-card-title>
+      </mat-card-header>
+      <div class="card-detail">Employees xyz are currently unassigned.</div>
+      <div class="card-detail">Projects xyz are due</div>
+    </mat-card>
+  </div>
+
+  <div class="d-flex mt-16">
+    <mat-card class="width-50 mr-16">
+      <mat-card-header>
+        <mat-card-title> Calendar </mat-card-title>
+      </mat-card-header>
+    </mat-card>
+
+    <mat-card class="width-50">
+      <mat-card-header>
+        <mat-card-title>Messages </mat-card-title>
+        <mat-card-subtitle></mat-card-subtitle>
+      </mat-card-header>
+    </mat-card>
+  </div>
+
+  <div class="mt-16">
+    <mat-card class="">
+      <mat-card-header>
+        <mat-card-title>Something </mat-card-title>
+        <mat-card-subtitle>Something, nice graphic</mat-card-subtitle>
+      </mat-card-header>
+    </mat-card>
+  </div>
+
+</main>

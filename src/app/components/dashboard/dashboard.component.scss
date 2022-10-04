@@ -1,3 +1,43 @@
 .dashboard-avatar {
     width: 48px;
 }
+
+.guest-banner {
+    position: relative;
+    top: -16px;
+    border-radius: 4px;
+    padding: 8px;
+    background-color: rgb(105, 240, 174, 0.15);
+    font-size: 13px;
+    margin-bottom: 8px;
+
+    h4 {
+        margin-bottom: 4px;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    .register-link {
+        font-weight: 900;
+        text-decoration: underline;
+        cursor: pointer;
+    }
+}
+
+.user-card {
+
+    .card-avatar-img {
+        background-image: url('https://picsum.photos/1200/200?grayscale');
+        background-size: cover;
+    }
+
+    .card-header-img {
+        height: 133px;
+        background-size: cover;
+    }
+}
+
+.card-detail{
+    color: rgba(255, 255, 255, 0.702);
+    margin-bottom: 8px;
+}

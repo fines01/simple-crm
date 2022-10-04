@@ -64,6 +64,21 @@ export class AuthService {
         });
   }
 
+  linkAnonymousAccount(email: string, password: string, username: string) {
+    let credential = auth.EmailAuthProvider.credential(email,password);
+    let user = this.getAuthUser()
+    if (user) this.linkAccountWithCredential(user, credential, username);
+  }
+
+  linkAccountWithCredential(user:auth.User, credential:auth.EmailAuthCredential | auth.OAuthCredential, username?:string) {
+    auth.linkWithCredential(user, credential)
+      .then( (usercred)=> {
+        if (username) this.updateUser(usercred.user, username);
+        console.log("Anonymous account successfully upgraded", user, usercred.user);
+      })
+      .catch( (error) => console.log('%c'+error.message, 'color: yellow; background-color: black'));
+  }
+
   anonymousSignIn() {
     return this.afAuth.signInAnonymously()
       .then( (result)=> {
@@ -108,11 +123,14 @@ export class AuthService {
     return (user !== null) || (auth.getAuth().currentUser?.isAnonymous) ? true : false; // for now I won't check for verified emails (change in production etc.)
   }
 
-  // Sign in with Google
+  // Sign in with Google // todo test
   googleAuth() {
     return this.authLogin(new auth.GoogleAuthProvider())
       .then((res: any) => {
-        this.router.navigate(['dashboard']);
+        if (this.getAuthUser()?.isAnonymous) {
+          let credential = auth.GoogleAuthProvider.credential(res.user.getAuthResponse().id_token); // todo test
+          this.linkAccountWithCredential(res.user, credential);
+        }
       });
   }
 
