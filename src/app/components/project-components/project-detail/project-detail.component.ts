@@ -116,6 +116,7 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
         }
     this.assignedEmployees = this.employees.filter( (empl: any) => {
       return this.assignedEmployeeIDs.has(empl.objID);
+      
     });
   }
 

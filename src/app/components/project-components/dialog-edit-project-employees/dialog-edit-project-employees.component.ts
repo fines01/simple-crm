@@ -41,7 +41,7 @@ export class DialogEditProjectEmployeesComponent implements OnInit, OnDestroy {
       .getByValue('project_id',this.projectID,'employee_project')
       .subscribe( (res: any) => {
         if (res) this.updateJunctionTable(res)
-        .then(() => console.info('save edit: success'))
+        //.then(() => console.info('save edit: success'))
         .catch((err) => console.warn(err))
         .finally(() => this.afterSaveSuccess());
       });

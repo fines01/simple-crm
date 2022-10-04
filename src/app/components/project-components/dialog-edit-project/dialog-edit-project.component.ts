@@ -68,9 +68,15 @@ export class DialogEditProjectComponent implements OnInit, AfterViewInit {
       .then( (res)=>{
         //console.info('%c SUCCESS updating project ', 'color: white; background: #333399');
         this.afterSaveSuccess();
+        this.removeManagerFromSecondaryEmployees();
       })
       .catch ( (err) => console.warn('%c ERROR updating employee: '+err, 'color: orange') )
       .finally (()=> console.info('%c Project update completed ', 'color: white; background: #333399'));
+  }
+
+  removeManagerFromSecondaryEmployees(){
+    let docID = `${this.managerID}_${this.projectID}`;
+    this.fireService.delete(docID, 'employee_project')
   }
 
   afterSaveSuccess(): void{
