@@ -29,18 +29,33 @@
   <div class="d-flex mt-16">
     <mat-card class="width-50 mr-16">
       <mat-card-header>
-        <mat-card-title> Date </mat-card-title>
-        <mat-card-subtitle> Location: abc</mat-card-subtitle>
-        <mat-card-subtitle> Current weather at location: </mat-card-subtitle>
+        <mat-card-title>Something</mat-card-title>
+        <mat-card-subtitle>Location</mat-card-subtitle>
       </mat-card-header>
+      <mat-card-content>
+        <div class="card-detail"> Location: abc</div>
+        <div class="card-detail"> Current weather at location: </div>
+      </mat-card-content>
     </mat-card>
 
     <mat-card class="width-50">
       <mat-card-header>
-        <mat-card-title> Clock </mat-card-title>
-        <mat-card-subtitle> Nice designed watch </mat-card-subtitle>
-        <div class="card-detail">Countdown to xyz release</div>
+        <mat-card-title>{{ localeDateString }}</mat-card-title>
+        <mat-card-subtitle>{{ currentHour }} : {{ currentMinute }} : {{ currentSecond }}</mat-card-subtitle>
+        <!-- <mat-card-subtitle> Nice designed watch </mat-card-subtitle>
+        <div class="card-detail">Countdown to xyz release</div> -->
       </mat-card-header>
+      <mat-card-content>
+        <div class="clock-container">
+          <div class="clock">
+            <div class="clock-second" [style.animation-delay]="secAnimationDelay"></div>
+            <div class="clock-minute" [style.animation-delay]="minAnimationDelay"></div>
+            <div class="clock-hour" [style.animation-delay]="hourAnimationDelay"></div>
+            <div class="clock-axis"></div>
+            <section *ngFor="let i of [].constructor(60)" class="clock-indicator"></section>
+          </div>
+        </div>
+      </mat-card-content>
     </mat-card>
 
   </div>

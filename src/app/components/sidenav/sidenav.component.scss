@@ -7,13 +7,17 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.25); // light-mode: rgba(0,0,0,0.04)
   // padding: 20px;
   padding: 0 20px;
+  padding-top: 8px;
   box-sizing: border-box;
   min-height: 56px;
   display: flex;
   align-items: center;
+  //justify-content: center;
 
   .logo {
     cursor: pointer;
+    //height:52px;
+    font-weight: bold;
   }
 }
 
