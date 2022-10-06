@@ -27,14 +27,18 @@
   </mat-card>
 
   <div class="d-flex mt-16">
+
     <mat-card class="width-50 mr-16">
-      <!-- <mat-card-header> -->
-        <mat-card-title class="card-title">Something</mat-card-title>
-        <mat-card-subtitle>Location</mat-card-subtitle>
-      <!-- </mat-card-header> -->
+      <mat-card-title class="card-title">Your current tasks</mat-card-title>
       <mat-card-content>
-        <div class="card-detail"> Location: abc</div>
-        <div class="card-detail"> Current weather at location: </div>
+        <div *ngIf="user.userTasks.length > 0" class="card-detail"> <span class="link"><strong>{{ user.userTasks.length - doneTasks.length }}</strong>
+          tasks</span> are still open
+        </div>
+        <div *ngIf="user.userTasks.length === 0" class="card-detail"> You have <span class="link"><strong>no tasks.</strong></span> 
+        </div>
+        <div *ngIf="user.userTasks.length > 0" class="card-detail">
+          <strong>{{ doneTasks.length }}</strong> of <strong>{{ user.userTasks.length }}</strong> tasks with status 'Done'
+        </div>
       </mat-card-content>
     </mat-card>
 
@@ -58,44 +62,55 @@
     </mat-card>
 
   </div>
-  
+
   <div class="d-flex mt-16">
-    <mat-card class="width-50 mr-16">
-        <mat-card-title class="card-title">Your current tasks</mat-card-title>
-        <mat-card-content>
-          <div class="card-detail"> <span class="link"><strong>{{ user.userTasks.length - doneTasks.length }}</strong> tasks</span> are still open</div>
-          <div class="card-detail"><strong>{{ doneTasks.length }}</strong> of <strong>{{ user.userTasks.length }}</strong> tasks with status 'Done'</div>
-        </mat-card-content>
+
+   <mat-card class="width-50 mr-16">
+      <mat-card-title class="card-title">Messages </mat-card-title>
+      <mat-card-subtitle></mat-card-subtitle>
+      <mat-card-content></mat-card-content>
     </mat-card>
+
     <mat-card class="width-50">
-        <mat-card-title class="card-title"> Notifications </mat-card-title>
+      <mat-card-title class="card-title"> Notifications </mat-card-title>
       <mat-card-content>
-        <div class="card-detail">Employees xyz are currently unassigned.</div>
-        <div class="card-detail">Projects xyz are due</div>
+        <!-- <div class="card-detail">Employees xyz are currently unassigned.</div>
+        <div class="card-detail">Projects xyz are due</div> -->
       </mat-card-content>
-    </mat-card>
-  </div>
-
-  <div class="d-flex mt-16">
-    <mat-card class="width-50 mr-16">
-        <mat-card-title class="card-title"> Calendar </mat-card-title>
-      <mat-card-content></mat-card-content>
-    </mat-card>
-
-    <mat-card class="width-50">
-        <mat-card-title class="card-title">Messages </mat-card-title>
-        <mat-card-subtitle></mat-card-subtitle>
-      <mat-card-content></mat-card-content>
     </mat-card>
   </div>
 
   <div class="mt-16">
     <mat-card class="">
-      <mat-card-header>
-        <mat-card-title class="card-title">Something </mat-card-title>
-        <mat-card-subtitle>Something, nice graphic</mat-card-subtitle>
-      </mat-card-header>
+      <mat-card-title class="card-title"> Calendar </mat-card-title>
+      <mat-card-content></mat-card-content>
     </mat-card>
   </div>
+
+  <!-- <div class="d-flex mt-16">
+    <mat-card class="width-50 mr-16">
+      <mat-card-title class="card-title">Something</mat-card-title>
+      <mat-card-subtitle>Location</mat-card-subtitle>
+      <mat-card-content>
+        <div class="card-detail"> Location: abc</div>
+        <div class="card-detail"> Current weather at location: </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="width-50">
+      <mat-card-title class="card-title">Messages </mat-card-title>
+      <mat-card-subtitle></mat-card-subtitle>
+      <mat-card-content></mat-card-content>
+    </mat-card>
+  </div> -->
+
+  <!-- <div class="mt-16">
+    <mat-card class="">
+      <mat-card-header>
+        <mat-card-title class="card-title">Something </mat-card-title>
+        <mat-card-subtitle>Something, stats?, nice chart or graphic</mat-card-subtitle>
+      </mat-card-header>
+    </mat-card>
+  </div> -->
 
 </main>

@@ -47,7 +47,7 @@
     margin-bottom: 8px;
 }
 
-// clock
+/* *** clock *** */
 
 $clock-size: 150px;
 
@@ -135,5 +135,49 @@ $clock-size: 150px;
 @keyframes time {
   to {
     transform: rotateZ(360deg);
+  }
+}
+
+/* *** END: clock *** */
+
+@media screen and (max-width: 570px) {
+  .d-flex {
+    flex-direction: column;
+    align-items: center;
+    margin-top: 0;
+
+    mat-card {
+      margin-top: 16px;
+      margin-right: 0 !important;
+      width: 100%;
+      box-sizing: border-box;
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .mat-card-title,
+  .card-title {
+    font-size: 18px;
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .mat-card-title,
+  .card-title {
+    font-size: 16px;
+  }
+
+  .mat-card-subtitle, .card-detail {
+    font-size: 13px;
+    margin-bottom: 14px;
+  }
+
+  .guest-banner {
+    font-size: 12px;
+
+    h4 {
+      font-size: 13px;
+    }
   }
 }
