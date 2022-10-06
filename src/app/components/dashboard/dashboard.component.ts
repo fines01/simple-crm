@@ -20,13 +20,15 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
 
   localeDateString!: string;
 
-  currentYear!: number;
-  currentMonthIndex!: number;
-  currentDay!: number;
+  // currentYear!: number;
+  // currentMonthIndex!: number;
+  // currentDay!: number;
   currentHour!: number;
   currentMinute!: number;
   currentSecond!: number;
   // months = ['Jan', 'Feb',...]
+  doneTasks!: any;
+  unemployedEmployees!: any;
 
   secAnimationDelay!: string;
   minAnimationDelay!: string;
@@ -70,7 +72,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
     this.userSubscription = this.fireService.getByID(this.authUser.uid, 'users')
       .subscribe( (user)=> {
         if (user) this.userData = user;
-        // if (this.user) this.userTasks = this.user.userTasks
+        if (this.userData) this.getDoneTasks();
       });
   }
 
@@ -85,6 +87,9 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
     }, 1000)
   }
 
+  getDoneTasks() {
+    this.doneTasks = this.userData.userTasks.filter( (task: any)=> task.category === 'Done' )
+  }
 
   // clock
   setClock(now: Date) {
@@ -92,22 +97,13 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
     let currentYear, currentMonthIndex, currentDay;
     [currentYear, currentMonthIndex, currentDay] = [now.getFullYear(), now.getMonth(), now.getDate()];
     let currentDayStart =  new Date(currentYear, currentMonthIndex, currentDay);
-    
-    let secondsToday = Math.round((+now - +currentDayStart) / 1000) + 2; // adding 1 sec bec delay (get delay)
-
+    let secondsToday = Math.round((+now - +currentDayStart) / 1000);// + 2; // adding 1 sec bec delay (get delay)
     let seconds = ((secondsToday / 60) % 1) * 60;
     let minutes = ((secondsToday / 3600) % 1) * 3600;
     let hours = ((secondsToday / 43200) %1) * 43200;
-
     this.hourAnimationDelay = hours * -1 + 's';
     this.minAnimationDelay = minutes * -1 + 's';
     this.secAnimationDelay = seconds * -1 + 's';
-
-    console.log(secondsToday, this.hourAnimationDelay, this.minAnimationDelay, this.secAnimationDelay)
-
-  // or (ab diff css --> transform: rotate(0) in jew handles):
-  //   ...style.transform = `rotate(${hour}deg)` // document.getElementById("hour").style.transform = 'rotate(' + hour + 'deg)';
-  
   }
 
   

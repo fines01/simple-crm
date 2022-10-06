@@ -7,7 +7,7 @@
     top: -16px;
     border-radius: 4px;
     padding: 8px;
-    background-color: rgb(105, 240, 174, 0.15);
+    background-color: rgb(105, 240, 174, 0.25);
     font-size: 13px;
     margin-bottom: 8px;
 
@@ -35,6 +35,11 @@
         height: 133px;
         background-size: cover;
     }
+}
+
+.card-title {
+    margin-bottom: 16px;
+    font-size: 20px;
 }
 
 .card-detail{
@@ -111,8 +116,8 @@ $clock-size: 150px;
 
     &-axis {
       background: white;
-      width: 5px;
-      height: 5px;
+      width: 6px;
+      height: 6px;
       border-radius: 3px;
       position: absolute;
       z-index: 4;
