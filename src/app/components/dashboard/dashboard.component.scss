@@ -32,9 +32,40 @@
     }
 
     .card-header-img {
-        height: 133px;
+        height: 183px; //133px;
         background-size: cover;
     }
+
+    .mat-card-image:first-child {
+      margin-top: 0;
+    }
+
+    .header-card-content {
+      display: flex !important;
+      //gap: 24px;
+      justify-content: space-between;
+    }
+}
+
+.header-img-container {
+  position: relative;
+
+  .clock-container {
+    position: absolute;
+    top: 8px; bottom: 8px;
+    left: 0px; right: 0px; // or -16px to cover whole bg picture
+    padding: 0;
+    // padding: 24px;
+    // left: calc( 50% - 75px - 12px); // - var clock -size/2 -padding/2 in variables?
+    background-color: rgba(0,0,0,0.65);
+    border-radius: 4px;
+
+    @media screen and (max-width: 480px) {
+      top: 0; bottom: 0;
+      left: -16px; right: -16px;
+      border-radius: 0;
+    }
+  }
 }
 
 .card-title {
@@ -42,9 +73,20 @@
     font-size: 20px;
 }
 
+.title-date {
+  margin-bottom: 4px;
+  font-size: 20px;
+  color: rgba(255, 255, 255, 0.702);
+}
+
+.subtitle-time {
+  text-align: right;
+}
+
 .card-detail{
     color: rgba(255, 255, 255, 0.702);
     margin-bottom: 8px;
+    
 }
 
 /* *** clock *** */
@@ -159,6 +201,15 @@ $clock-size: 150px;
   .mat-card-title,
   .card-title {
     font-size: 18px;
+  }
+
+  .header-card-content {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .subtitle-time {
+    text-align: left;
   }
 }
 
