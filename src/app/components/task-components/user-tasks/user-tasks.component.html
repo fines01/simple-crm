@@ -1,4 +1,4 @@
-<div *ngIf="authUser.isAnonymous" class="guest-banner">
+<div *ngIf="userData && authUser.isAnonymous" class="guest-banner">
     <h4 class="warn">Guest Account</h4>
     You are logged in as a guest. Your data will be deleted on sign-out. Please <span [routerLink]="'/home/sign-up'"
       class="register-link">register</span> to save your data.
