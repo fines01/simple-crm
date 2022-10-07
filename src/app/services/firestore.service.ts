@@ -42,12 +42,19 @@ export class FirestoreService {
   }
 
   //updateDoc
-  update(documentObj: any, id: string, collectionName: string) {
-    //if ( !this.isJSON(documentObj) ) documentObj = documentObj.toJSON();
+  update(data: any, id: string, collectionName: string) {
+    //if ( !this.isJSON(data) ) data = data.toJSON();
     return this.firestore
       .collection(collectionName)
       .doc(id)
-      .update(documentObj);
+      .update(data);
+  }
+
+  createOrUpdate(data: any, id: string, collectionName: string) {
+    return this.firestore
+      .collection(collectionName)
+      .doc(id)
+      .set(data, {merge: true})
   }
 
   getWhere(field: any, value: any, collectionName: string){

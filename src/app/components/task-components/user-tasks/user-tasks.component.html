@@ -1,9 +1,15 @@
+<div *ngIf="authUser.isAnonymous" class="guest-banner">
+    <h4 class="warn">Guest Account</h4>
+    You are logged in as a guest. Your data will be deleted on sign-out. Please <span [routerLink]="'/home/sign-up'"
+      class="register-link">register</span> to save your data.
+  </div>
+
 <div *ngIf="userData" class="card-container">
 
   <!-- Task controls to filter tasks (Todo: component) -->
   <div class="task-controls">
     <button mat-fab color="accent" class="add-btn" #tooltip="matTooltip" matTooltip="Add a new task"
-      [matTooltipPosition]="'above'" matTooltipHideDelay="500" (click)="addTaskDialog()">
+      [matTooltipPosition]="'after'" matTooltipHideDelay="0" (click)="addTaskDialog()">
       <mat-icon>add</mat-icon>
     </button>
     <div class="filter-btns">

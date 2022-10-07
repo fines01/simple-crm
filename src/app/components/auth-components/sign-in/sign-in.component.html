@@ -29,7 +29,7 @@
       <!-- TODO checkbox: remember me -->
       <!-- TODO guest sign-in -->
       <div class="form-buttons " mat-dialog-actions>
-        <button mat-button class=" width-50 mr-16 btn-login" (click)="emailSignIn()" >Log In</button>
+        <button [disabled]="authForm.pristine || authForm.invalid" mat-button class=" width-50 mr-16 btn-login" (click)="authForm.valid && emailSignIn()" >Log In</button>
         <button mat-button class="width-50 btn-guest-login" (click)="guestSignIn()">Log in as guest</button>
       </div>
 
@@ -37,7 +37,7 @@
         <span class="link" [routerLink]="'/home/reset-password'">Forgot Password?</span>
       </div>
       <div class="form-info align-center">
-        Not signed up yet? <span class="link" [routerLink]="'/home/sign-up'"> Sign Up</span>
+        Not signed up yet? <span class="link" [routerLink]="'/home/sign-up'">Sign Up</span>
       </div>
 
     </form>

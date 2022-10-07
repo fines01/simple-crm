@@ -1,0 +1,85 @@
+$clock-size: 150px;
+
+.clock {
+  //border: 1px solid red;
+  height: $clock-size;
+  width: $clock-size;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  position: relative;
+
+  &-second,
+  &-minute,
+  &-hour,
+  &-indicator {
+    position: absolute;
+    left: calc(50% - 1px);
+    width: 2px;
+    background: white;
+    transform-origin: bottom center;
+    z-index: 2;
+    border-radius: 1px;
+  }
+
+  &-second {
+    height: #{ ($clock-size / 2) - 10};
+    margin-top: 10px;
+    background: var(--col-warn);
+    animation: time 60s infinite steps(60);
+    z-index: 3;
+    opacity: 0.55;
+  }
+
+  &-minute {
+    height: #{($clock-size / 2) - 20};
+    margin-top: 20px; //20px;
+    //   opacity: 0.75;
+    background: var(--col-accent);
+    animation: time 3600s linear infinite;
+  }
+
+  &-hour {
+    height: #{($clock-size / 2) - 40};
+    margin-top: 40px; //40px;
+    background: var(--col-accent);
+    animation: time 43200s linear infinite;
+  }
+
+  &-indicator {
+    height: #{($clock-size / 2) - 2};
+    border-top: 2px solid var(--col-accent);
+    background: none;
+  }
+
+  &-indicator:nth-of-type(5n) {
+    opacity: 1;
+    height: #{($clock-size / 2) - 7};
+    border-top: 7px solid white;
+  }
+
+  &-axis {
+    background: white;
+    width: 6px;
+    height: 6px;
+    border-radius: 3px;
+    position: absolute;
+    z-index: 4;
+    top: #{$clock-size / 2 - 3};
+
+  }
+}
+
+@for $i from 1 through 60 {
+  section:nth-of-type(#{$i}) {
+    transform: rotateZ(calc(6deg * #{$i}));
+  }
+}
+
+@keyframes time {
+  to {
+    transform: rotateZ(360deg);
+  }
+}
+
+/* *** END: clock *** */

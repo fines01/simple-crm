@@ -9,7 +9,7 @@ import { AuthService } from '../../services/auth.service';
 })
 export class ToolbarComponent implements OnInit {
 
-  userName = '';
+  //userName = '';
   @Input() isHomepage!: boolean;
   @Input() usrIsAuth!: boolean;
   @Output() openDrawer = new EventEmitter();
@@ -20,7 +20,7 @@ export class ToolbarComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.userName = this.getUserName();
+    //this.userName = this.getUserName();
   }
   
   emitOpenDrawerEvent(): void {
@@ -30,7 +30,7 @@ export class ToolbarComponent implements OnInit {
   logOut() {
     this.authService.signOut()
       .then( ()=> {
-        this.router.navigate(['home/sign-in']); // RM when: set route guards
+        this.router.navigate(['home/sign-in']);
       } );
   }
 

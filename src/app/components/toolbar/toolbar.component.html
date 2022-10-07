@@ -33,11 +33,14 @@
       <button mat-icon-button class="settings-btn" aria-label="Settings icon">
         <mat-icon #tooltip="matTooltip" matTooltip="Open settings">settings</mat-icon>
       </button>
-      <span class="user-name">{{ userName }}</span>
+      <span class="user-name">{{ getUserName() }}</span>
       <button mat-icon-button [matMenuTriggerFor]="userMenu" #usrIconTooltip="matTooltip" matTooltip="Open user settings">
         <img src="./assets/img/undraw_female_avatar_white.svg" alt="avatar" class="avatar">
       </button>
       <mat-menu #userMenu="matMenu">
+        <button mat-menu-item [routerLink]="'/dashboard'">
+          <mat-icon>fact_check</mat-icon><span class="menu-icon-label">Dashboard</span>
+        </button>
         <button mat-menu-item (click)="logOut()">
           <mat-icon>logout</mat-icon><span class="menu-icon-label">Log out</span>
         </button>

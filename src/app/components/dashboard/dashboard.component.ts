@@ -1,4 +1,5 @@
-import { AfterViewInit, Component, ElementRef, OnChanges, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { Component, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 import { FirestoreService } from '../../services/firestore.service';
@@ -8,7 +9,7 @@ import { FirestoreService } from '../../services/firestore.service';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
+export class DashboardComponent implements OnInit, OnDestroy {
 
   @ViewChildren('seconds') secondsHand!:QueryList<HTMLDivElement>; // using ngIf in template results my ViewChild to return undefined
   @ViewChildren('minutes') minuteHand!: HTMLDivElement[];
@@ -19,10 +20,6 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   userID!: string;
 
   localeDateString!: string;
-
-  // currentYear!: number;
-  // currentMonthIndex!: number;
-  // currentDay!: number;
   currentHour!: number;
   currentMinute!: number;
   currentSecond!: number;
@@ -42,6 +39,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private authService: AuthService,
     private fireService: FirestoreService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -51,10 +49,6 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
     this.runTimer(now);
   }
   
-  ngAfterViewInit() {
-   
-  }
-
   ngOnDestroy(): void {
     if (this.authStateSubscription) this.authStateSubscription.unsubscribe();
     if (this.userSubscription) this.userSubscription.unsubscribe();
@@ -97,7 +91,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
     let currentYear, currentMonthIndex, currentDay;
     [currentYear, currentMonthIndex, currentDay] = [now.getFullYear(), now.getMonth(), now.getDate()];
     let currentDayStart =  new Date(currentYear, currentMonthIndex, currentDay);
-    let secondsToday = Math.round((+now - +currentDayStart) / 1000);// + 2; // adding 1 sec bec delay (get delay)
+    let secondsToday = Math.round((+now - +currentDayStart) / 1000);
     let seconds = ((secondsToday / 60) % 1) * 60;
     let minutes = ((secondsToday / 3600) % 1) * 3600;
     let hours = ((secondsToday / 43200) %1) * 43200;

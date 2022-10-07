@@ -12,7 +12,8 @@
       <div *ngIf="!user.photoURL" mat-card-avatar class="card-avatar-img"></div>
       <div *ngIf="user.photoURL" mat-card-avatar class="card-avatar-img"
         [ngStyle]="{'background-image': 'url('+ user.photoURL +')'}" alt="Profile picture"></div>
-      <mat-card-title>Hello, {{ user.displayName ? user.displayName : 'Guest User' }}</mat-card-title>
+      <mat-card-title *ngIf="authUser.isAnonymous">Hello, {{ user.displayName ? user.displayName : 'Guest User' }}</mat-card-title>
+      <mat-card-title *ngIf="!authUser.isAnonymous">Hello, {{ user.displayName ? user.displayName : 'User' }}</mat-card-title>
       <mat-card-subtitle *ngIf="!authUser.isAnonymous">Status: {{ user.isAdmin ? 'Admin' : 'Standard user' }}
       </mat-card-subtitle>
       <mat-card-subtitle *ngIf="authUser.isAnonymous">Status: Guest admin</mat-card-subtitle>
@@ -20,13 +21,7 @@
     <div class="header-img-container">
       <img mat-card-image class="card-header-img" src="https://picsum.photos/1200/200?grayscale" alt="random picture">
       <div class="clock-container">
-        <div class="clock">
-          <div class="clock-second" [style.animation-delay]="secAnimationDelay"></div>
-          <div class="clock-minute" [style.animation-delay]="minAnimationDelay"></div>
-          <div class="clock-hour" [style.animation-delay]="hourAnimationDelay"></div>
-          <div class="clock-axis"></div>
-          <section *ngFor="let i of [].constructor(60)" class="clock-indicator"></section>
-        </div>
+        <app-clock></app-clock>
       </div>
     </div>
     <mat-card-content class="header-card-content">
@@ -35,7 +30,7 @@
         <div class="card-detail">Email: <span>{{ !authUser.isAnonymous ? user.email : 'Not provided'}}</span></div>
         <!-- <div class="card-detail">You have currently {{ user.userTasks.length }} Tasks open</div> -->
         <div *ngIf="!authUser.isAnonymous" class="card-detail">Email Verified: {{user.emailVerified}}</div>
-        <div class="card-detail">{{ user.uid }}</div>
+        <!-- <div class="card-detail">{{ user.uid }}</div> -->
       </div>
 
       <div class="col">
@@ -55,7 +50,7 @@
             class="link" [routerLink]="'/tasks'"><strong>{{ user.userTasks.length - doneTasks.length }}</strong>
             tasks</span> are still open
         </div>
-        <div *ngIf="user.userTasks.length === 0" class="card-detail"> You have <span class="link"><strong>no
+        <div *ngIf="user.userTasks.length === 0" class="card-detail"> You have <span class="link" [routerLink]="'/tasks'"><strong>no
               tasks.</strong></span>
         </div>
         <div *ngIf="user.userTasks.length > 0" class="card-detail">

@@ -213,6 +213,37 @@ body {
   margin-left: 16px
 }
 
+.guest-banner {
+  position: relative;
+  top: -16px;
+  border-radius: 4px;
+  padding: 8px;
+  background-color: rgb(105, 240, 174, 0.25);
+  font-size: 13px;
+  margin-bottom: 8px;
+
+  h4 {
+    margin-bottom: 4px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .register-link {
+    font-weight: 900;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  @media screen and (max-width: 350px) {
+    font-size: 12px;
+
+    h4 {
+      font-size: 13px;
+    }
+  }
+}
+
+
 /* *** Media queries *** */
 
 @media screen and (max-width: 880px) {

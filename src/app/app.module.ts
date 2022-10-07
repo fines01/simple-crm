@@ -72,6 +72,7 @@ import { DialogEditTaskComponent } from './components/task-components/dialog-edi
 import { TaskCardComponent } from './components/task-components/task-card/task-card.component';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { DialogEditUserComponent } from './components/dialog-edit-user/dialog-edit-user.component';
+import { ClockComponent } from './components/clock/clock.component';
 
 
 
@@ -110,7 +111,8 @@ import { DialogEditUserComponent } from './components/dialog-edit-user/dialog-ed
     DialogAddTaskComponent,
     DialogEditTaskComponent,
     TaskCardComponent,
-    DialogEditUserComponent
+    DialogEditUserComponent,
+    ClockComponent
   ],
   imports: [
     BrowserModule,

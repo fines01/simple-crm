@@ -26,17 +26,15 @@ export class SignUpComponent implements OnInit {
   emailSignUp() {
     // If anonyous user: generate credential and link account
     let currentUser = this.authService.getAuthUser();
-    if(currentUser && currentUser.isAnonymous) this.authService.linkAnonymousAccount(this.userEmail, this.userPassword, this.userName);
-    else this.authService.signUp(this.userEmail, this.userPassword, this.userName)
-      .then( ()=> {
-        this.router.navigate(['dashboard']);
-      });
+    if(currentUser && currentUser.isAnonymous) {
+        this.authService.linkAnonymousAccount(this.userEmail, this.userPassword, this.userName);
+    }
+    else this.authService.signUp(this.userEmail, this.userPassword, this.userName);
   }
 
   // calling googleAuth Api from authService
   googleSignIn() {
-    this.authService.googleAuth()
-      .then( ()=> this.router.navigate(['dashboard']) );
+    this.authService.googleAuth();
   }
 
 }

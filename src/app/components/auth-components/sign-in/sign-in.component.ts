@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DoCheck, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -26,26 +26,17 @@ export class SignInComponent implements OnInit {
   //call signIn Api from authService
   emailSignIn() {
     this.emailSignInSubmitted = true;
-    this.authService.signIn(this.userEmail, this.userPassword)
-      .then( ()=> {
-        // RM when
-        this.router.navigate(['dashboard']); //TODO: check success!!!
-      });
-
+    this.authService.signIn(this.userEmail, this.userPassword);
   }
 
   googleSignIn() {
     this.authService.googleAuth();
   }
 
-  //anonymous log in for demo purposes
+  //anonymous log in for guest users
   guestSignIn() {
     this.emailSignInSubmitted = false;
-    this.authService.anonymousSignIn()
-      .then( ()=> {
-        this.router.navigate(['dashboard']);
-        }
-      );
+    this.authService.anonymousSignIn();
   }
 
 }
