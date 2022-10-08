@@ -9,27 +9,31 @@
         Log In
       </mat-card-title>
 
+      <!-- <div class="error-msg warn">Wrong login credentials!</div> -->
+
       <div class="">
         <mat-form-field appearance="outline" color="accent" class="width-100">
           <mat-label>E-Mail</mat-label>
-          <input type="text" [(ngModel)]="userEmail" matInput name="username" #usernameInput="ngModel"
-            class="form-control" placeholder="Username" [email]="emailSignInSubmitted" [required]="emailSignInSubmitted">
+          <input type="text" [(ngModel)]="userEmail" matInput name="username" #emailInput="ngModel"
+            class="form-control" placeholder="Password" email [required]="emailSignInSubmitted">
           <mat-hint>E-mail</mat-hint>
-          <mat-error *ngIf="emailSignInSubmitted">Please enter a valid E-mail</mat-error>
+          <mat-error *ngIf="emailInput.dirty && emailInput.invalid">Please enter a valid E-mail</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline" color="accent" class="width-100">
           <mat-label>Password</mat-label>
           <input type="password" [(ngModel)]="userPassword" matInput name="password" #pwInput="ngModel"
-            class="form-control" placeholder="Password" [required]="emailSignInSubmitted">
+            class="form-control" placeholder="Password" [required]="emailSignInSubmitted || checkPWRequired()">
           <mat-hint>Password</mat-hint>
-          <mat-error *ngIf="emailSignInSubmitted">Please enter your password</mat-error>
+          <mat-error *ngIf="checkPWRequired() && pwInput.dirty && pwInput.invalid">Please enter your password</mat-error>
         </mat-form-field>
       </div>
       <!-- TODO checkbox: remember me -->
-      <!-- TODO guest sign-in -->
+
+      <div *ngIf="errorMessage"  class="error-msg warn">{{ errorMessage }}</div>
+
       <div class="form-buttons " mat-dialog-actions>
-        <button [disabled]="authForm.pristine || authForm.invalid" mat-button class=" width-50 mr-16 btn-login" (click)="authForm.valid && emailSignIn()" >Log In</button>
+        <button [disabled]="checkInputsEmpty() || authForm.invalid" mat-button class=" width-50 mr-16 btn-login" (click)="authForm.valid && emailSignIn()" >Log In</button>
         <button mat-button class="width-50 btn-guest-login" (click)="guestSignIn()">Log in as guest</button>
       </div>
 
@@ -51,7 +55,7 @@
       </mat-card-title>
 
       <div mat-dialog-actions class="mt-16 align-center">
-        <button class="btn-logo" mat-button (click)="googleSignIn()">
+        <button disabled class="btn-logo" mat-button (click)="googleSignIn()">
           <img src="./assets/img/google-icon-logo-pngrepo-com.png" alt="" class="btn-icon">
           Sign in with Google
         </button>

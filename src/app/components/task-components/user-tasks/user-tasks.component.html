@@ -16,7 +16,7 @@
       <div class="filter-eisenhower">
         <div class="flex-column">
           <mat-button-toggle-group name="urgency" aria-label="Ingredients" #tooltip="matTooltip"
-            matTooltip="Task Urgency" matTooltipPosition="before">
+            matTooltip="Filter task urgency" matTooltipPosition="before">
             <mat-button-toggle #btnUrgent value="{{ urgencyOptions[0] }}" (click)="onFilterUrgency(urgencyOptions[0], btnUrgent)">
               <mat-icon color="warn">priority_high</mat-icon>
               High
@@ -30,7 +30,7 @@
         </div>
         <div class="flex-column">
           <mat-button-toggle-group name="importance" aria-label="Ingredients" #tooltip="matTooltip"
-            matTooltip="Task Importance" matTooltipPosition="before">
+            matTooltip="Filter task importance" matTooltipPosition="before">
             <mat-button-toggle #btnImportant value="{{ importanceOptions[0] }}" (click)="onFilterImportance(importanceOptions[0], btnImportant)">
               <mat-icon color="warn">label_important</mat-icon>
               High
@@ -44,7 +44,8 @@
         </div>
         <div class="filter-category">
           <!-- <mat-hint>Status:</mat-hint> -->
-          <mat-form-field appearance="outline" color="accent" class="tasks-filter-category">
+          <mat-form-field appearance="outline" color="accent" class="tasks-filter-category"
+            #tooltip="matTooltip" matTooltip="Filter category" matTooltipPosition="after">
             <mat-label>Select Category</mat-label>
             <mat-select [ngModel]="selectedCategory" (ngModelChange)="onFilterCategory($event)">
               <mat-option style="color: #ababab">All Categories</mat-option>

@@ -24,6 +24,10 @@ body {
   flex-direction: column;
 }
 
+.align-center {
+  text-align: center;
+}
+
 .warn {
   color: #f44336 ; // mat theme col warn
 }
@@ -71,6 +75,12 @@ body {
 
 .underline {
   text-decoration: underline;
+}
+
+.error-msg {
+  //text-align: center;
+  font-weight: 600;
+  text-align: center;
 }
 
 .dialog-container {

@@ -27,9 +27,10 @@
          <mat-form-field appearance="outline" color="accent" class="width-100">
            <mat-label>Password</mat-label>
            <input type="password" [(ngModel)]="userPassword" matInput name="password" #pwInput="ngModel"
-             class="form-control" required>
+             class="form-control" minLength="6" required>
            <mat-hint>Password</mat-hint>
-           <mat-error>Please enter your password</mat-error>
+           <mat-error *ngIf="pwInput.hasError('required')">Please enter your password</mat-error>
+           <mat-error *ngIf="pwInput.hasError('minLength')">Password should have min. 6 characters</mat-error>
          </mat-form-field>
 
          <mat-form-field appearance="outline" color="accent" class="width-100">
@@ -43,6 +44,8 @@
          </mat-form-field>
        </div>
        <!-- TODO checkbox: remember me -->
+
+      <div *ngIf="errorMessage"  class="error-msg warn">{{ errorMessage }}</div>
 
        <div class="form-buttons " mat-dialog-actions>
          <button [disabled]="authForm.form.invalid" mat-button class="width-50 btn-login" (click)="emailSignUp()">Sign Up</button>
@@ -62,7 +65,7 @@
        </mat-card-title>
 
        <div mat-dialog-actions class="mt-16 align-center">
-         <button class="btn-logo" mat-button (click)="googleSignIn()">
+         <button disabled class="btn-logo" mat-button (click)="googleSignIn()">
            <img src="./assets/img/google-icon-logo-pngrepo-com.png" alt="" class="btn-icon">
            Sign in with Google
          </button>

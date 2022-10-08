@@ -4,6 +4,7 @@ import * as auth from 'firebase/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import { FirestoreService } from './firestore.service';
+import { FirebaseError } from '@angular/fire/app';
 
 @Injectable({
   providedIn: 'root'
@@ -32,10 +33,10 @@ export class AuthService {
     });
   }
 
-  async signIn(email: string, password: string) {
-    await this.afAuth.signInWithEmailAndPassword(email, password)
-      .then( (result)=> console.log('success: email sign up', result)) // this.setUserData(result.user)
-      .catch((error) =>  console.log('%c'+error.message, 'color: yellow; background-color: black')); // TODO make error messages
+  signIn(email: string, password: string) {
+    return auth.signInWithEmailAndPassword(auth.getAuth(),email, password); 
+      // .then( (result)=> console.log('success: email sign in', result)) // this.setUserData(result.user)
+      // .catch((error) =>  console.log('%c'+error.message, 'color: yellow; background-color: black')); // TODO make error messages
   }
 
   // Sign up with email/password
@@ -63,10 +64,10 @@ export class AuthService {
     auth.linkWithCredential(user, credential)
       .then( (usercred)=> {
         if (username) this.updateUser(usercred.user, username);
-        console.log("Anonymous account successfully upgraded", user, usercred.user);
-        this.router.navigate(['dashboard']);
+        console.log("Anonymous account upgrade", user, usercred.user);
       })
-      .catch( (error) => console.log('%c'+error.message, 'color: yellow; background-color: black'));
+      .catch( (error) => console.log('%c'+error.message, 'color: yellow; background-color: black'))
+      .finally( ()=> this.router.navigate(['dashboard']) );
   }
 
   async anonymousSignIn() {
@@ -83,9 +84,9 @@ export class AuthService {
     return this.afAuth.currentUser
       .then((user: any) => {
         user.sendEmailVerification();
-        this.router.navigate(['verify-email']);
       })
-     .catch( (error) => console.log('%c'+error, 'color: yellow; background-color: black'));
+     .catch( (error) => console.log('%c'+error, 'color: yellow; background-color: black'))
+     .finally( ()=> this.router.navigate(['verify-email']));
   }
 
   // Reset forgotten password
@@ -124,8 +125,8 @@ export class AuthService {
           let credential = auth.GoogleAuthProvider.credential(result.user.getAuthResponse().id_token); // todo test
           this.linkAccountWithCredential(result.user, credential);
         }
-        this.router.navigate(['dashboard']);
-      });
+      })
+      .finally( ()=> this.router.navigate(['dashboard']));
   }
 
   // Auth logic to run auth providers
@@ -133,13 +134,11 @@ export class AuthService {
     await this.afAuth
       .signInWithPopup(provider)
       .then((result) => {
-        this.router.navigate(['dashboard']);
         // ToDo check if additional user & data already exists: isAdmin, userTasks
         this.setUserData(result.user);
       })
-      .catch((error) => {
-        console.log('%c'+error, 'color: yellow; background-color: black');
-      });
+      .catch((error) => console.log('%c'+error, 'color: yellow; background-color: black'))
+      .finally(()=> this.router.navigate(['dashboard']));
   }
 
   updateUser(user: any, username?: string, profilePic?: string) {
@@ -177,10 +176,8 @@ export class AuthService {
     let user = auth.getAuth().currentUser;
     if (user?.isAnonymous) return this.deleteUser(user);
     await this.afAuth.signOut()
-      .then(() => {
-        localStorage.removeItem('user');
-        this.router.navigate(['home/sign-in']);
-    });
+      .then(() => localStorage.removeItem('user'))
+      .finally( ()=> this.router.navigate(['home/sign-in']));
   }
   
 }
