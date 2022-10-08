@@ -23,7 +23,7 @@ const routes: Routes = [
   {path: 'home/reset-password', component: ResetPasswordComponent},
   {path: 'home/verify-email', component: VerifyEmailComponent},
   // auth
-  {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]}, // TODO: change link in navbar
+  {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
   {path: 'clients', component: ClientsComponent, canActivate: [AuthGuard]},
   {path: 'client/:id', component: ClientDetailComponent, canActivate: [AuthGuard]},
   {path: 'employees', component: EmployeesComponent, canActivate: [AuthGuard]},

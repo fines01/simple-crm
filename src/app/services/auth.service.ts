@@ -142,10 +142,15 @@ export class AuthService {
   }
 
   updateUser(user: any, username?: string, profilePic?: string) {
-    auth.updateProfile(user, {
+    return auth.updateProfile(user, {
       displayName: username ? username : user.displayName,
       photoURL: profilePic ? profilePic : user.photoURL
     })
+  }
+
+  updateUserEmail( user: any, email: string) {
+    return auth.updateEmail(user, email)
+      .then( ()=> this.sendVerificationMail());
   }
 
   /* Setting up user data in the Firestore database users collection when signing up | signing in with social auth providers */

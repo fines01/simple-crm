@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { DialogEditUserComponent } from '../dialog-edit-user/dialog-edit-user.component';
 
 @Component({
   selector: 'app-toolbar',
@@ -17,6 +19,7 @@ export class ToolbarComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
+    private dialog: MatDialog,
   ) { }
 
   ngOnInit(): void {
@@ -37,6 +40,14 @@ export class ToolbarComponent implements OnInit {
   getUserName() {
     const user = this.authService.getAuthUser();
     return user?.displayName ? user.displayName : 'Guest';
+  }
+
+  openEditUser() {
+    let authUser = this.authService.getAuthUser();
+    if (authUser) {
+      let editDialog: MatDialogRef<DialogEditUserComponent> = this.dialog.open(DialogEditUserComponent);
+      editDialog.componentInstance.authUser = authUser;
+    }
   }
 
 }

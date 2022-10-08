@@ -1,1 +1,33 @@
-<p>dialog-edit-user works!</p>
+<form action="" #editUserForm="ngForm" class="dialog-container">
+
+  <mat-progress-bar *ngIf="loading" mode="indeterminate" class="progress-bar"></mat-progress-bar>
+
+  <h1 mat-dialog-title>User Details</h1>
+  <div *ngIf="authUser" mat-dialog-content>
+
+    <!-- TODO change profile picture -->
+
+    <mat-form-field appearance="outline" color="accent" class="width-100">
+      <mat-label>Username</mat-label>
+      <input [(ngModel)]="userName" matInput [disabled]="loading" placeholder="Username" name="username"
+        #usrNameInput="ngModel" required maxlength="30" class="form-control">
+      <mat-hint *ngIf="usrNameInput.pristine">Username</mat-hint>
+      <mat-error *ngIf="usrNameInput.errors && usrNameInput.errors['required']">Please enter a username</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" color="accent" class="width-100">
+      <mat-label>Username</mat-label>
+      <input [(ngModel)]="userEmail" matInput [disabled]="loading" placeholder="Email" name="email"
+        #emailInput="ngModel" required email maxlength="30" class="form-control">
+      <mat-hint *ngIf="emailInput.pristine">Email</mat-hint>
+      <mat-error *ngIf="emailInput.errors">Please enter a valid email address</mat-error>
+    </mat-form-field>
+
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="closeDialog()">Cancel</button>
+    <button mat-button [disabled]="editUserForm.form.invalid" (click)="editUserForm.valid && saveEdit()"
+      cdkFocusInitial>Save</button>
+  </div>
+
+</form>
