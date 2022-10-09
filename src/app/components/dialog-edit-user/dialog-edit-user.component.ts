@@ -28,26 +28,29 @@ export class DialogEditUserComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    console.log(this.authUser)
     if (this.authUser && this.authUser.displayName) this.userName = this.authUser.displayName;
     if (this.authUser && this.authUser.email) this.userEmail = this.authUser.email;
   }
 
-  saveEdit() { //todo prevent reload to homepage?? (maybe because of authguard)
+  saveEdit() {
     this.loading = true;
     this.authService.updateUser(this.authUser, this.userName, this?.profilePicURL)
       .then( ()=> {
-        this.authService.updateUserEmail(this.authUser, this.userEmail)
+        if (this.userEmail) this.authService.updateUserEmail(this.authUser, this.userEmail)
           .catch((error)=> console.log(error));
-        this.fireService.update({displayName: this.userName, email: this.userEmail}, this.authUser.uid, 'users')
+        this.fireService.update(this.getUpdateData(), this.authUser.uid, 'users')
           .catch((error) => console.log(error));
-        })
-        .catch( (error) => console.log(error))
-        .finally( ()=> {
-          this.closeDialog();
+      })
+      .catch( (error) => console.log(error))
+      .finally( ()=> {
           this.loading = false;
-          //this.location.back();
+          this.closeDialog();
       });
+  }
+
+  getUpdateData() {
+    if (this.userEmail) return {displayName: this.userName, email: this.userEmail}
+    else return {displayName: this.userName}
   }
 
   closeDialog() {

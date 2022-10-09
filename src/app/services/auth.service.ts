@@ -86,7 +86,9 @@ export class AuthService {
         user.sendEmailVerification();
       })
      .catch( (error) => console.log('%c'+error, 'color: yellow; background-color: black'))
-     .finally( ()=> this.router.navigate(['verify-email']));
+     .finally( ()=> {
+      if (!this.getAuthUser()) this.router.navigate(['home/verify-email'])
+    });
   }
 
   // Reset forgotten password

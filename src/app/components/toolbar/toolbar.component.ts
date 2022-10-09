@@ -12,6 +12,7 @@ import { DialogEditUserComponent } from '../dialog-edit-user/dialog-edit-user.co
 export class ToolbarComponent implements OnInit {
 
   //userName = '';
+  @Input() currentRoute!: string;
   @Input() isHomepage!: boolean;
   @Input() usrIsAuth!: boolean;
   @Output() openDrawer = new EventEmitter();
@@ -47,6 +48,8 @@ export class ToolbarComponent implements OnInit {
     if (authUser) {
       let editDialog: MatDialogRef<DialogEditUserComponent> = this.dialog.open(DialogEditUserComponent);
       editDialog.componentInstance.authUser = authUser;
+      //editDialog.componentInstance.currentRoute = this.currentRoute;
+      editDialog.afterClosed().subscribe( ()=>  this.router.navigate([this.currentRoute]));
     }
   }
 
