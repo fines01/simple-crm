@@ -214,7 +214,14 @@ body {
 }
 
 .avatar {
-  width: 32px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.avatar, .mat-card-avatar {
+  box-shadow: 0 0 2px 1px var(--col-accent);
 }
 
 .user-name {

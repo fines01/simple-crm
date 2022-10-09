@@ -16,11 +16,12 @@ export class AuthService {
 
   constructor(
     private fireService: FirestoreService,
-    public afAuth: AngularFireAuth, // Inject Firebase auth service
+    // TODO remove AngularFireAuth & use firebase.auth directly instead, issue with catching errors : https://stackoverflow.com/questions/67580158/cant-catch-exception-in-angularfireauth?newreg=480ae561405546b3a745894678efea55:
+    public afAuth: AngularFireAuth,
     public router: Router,
     public ngZone: NgZone, // NgZone service to remove outside scope warning
   ) {
-    // Saving user data in localstorage when logged in and setting up null when logged out
+    // Save user data in localstorage when logged in and setting up null when logged out
     this.afAuth.authState.subscribe((user) => {
       if (user) {
         this.userData = user;
@@ -40,18 +41,14 @@ export class AuthService {
   }
 
   // Sign up with email/password
-  async signUp(email: string, password: string, username: string) {
-    await this.afAuth
-      .createUserWithEmailAndPassword(email, password)
-        .then((result) => {
-          if (result) console.log(result, result.user, result.user?.displayName);
-          this.sendVerificationMail();
-          this.setUserData(result.user);
-          this.updateUser(result.user, username)
-        })
-        .catch((error) => {
-          console.log('%c'+error.message, 'color: yellow; background-color: black');
-        });
+  signUp(email: string, password: string, username: string) {
+    return auth.createUserWithEmailAndPassword(auth.getAuth(), email, password);
+  }
+
+  setUpAccount(user: any, username: string) {
+    this.sendVerificationMail();
+    this.setUserData(user);
+    this.updateUser(user, username)
   }
 
   linkAnonymousAccount(email: string, password: string, username: string) {
@@ -155,7 +152,7 @@ export class AuthService {
       .then( ()=> this.sendVerificationMail());
   }
 
-  /* Setting up user data in the Firestore database users collection when signing up | signing in with social auth providers */
+  /* Sets up user data in the Firestore database users collection when signing up | signing in with social auth providers */
   setUserData(user: any) {
     // create user object (json) --> TODO decide: maybe also make a User class (pro: consistency)
     let userData: User = {

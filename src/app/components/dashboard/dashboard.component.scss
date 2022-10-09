@@ -75,6 +75,21 @@
   padding-bottom: 16px;
 }
 
+.user-progress-bar {
+  height: 8px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+
+  // &:last-child {
+  //   margin-bottom: 24px !important;
+  // }
+}
+
+.bar-label {
+  color: rgba(255, 255, 255, 0.702);
+  margin-bottom: 4px;
+}
+
 
 @media screen and (max-width: 570px) {
   .d-flex {

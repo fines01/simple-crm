@@ -21,7 +21,7 @@
     <div class="header-img-container">
       <img mat-card-image class="card-header-img" src="https://picsum.photos/1200/200?grayscale" alt="random picture">
       <div class="clock-container">
-        <app-clock></app-clock>
+        <app-clock [clockSize]="150"></app-clock>
       </div>
     </div>
     <mat-card-content class="header-card-content">
@@ -85,57 +85,20 @@
 
   </div>
 
-
-  <!-- <div class="mt-16">
-
-    <mat-card class="width-50 mr-16">
-      <mat-card-title class="card-title"> Calendar </mat-card-title>
-      <mat-card-content></mat-card-content>
-    </mat-card>
-
-    <mat-card class="width-50">
-      <mat-card-header>
-        <mat-card-title class="card-title">{{ localeDateString }}</mat-card-title>
-        <mat-card-subtitle>{{ currentHour }} : {{ currentMinute }} : {{ currentSecond }}</mat-card-subtitle>
-        <div class="card-detail">Countdown to xyz release</div>
-      </mat-card-header>
-      <mat-card-content>
-        <div class="clock-container">
-          <div class="clock">
-            <div class="clock-second" [style.animation-delay]="secAnimationDelay"></div>
-            <div class="clock-minute" [style.animation-delay]="minAnimationDelay"></div>
-            <div class="clock-hour" [style.animation-delay]="hourAnimationDelay"></div>
-            <div class="clock-axis"></div>
-            <section *ngFor="let i of [].constructor(60)" class="clock-indicator"></section>
-          </div>
-        </div>
-      </mat-card-content>
-    </mat-card>
-  </div> -->
-
-  <!-- <div class="d-flex mt-16">
-    <mat-card class="width-50 mr-16">
-      <mat-card-title class="card-title">Something</mat-card-title>
-      <mat-card-subtitle>Location</mat-card-subtitle>
-      <mat-card-content>
-        <div class="card-detail"> Location: abc</div>
-        <div class="card-detail"> Current weather at location: </div>
-      </mat-card-content>
-    </mat-card>
-
-    <mat-card class="width-50">
-      <mat-card-title class="card-title">Messages </mat-card-title>
-      <mat-card-subtitle></mat-card-subtitle>
-      <mat-card-content></mat-card-content>
-    </mat-card>
-  </div> -->
-
   <div class="mt-16">
     <mat-card class="">
-      <mat-card-header>
-        <mat-card-title class="card-title">Something </mat-card-title>
-        <!-- <mat-card-subtitle>Something, stats?, nice chart or graphic</mat-card-subtitle> -->
-      </mat-card-header>
+      <!-- <mat-card-header> -->
+        <mat-card-title class="card-title">Progress </mat-card-title>
+        <!-- </mat-card-header> -->
+        <div *ngIf="user.userTasks.length > 0" class="bar-label">Tasks done: {{ getTasksProgress() }}%</div>
+        <div *ngIf="user.userTasks.length === 0" class="bar-label">You have no tasks. Define some tasks and set your goals!</div>
+        <mat-progress-bar mode="determinate" color="accent" class="user-progress-bar" value="{{ getTasksProgress() }}"></mat-progress-bar>
+
+        <div class="bar-label">Notifications handled: 10%</div>
+        <mat-progress-bar mode="determinate" color="" class="user-progress-bar" value="10"></mat-progress-bar>
+
+        <div class="bar-label">Messages read: 90%</div>
+         <mat-progress-bar mode="determinate" color="" class="user-progress-bar" value="90"></mat-progress-bar>
     </mat-card>
   </div>
 

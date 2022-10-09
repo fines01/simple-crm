@@ -31,11 +31,15 @@ export class SignUpComponent implements OnInit {
         this.authService.linkAnonymousAccount(this.userEmail, this.userPassword, this.userName); // TODO
     }
     else this.authService.signUp(this.userEmail, this.userPassword, this.userName)
+      .then((result: any) => {
+          if (result) console.log(result, result.user, result.user?.displayName);
+          this.authService.setUpAccount(result.user, this.userName);
+        })
       .catch( (error) => this.errorMessage = this.handleError(error));;
   }
 
   handleError(error: any): string {
-    console.log(error.code, '\n', error.message);
+    console.log('%c'+ error.code + '\n' + error.message, 'color: yellow; background-color: black'); //
     if (error.code === 'auth/email-already-exists') return 'User with this email already exists';
     if (error.code === 'auth/invalid-email') return 'Please provide a valid Email Address';
     if (error.code === 'auth/invalid-password') return 'Password must have at least 6 characters';

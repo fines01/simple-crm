@@ -1,9 +1,9 @@
-$clock-size: 150px;
-
 .clock {
+  --clock-size: 150px;
+  --clock-radius: calc(var(--clock-size) / 2);
   //border: 1px solid red;
-  height: $clock-size;
-  width: $clock-size;
+  height: var(--clock-size);
+  width: var(--clock-size);
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -23,50 +23,50 @@ $clock-size: 150px;
   }
 
   &-second {
-    height: #{ ($clock-size / 2) - 10};
-    margin-top: 10px;
+    // height: #{ ($clock-size / 2) - 10};
+    height: calc(var(--clock-radius) - 10%); // 10px (20px, 40px) or 13% if smaller than 150px?
+    margin-top: 10%;
     background: var(--col-warn);
-    animation: time 60s infinite steps(60);
+    animation: tickClockTime 60s infinite steps(60);
     z-index: 3;
     opacity: 0.55;
   }
 
   &-minute {
-    height: #{($clock-size / 2) - 20};
-    margin-top: 20px; //20px;
+    height: calc(var(--clock-radius) - 13%);
+    margin-top: 13%;
     //   opacity: 0.75;
     background: var(--col-accent);
-    animation: time 3600s linear infinite;
+    animation: tickClockTime 3600s linear infinite;
   }
 
   &-hour {
-    height: #{($clock-size / 2) - 40};
-    margin-top: 40px; //40px;
+    height: calc(var(--clock-radius) - 16%);
+    margin-top: 16%;
     background: var(--col-accent);
-    animation: time 43200s linear infinite;
+    animation: tickClockTime 43200s linear infinite;
   }
 
   &-indicator {
-    height: #{($clock-size / 2) - 2};
-    border-top: 2px solid var(--col-accent);
+    height: calc(var(--clock-radius) - 3.5px); // 2px
+    border-top: 3.5px solid var(--col-accent);
     background: none;
   }
 
   &-indicator:nth-of-type(5n) {
     opacity: 1;
-    height: #{($clock-size / 2) - 7};
-    border-top: 7px solid white;
+    height: calc(var(--clock-radius) - 8px); // 7px
+    border-top: 8px solid white;
   }
 
   &-axis {
     background: white;
-    width: 6px;
-    height: 6px;
-    border-radius: 3px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
     position: absolute;
     z-index: 4;
-    top: #{$clock-size / 2 - 3};
-
+    top: calc((var(--clock-size) / 2) - 3px);
   }
 }
 
@@ -76,10 +76,8 @@ $clock-size: 150px;
   }
 }
 
-@keyframes time {
+@keyframes tickClockTime {
   to {
     transform: rotateZ(360deg);
   }
 }
-
-/* *** END: clock *** */

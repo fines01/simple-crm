@@ -1,23 +1,30 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostBinding, Input, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 
 @Component({
   selector: 'app-clock',
   templateUrl: './clock.component.html',
   styleUrls: ['./clock.component.scss']
 })
-export class ClockComponent implements OnInit {
+export class ClockComponent implements OnInit, AfterViewInit {
 
   secAnimationDelay!: string;
   minAnimationDelay!: string;
   hourAnimationDelay!: string;
 
-  @Input() clockSize!: number; // clocl width & height in px, set css variables
+  @ViewChildren('clock') private clockRef!: QueryList<ElementRef>
+  @Input() clockSize!: number;
 
   constructor() { }
 
   ngOnInit(): void {
     let now = new Date();
     this.setClock(now);
+  }
+  
+  ngAfterViewInit(): void {
+     // i could also just pass [style.--clockSize]="val" in the html template
+    this.clockRef.toArray()[0].nativeElement.style.setProperty('--clock-size', this.clockSize + 'px');
+      
   }
 
   setClock(now: Date) {

@@ -9,8 +9,13 @@ mat-toolbar-row {
 }
 
 mat-toolbar-row {
-  padding: 0 32px;
+  padding: 0 32px; // 0 44
 }
+
+// .toggle-sidenav {
+//   margin-left: -8px;
+// }
+
 
 .navbar-icon-label {
   font-size: 14px;
@@ -37,6 +42,15 @@ mat-toolbar-row {
   // &:hover {
   //   color: white;
   // }
+}
+
+.user-indicator {
+  position: relative;
+  right: 8px;
+
+  .avatar {
+    box-sizing: border-box;
+  }
 }
 
 @media  screen and (max-width: 480px) {

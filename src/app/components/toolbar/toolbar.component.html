@@ -33,21 +33,23 @@
       <!-- <button mat-icon-button class="settings-btn" aria-label="Settings icon">
         <mat-icon #tooltip="matTooltip" matTooltip="Open settings">settings</mat-icon>
       </button> -->
-      <span class="user-name">{{ getUserName() }}</span>
-      <button mat-icon-button [matMenuTriggerFor]="userMenu" #usrIconTooltip="matTooltip" matTooltip="Open user menu">
-        <img src="./assets/img/undraw_female_avatar_white.svg" alt="avatar" class="avatar">
-      </button>
-      <mat-menu #userMenu="matMenu">
-        <button mat-menu-item [routerLink]="'/dashboard'">
-          <mat-icon>fact_check</mat-icon><span class="menu-icon-label">Dashboard</span>
+      <div class="user-indicator">
+        <span class="user-name">{{ getUserName() }}</span>
+        <button mat-icon-button [matMenuTriggerFor]="userMenu" #usrIconTooltip="matTooltip" matTooltip="Open user menu">
+          <img src="https://picsum.photos/1200/200?grayscale" alt="avatar" class="avatar">
         </button>
-        <button mat-menu-item (click)="openEditUser()">
-          <mat-icon>manage_accounts</mat-icon><span class="menu-icon-label">User settings</span>
-        </button>
-        <button mat-menu-item (click)="logOut()">
-          <mat-icon>logout</mat-icon><span class="menu-icon-label">Log out</span>
-        </button>
-      </mat-menu>
+        <mat-menu #userMenu="matMenu">
+          <button mat-menu-item [routerLink]="'/dashboard'">
+            <mat-icon>fact_check</mat-icon><span class="menu-icon-label">Dashboard</span>
+          </button>
+          <button mat-menu-item (click)="openEditUser()">
+            <mat-icon>manage_accounts</mat-icon><span class="menu-icon-label">User settings</span>
+          </button>
+          <button mat-menu-item (click)="logOut()">
+            <mat-icon>logout</mat-icon><span class="menu-icon-label">Log out</span>
+          </button>
+        </mat-menu>
+      </div>
     </span>
   </mat-toolbar-row>
 </mat-toolbar>

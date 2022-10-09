@@ -1,8 +1,8 @@
 <form action="" #taskForm="ngForm" class="dialog-container">
- 
+
   <!-- Progress bar -->
   <mat-progress-bar *ngIf="loading" mode="indeterminate" class="progress-bar"></mat-progress-bar>
-  
+
   <!-- Title -->
   <h1 mat-dialog-title>Edit Task</h1>
 
@@ -24,12 +24,14 @@
       <mat-form-field appearance="outline" color="accent" class="width-100">
         <mat-label>Description</mat-label>
         <textarea [(ngModel)]="targetTask.body" (keyup)="counter()" matInput [disabled]="loading"
-          placeholder="Further Infos" name="description" #descriptionInput="ngModel" [maxlength]="targetTask.maxBodyLength"
-          class="form-control text-area">
+          placeholder="Further Infos" name="description" #descriptionInput="ngModel"
+          [maxlength]="targetTask.maxBodyLength" class="form-control text-area">
           {{ targetTask.body }}
         </textarea>
-        <mat-hint *ngIf="descriptionInput.pristine">Project description (max. {{ targetTask.maxBodyLength }} characters)</mat-hint>
-        <mat-hint *ngIf="descriptionInput.dirty"><span>{{ bodyCharacterCounter }}</span> of {{ targetTask.maxBodyLength }}
+        <mat-hint *ngIf="descriptionInput.pristine">Project description (max. {{ targetTask.maxBodyLength }} characters)
+        </mat-hint>
+        <mat-hint *ngIf="descriptionInput.dirty"><span>{{ bodyCharacterCounter }}</span> of
+          {{ targetTask.maxBodyLength }}
           characters left</mat-hint>
       </mat-form-field>
     </div>
@@ -49,29 +51,31 @@
 
     <!-- urgency and importance: (optional?) ...or use Angular materials Button-toggle instead (2x2-row?) -->
     <div class="check-row width-50">
-        <mat-radio-group [(ngModel)]="targetTask.urgency" name="urgency">
-          <!-- <label class="check-label">Urgency:</label> -->
-          <mat-hint class="check-label">Choose Urgency:</mat-hint>
-          <mat-radio-button [disabled]="loading" class="check-label" value="{{ urgencyOptions[0] }}" color="warn">
-            {{ urgencyOptions[0] }}</mat-radio-button>
-          <mat-radio-button [disabled]="loading" class="check-label" value="{{ urgencyOptions[1] }}" color="accent">
-            {{ urgencyOptions[1] }}</mat-radio-button>
-        </mat-radio-group>
+      <mat-radio-group [(ngModel)]="targetTask.urgency" name="urgency">
+        <!-- <label class="check-label">Urgency:</label> -->
+        <mat-hint class="check-label">Choose Urgency:</mat-hint>
+        <mat-radio-button [disabled]="loading" class="check-label" value="{{ urgencyOptions[0] }}" color="warn">
+          {{ urgencyOptions[0] }}</mat-radio-button>
+        <mat-radio-button [disabled]="loading" class="check-label" value="{{ urgencyOptions[1] }}" color="accent">
+          {{ urgencyOptions[1] }}</mat-radio-button>
+      </mat-radio-group>
 
-        <mat-radio-group [(ngModel)]="targetTask.importance" name="importance">
-          <mat-hint class="check-label">Choose Importance:</mat-hint>
-          <mat-radio-button [disabled]="loading" class="check-label" value="{{ importanceOptions[0] }}" color="warn">
-            {{ importanceOptions[0] }}</mat-radio-button>
-          <mat-radio-button [disabled]="loading" class="check-label" value="{{ importanceOptions[1] }}" color="accent" checked>
-            {{ importanceOptions[1] }}</mat-radio-button>
-        </mat-radio-group>
+      <mat-radio-group [(ngModel)]="targetTask.importance" name="importance">
+        <mat-hint class="check-label">Choose Importance:</mat-hint>
+        <mat-radio-button [disabled]="loading" class="check-label" value="{{ importanceOptions[0] }}" color="warn">
+          {{ importanceOptions[0] }}</mat-radio-button>
+        <mat-radio-button [disabled]="loading" class="check-label" value="{{ importanceOptions[1] }}" color="accent"
+          checked>
+          {{ importanceOptions[1] }}</mat-radio-button>
+      </mat-radio-group>
     </div>
 
-     <!-- Buttons -->
-      <div mat-dialog-actions>
-        <button mat-button (click)="closeDialog()">Cancel</button>
-        <button mat-button [disabled]="!taskForm.form.valid" (click)="taskForm.form.valid && updateTask()">Save</button>
-      </div>
-
   </div>
+
+  <!-- Buttons -->
+  <div mat-dialog-actions>
+    <button mat-button (click)="closeDialog()">Cancel</button>
+    <button mat-button [disabled]="!taskForm.form.valid" (click)="taskForm.form.valid && updateTask()">Save</button>
+  </div>
+
 </form>

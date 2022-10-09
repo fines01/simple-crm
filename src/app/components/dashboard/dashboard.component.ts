@@ -100,6 +100,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.secAnimationDelay = seconds * -1 + 's';
   }
 
+  getTasksProgress(): number {
+    if (this.doneTasks.length === 0) return 0;
+    return Math.round(this.userData.userTasks.length / 100 * this.doneTasks.length);
+  }
+
   
 
 
