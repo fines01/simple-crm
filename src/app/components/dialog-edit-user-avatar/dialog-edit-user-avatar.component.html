@@ -1,32 +1,36 @@
 <div class="header">
   <div mat-dialog-title class="">Profile Picture: </div>
   <img src="{{ profilePicURL ? profilePicURL : 'https://picsum.photos/1200/200?grayscale' }}" alt="" class="avatar">
+
 </div>
 
 <div class="line"></div>
 
-<div class="label">None / Random Picture</div>
-  <div class="align-center">
-    <img src="https://picsum.photos/1200/200?grayscale" alt="random picture" class="avatar" (click)="chooseAvatar()">
+<div class="label align-center">Avatar Options:</div>
+<div class="color-options-field">
+  <div *ngFor="let col of colorOptions" (click)="chooseColor(col.name)" class="color-select-btn"
+    [class.col-black]="col.name === 'white' || col.name === 'green'" [style.background-color]="col.code">
+    {{ col.name }}
   </div>
+</div>
 
-  <div class="d-flex">
-    <div class="width-50 mr-16">
-      <div class="label">Choose Avatar</div>
-      <div class="options">
-        <img *ngFor="let url of avatarURLs, let i = index" src="{{ url }}" alt="" (click)="chooseAvatar(i)"
-          class="avatar">
-      </div>
-    </div>
-  
-    <div class="width-50">
-      <div class="label">Choose Options:</div>
-      <div class="choose-color-buttons">
-        <button *ngFor="let col of colorOptions" mat-raised-button (click)="chooseColor(col.name)" class="color-btn"
-          [class.col-black]="col.name === 'white' || col.name === 'green'" [style.background-color]="col.code">{{ col.name }}</button>
-      </div>
-    </div>
+<div class="d-flex">
+  <div class="width-50 mr-16">
+    <div class="label">Choose Avatar</div>
   </div>
+  <div class="width-50">
+    <div class="label">Random Picture</div>
+  </div>
+</div>
+
+<div class="avatars">
+    <div class="option">
+      <img *ngFor="let url of avatarURLs, let i = index" src="{{ url }}" alt="" (click)="chooseAvatar(i)" class="avatar">
+    </div>
+    <div class="option">
+      <img src="https://picsum.photos/1200/200?grayscale" alt="random picture" class="avatar" (click)="chooseAvatar()">
+    </div>
+</div>
 
 <div mat-dialog-actions class="mt-16">
   <button mat-stroked-button (click)="closeDialog()">Cancel</button>

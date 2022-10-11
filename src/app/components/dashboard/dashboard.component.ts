@@ -105,16 +105,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   getTasksProgress(): number {
     if (this.doneTasks.length === 0) return 0;
-    return Math.round(this.userData.userTasks.length / 100 * this.doneTasks.length);
+    let perc = Math.round(this.doneTasks.length * (100/this.userData.userTasks.length))
+    return perc;
   }
 
   openEditProfilePic() {
     let editDialog: MatDialogRef<DialogEditUserAvatarComponent> = this.dialog.open(DialogEditUserAvatarComponent);
-    editDialog.componentInstance.profilePicURL = this.userData.photoURL;
-    editDialog.afterClosed().subscribe( (data) => {
-      // only store pic in database, not in auth account
-      if (data || data === null) this.fireService.update({photoURL: data ? data : null},this.userData.uid,'users'); // null == undefined true, null === undefined false
-    });
+    editDialog.componentInstance.user = this.userData;
   }
 
   
