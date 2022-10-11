@@ -1,10 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, DoCheck, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Location } from '@angular/common';
 import { User } from '@angular/fire/auth';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router, RouterStateSnapshot } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { FirestoreService } from 'src/app/services/firestore.service';
+import { DialogEditUserAvatarComponent } from '../dialog-edit-user-avatar/dialog-edit-user-avatar.component';
+import { DialogDeleteUserComponent } from '../dialog-delete-user/dialog-delete-user.component';
 
 @Component({
   selector: 'app-dialog-edit-user',
@@ -13,7 +15,8 @@ import { FirestoreService } from 'src/app/services/firestore.service';
 })
 export class DialogEditUserComponent implements OnInit {
 
-  authUser!: User;
+  authUser!: any;
+  user!: User;
   loading = false;
   userName!: string;
   userEmail!: string;
@@ -23,6 +26,7 @@ export class DialogEditUserComponent implements OnInit {
     private dialogRef: MatDialogRef<DialogEditUserComponent>,
     private authService: AuthService,
     private fireService: FirestoreService,
+    private dialog: MatDialog,
     private location: Location,
     private router: Router,
     ) { }
@@ -30,7 +34,12 @@ export class DialogEditUserComponent implements OnInit {
   ngOnInit(): void {
     if (this.authUser && this.authUser.displayName) this.userName = this.authUser.displayName;
     if (this.authUser && this.authUser.email) this.userEmail = this.authUser.email;
-     if (this.authUser && this.authUser.photoURL) this.photoURL = this.authUser.photoURL;
+    //(this.user && this.user.photoURL) ? this.photoURL = this.user.photoURL : this.photoURL = 'https://picsum.photos/1200/200?grayscale';
+
+    this.fireService.getByID(this.authUser.uid, 'users').subscribe((user: any)=>{
+      if (user) this.user = user; 
+      (this.user && this.user.photoURL) ? this.photoURL = this.user.photoURL : this.photoURL = 'https://picsum.photos/1200/200?grayscale';
+    })
   }
 
   saveEdit() {
@@ -56,6 +65,16 @@ export class DialogEditUserComponent implements OnInit {
 
   closeDialog() {
     this.dialogRef.close();
+  }
+
+  openEditProfilePicture() {
+    let editDialog: MatDialogRef<DialogEditUserAvatarComponent> = this.dialog.open(DialogEditUserAvatarComponent);
+    editDialog.componentInstance.user = this.user;
+  }
+
+  openDeleteUser() {
+    let deleteDialog: MatDialogRef<DialogDeleteUserComponent> = this.dialog.open(DialogDeleteUserComponent);
+    deleteDialog.componentInstance.user = this.user;
   }
 
 }

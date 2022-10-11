@@ -4,7 +4,6 @@ import * as auth from 'firebase/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import { FirestoreService } from './firestore.service';
-import { FirebaseError } from '@angular/fire/app';
 
 @Injectable({
   providedIn: 'root'
@@ -46,9 +45,11 @@ export class AuthService {
   }
 
   setUpAccount(user: any, username: string) {
-    this.sendVerificationMail();
-    this.setUserData(user);
     this.updateUser(user, username)
+      .then( ()=> {
+        this.setUserData(user);
+        this.sendVerificationMail();
+      });
   }
 
   linkAnonymousAccount(email: string, password: string, username: string) {
@@ -167,18 +168,19 @@ export class AuthService {
     return this.fireService.createOrUpdate(userData, user.uid, 'users');
   }
 
-  async deleteUser(user: any) {
-    await this.fireService.delete(user.uid, 'users')
+  deleteUser(authUser: any) {
+    return this.fireService.delete(authUser.uid, 'users') // delete from users collection
       .then( () => {
-        // delete user account
-        user.delete();
+        // delete user account from auth database
+        //authUser.delete();
+        auth.deleteUser(authUser);
       })
       .catch( (err)=>console.log(err));
   }
 
   async signOut() {
-    let user = auth.getAuth().currentUser;
-    if (user?.isAnonymous) return this.deleteUser(user);
+    let authUser = auth.getAuth().currentUser;
+    if (authUser?.isAnonymous) return this.deleteUser(authUser);
     await this.afAuth.signOut()
       .then(() => localStorage.removeItem('user'))
       .finally( ()=> this.router.navigate(['home/sign-in']));

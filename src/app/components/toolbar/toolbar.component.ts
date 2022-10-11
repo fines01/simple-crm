@@ -1,17 +1,17 @@
-import { AfterViewInit, Component, DoCheck, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { FirestoreService } from 'src/app/services/firestore.service';
 import { AuthService } from '../../services/auth.service';
-import { DialogEditUserComponent } from '../dialog-edit-user/dialog-edit-user.component';
+import { DialogEditUserComponent } from '../user-components/dialog-edit-user/dialog-edit-user.component';
 
 @Component({
   selector: 'app-toolbar',
   templateUrl: './toolbar.component.html',
   styleUrls: ['./toolbar.component.scss']
 })
-export class ToolbarComponent implements OnInit, DoCheck, OnChanges{
+export class ToolbarComponent implements OnInit, OnChanges{
 
   @Input() currentRoute!: string;
   @Input() isHomepage!: boolean;
@@ -31,11 +31,6 @@ export class ToolbarComponent implements OnInit, DoCheck, OnChanges{
 
   ngOnInit(): void {
   }
-
-  ngDoCheck(): void {
-    // this.userName = (this.user && this.user.displayName) ? this.user.displayName : 'Guest';
-    // this.profilePic = (this.user && this.user.photoURL) ? this.user.photoURL : 'https://picsum.photos/1200/200?grayscale';
-  }
   
   ngOnChanges(changes: SimpleChanges): void {
     this.userName = (this.user && this.user.displayName) ? this.user.displayName : 'Guest';
@@ -45,16 +40,6 @@ export class ToolbarComponent implements OnInit, DoCheck, OnChanges{
   emitOpenDrawerEvent(): void {
     this.openDrawer.emit();
   }
-
-  // getUserName() {
-  //   if (this.user && this.user.displayName) return this.user.displayName;
-  //   return 'Guest';
-  // }
-
-  // getUserPhoto() {
-  //   if (this.user && this.user.photoURL) return this.user.photoURL;
-  //   return  'https://picsum.photos/1200/200?grayscale'
-  // }
 
   logOut() {
     this.authService.signOut()
@@ -68,6 +53,7 @@ export class ToolbarComponent implements OnInit, DoCheck, OnChanges{
     if (authUser) {
       let editDialog: MatDialogRef<DialogEditUserComponent> = this.dialog.open(DialogEditUserComponent);
       editDialog.componentInstance.authUser = authUser;
+      //editDialog.componentInstance.user = this.user;
       editDialog.afterClosed().subscribe( ()=>  this.router.navigate([this.currentRoute]));
     }
   }

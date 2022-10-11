@@ -71,9 +71,10 @@ import { MatRadioModule}  from '@angular/material/radio';
 import { DialogEditTaskComponent } from './components/task-components/dialog-edit-task/dialog-edit-task.component';
 import { TaskCardComponent } from './components/task-components/task-card/task-card.component';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { DialogEditUserComponent } from './components/dialog-edit-user/dialog-edit-user.component';
+import { DialogEditUserComponent } from './components/user-components/dialog-edit-user/dialog-edit-user.component';
 import { ClockComponent } from './components/clock/clock.component';
-import { DialogEditUserAvatarComponent } from './components/dialog-edit-user-avatar/dialog-edit-user-avatar.component';
+import { DialogEditUserAvatarComponent } from './components/user-components/dialog-edit-user-avatar/dialog-edit-user-avatar.component';
+import { DialogDeleteUserComponent } from './components/user-components/dialog-delete-user/dialog-delete-user.component';
 
 
 
@@ -114,7 +115,8 @@ import { DialogEditUserAvatarComponent } from './components/dialog-edit-user-ava
     TaskCardComponent,
     DialogEditUserComponent,
     ClockComponent,
-    DialogEditUserAvatarComponent
+    DialogEditUserAvatarComponent,
+    DialogDeleteUserComponent
   ],
   imports: [
     BrowserModule,

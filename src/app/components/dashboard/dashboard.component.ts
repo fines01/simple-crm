@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 import { FirestoreService } from '../../services/firestore.service';
-import { DialogEditUserAvatarComponent } from '../dialog-edit-user-avatar/dialog-edit-user-avatar.component';
+import { DialogEditUserAvatarComponent } from '../user-components/dialog-edit-user-avatar/dialog-edit-user-avatar.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -105,16 +105,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   getTasksProgress(): number {
     if (this.doneTasks.length === 0) return 0;
-    let perc = Math.round(this.doneTasks.length * (100/this.userData.userTasks.length))
-    return perc;
+    let percentage = Math.round(this.doneTasks.length * (100/this.userData.userTasks.length));
+    return percentage;
   }
 
-  openEditProfilePic() {
+  openEditProfilePicture() {
     let editDialog: MatDialogRef<DialogEditUserAvatarComponent> = this.dialog.open(DialogEditUserAvatarComponent);
     editDialog.componentInstance.user = this.userData;
   }
-
-  
 
 
 }
