@@ -1,6 +1,8 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { AfterViewInit, Component, DoCheck, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { FirestoreService } from 'src/app/services/firestore.service';
 import { AuthService } from '../../services/auth.service';
 import { DialogEditUserComponent } from '../dialog-edit-user/dialog-edit-user.component';
 
@@ -9,13 +11,17 @@ import { DialogEditUserComponent } from '../dialog-edit-user/dialog-edit-user.co
   templateUrl: './toolbar.component.html',
   styleUrls: ['./toolbar.component.scss']
 })
-export class ToolbarComponent implements OnInit {
+export class ToolbarComponent implements OnInit, DoCheck, OnChanges{
 
-  //userName = '';
   @Input() currentRoute!: string;
   @Input() isHomepage!: boolean;
-  @Input() usrIsAuth!: boolean;
+  @Input() usrIsAuth!: boolean; // better pass auth user !!
+  @Input() user!: any;
+
   @Output() openDrawer = new EventEmitter();
+
+  profilePic!: string;
+  userName!: string;
 
   constructor(
     private authService: AuthService,
@@ -24,12 +30,31 @@ export class ToolbarComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    //this.userName = this.getUserName();
+  }
+
+  ngDoCheck(): void {
+    // this.userName = (this.user && this.user.displayName) ? this.user.displayName : 'Guest';
+    // this.profilePic = (this.user && this.user.photoURL) ? this.user.photoURL : 'https://picsum.photos/1200/200?grayscale';
   }
   
+  ngOnChanges(changes: SimpleChanges): void {
+    this.userName = (this.user && this.user.displayName) ? this.user.displayName : 'Guest';
+    this.profilePic = (this.user && this.user.photoURL) ? this.user.photoURL : 'https://picsum.photos/1200/200?grayscale';
+  }
+
   emitOpenDrawerEvent(): void {
     this.openDrawer.emit();
   }
+
+  // getUserName() {
+  //   if (this.user && this.user.displayName) return this.user.displayName;
+  //   return 'Guest';
+  // }
+
+  // getUserPhoto() {
+  //   if (this.user && this.user.photoURL) return this.user.photoURL;
+  //   return  'https://picsum.photos/1200/200?grayscale'
+  // }
 
   logOut() {
     this.authService.signOut()
@@ -38,17 +63,11 @@ export class ToolbarComponent implements OnInit {
       } );
   }
 
-  getUserName() {
-    const user = this.authService.getAuthUser();
-    return user?.displayName ? user.displayName : 'Guest';
-  }
-
   openEditUser() {
     let authUser = this.authService.getAuthUser();
     if (authUser) {
       let editDialog: MatDialogRef<DialogEditUserComponent> = this.dialog.open(DialogEditUserComponent);
       editDialog.componentInstance.authUser = authUser;
-      //editDialog.componentInstance.currentRoute = this.currentRoute;
       editDialog.afterClosed().subscribe( ()=>  this.router.navigate([this.currentRoute]));
     }
   }

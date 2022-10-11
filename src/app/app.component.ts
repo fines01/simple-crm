@@ -4,6 +4,7 @@ import { MatDrawer } from '@angular/material/sidenav';
 import { AuthService } from './services/auth.service';
 import { Router, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { FirestoreService } from './services/firestore.service';
 
 @Component({
   selector: 'app-root',
@@ -17,15 +18,18 @@ export class AppComponent implements OnInit, OnDestroy{
   currentRoute!: string;
   routerSubscription!: Subscription;
   authStateSubscription!: Subscription;
+  userSubscription!: Subscription;
   // get template ref variables
   @ViewChild('drawer') drawer!: MatDrawer;
 
   private _mobileQueryListener: () => void;
   authUser!: any;
+  user!: any;
 
   constructor(
     private router: Router,
     private authService: AuthService,
+    private fireService: FirestoreService,
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher
     ) {
@@ -35,23 +39,38 @@ export class AppComponent implements OnInit, OnDestroy{
   }
   
   ngOnInit() {
-    this.routerSubscription = this.router.events.subscribe( (events: any) => {
-      if (events instanceof NavigationEnd) this.currentRoute = events.url;
-    });
-
-    this.authStateSubscription = this.authService.getAuthState().subscribe( (authUser) => {
-      console.log(authUser);
-      this.authUser = authUser;
-      // on auth changes only (login or log out): navigate to resp pages
-      if (!authUser) this.router.navigate(['/home/sign-in']);
-      if(authUser) this.router.navigate(['dashboard']);
-    });
+    this.subscribeRouterEvents();
+    this.subscribeAuthState();
   }
 
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);
     if (this.routerSubscription) this.routerSubscription.unsubscribe();
     if (this.authStateSubscription) this.authStateSubscription.unsubscribe();
+    if (this.userSubscription) this.userSubscription.unsubscribe();
+  }
+
+  subscribeRouterEvents() {
+    this.routerSubscription = this.router.events.subscribe( (events: any) => {
+      if (events instanceof NavigationEnd) this.currentRoute = events.url;
+    });
+  }
+
+  subscribeAuthState() {
+    this.authStateSubscription = this.authService.getAuthState().subscribe( (authUser) => {
+      console.log(authUser);
+      this.authUser = authUser;
+      // on auth changes only (login or log out): navigate to resp pages
+      if (!authUser) this.router.navigate(['/home/sign-in']);
+      if(authUser) this.router.navigate(['dashboard']);
+      if(this.authUser)  this.subscribeUser();
+    });
+  }
+
+  subscribeUser() {
+    this.userSubscription = this.fireService.getByID(this.authUser.uid,'users').subscribe( (user: any)=> {
+      if (user) this.user = user;
+    });
   }
   
   isHome() {

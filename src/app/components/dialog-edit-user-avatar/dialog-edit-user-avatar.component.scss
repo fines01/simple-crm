@@ -1,0 +1,63 @@
+.avatar-picker div{
+    // display: flex;
+    // flex-wrap: wrap;
+    // gap: 1rem;
+}
+
+.line {
+    width: 100%;
+    height: 1px;
+    color: rgba(255, 255, 255, 0.702);
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+.options {
+    display: flex;
+    gap: 16px;
+    height: 66px;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.label {
+    color: rgba(255, 255, 255, 0.702);
+    font-size: 14;
+    margin-bottom: 4px;
+}
+
+.mat-dialog-title {
+    margin-bottom: 16px;
+}
+
+.avatar {
+   width: 52px;
+   height: 52px;
+   cursor: pointer;
+}
+
+.choose-color-buttons {
+    display: flex;
+    gap: 0;
+    flex-wrap: wrap;
+    width: 150px;
+
+}
+
+.color-btn {
+    text-transform: capitalize;
+    width: 50px;
+
+    height: 33px;
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.col-black {
+    color: black;
+}

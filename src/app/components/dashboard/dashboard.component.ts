@@ -1,8 +1,10 @@
 import { Component, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 import { FirestoreService } from '../../services/firestore.service';
+import { DialogEditUserAvatarComponent } from '../dialog-edit-user-avatar/dialog-edit-user-avatar.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -39,6 +41,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   constructor(
     private authService: AuthService,
     private fireService: FirestoreService,
+    private dialog: MatDialog,
     private router: Router,
   ) { }
 
@@ -103,6 +106,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
   getTasksProgress(): number {
     if (this.doneTasks.length === 0) return 0;
     return Math.round(this.userData.userTasks.length / 100 * this.doneTasks.length);
+  }
+
+  openEditProfilePic() {
+    let editDialog: MatDialogRef<DialogEditUserAvatarComponent> = this.dialog.open(DialogEditUserAvatarComponent);
+    editDialog.componentInstance.profilePicURL = this.userData.photoURL;
+    editDialog.afterClosed().subscribe( (data) => {
+      // only store pic in database, not in auth account
+      if (data || data === null) this.fireService.update({photoURL: data ? data : null},this.userData.uid,'users'); // null == undefined true, null === undefined false
+    });
   }
 
   

@@ -6,6 +6,14 @@
   <div *ngIf="authUser" mat-dialog-content>
 
     <!-- TODO change profile picture -->
+    <div class="width-100 avatar-picker">
+      <!-- <div *ngIf="!photoURL" mat-card-avatar class="card-avatar-img"></div>
+      <div *ngIf="photoURL" mat-card-avatar class="card-avatar-img"
+        [ngStyle]="{'background-image': 'url('+ photoURL +')'}" alt="Profile picture"></div>
+      <img src="" alt="" class="avatar"> -->
+
+      <img class="avatar" src="https://picsum.photos/1200/200?grayscale" alt="random picture">
+    </div>
 
     <mat-form-field appearance="outline" color="accent" class="width-100">
       <mat-label>Username</mat-label>
@@ -25,9 +33,10 @@
 
   </div>
   <div mat-dialog-actions>
-    <button mat-button (click)="closeDialog()">Cancel</button>
-    <button mat-button [disabled]="editUserForm.form.invalid" (click)="editUserForm.valid && saveEdit()"
-      cdkFocusInitial>Save</button>
+    <button mat-stroked-button (click)="closeDialog()">Cancel</button>
+    <button mat-stroked-button [disabled]="editUserForm.form.invalid" (click)="editUserForm.valid && saveEdit()" cdkFocusInitial>Save</button>
+
+    <button mat-button #tooltip="matTooltip" matTooltip="Delete User" color="warn" class="delete-user-btn"><mat-icon>delete</mat-icon></button>
   </div>
 
 </form>

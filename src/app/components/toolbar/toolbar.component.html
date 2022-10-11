@@ -34,9 +34,9 @@
         <mat-icon #tooltip="matTooltip" matTooltip="Open settings">settings</mat-icon>
       </button> -->
       <div class="user-indicator">
-        <span class="user-name">{{ getUserName() }}</span>
+        <span class="user-name">{{ userName }}</span>
         <button mat-icon-button [matMenuTriggerFor]="userMenu" #usrIconTooltip="matTooltip" matTooltip="Open user menu">
-          <img src="https://picsum.photos/1200/200?grayscale" alt="avatar" class="avatar">
+          <img src="{{ profilePic }}" alt="avatar" class="avatar">
         </button>
         <mat-menu #userMenu="matMenu">
           <button mat-menu-item [routerLink]="'/dashboard'">

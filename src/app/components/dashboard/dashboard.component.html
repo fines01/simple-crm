@@ -9,8 +9,8 @@
 
   <mat-card class="user-card">
     <mat-card-header>
-      <div *ngIf="!user.photoURL" mat-card-avatar class="card-avatar-img"></div>
-      <div *ngIf="user.photoURL" mat-card-avatar class="card-avatar-img"
+      <div *ngIf="!user.photoURL" mat-card-avatar class="card-avatar-img" (click)="openEditProfilePic()"></div>
+      <div *ngIf="user.photoURL" mat-card-avatar class="card-avatar-img" (click)="openEditProfilePic()"
         [ngStyle]="{'background-image': 'url('+ user.photoURL +')'}" alt="Profile picture"></div>
       <mat-card-title *ngIf="authUser.isAnonymous">Hello, {{ user.displayName ? user.displayName : 'Guest User' }}</mat-card-title>
       <mat-card-title *ngIf="!authUser.isAnonymous">Hello, {{ user.displayName ? user.displayName : 'User' }}</mat-card-title>

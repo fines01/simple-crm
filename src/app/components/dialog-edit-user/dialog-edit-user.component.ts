@@ -17,7 +17,7 @@ export class DialogEditUserComponent implements OnInit {
   loading = false;
   userName!: string;
   userEmail!: string;
-  profilePicURL!: string;
+  photoURL!: string;
 
   constructor( 
     private dialogRef: MatDialogRef<DialogEditUserComponent>,
@@ -30,11 +30,12 @@ export class DialogEditUserComponent implements OnInit {
   ngOnInit(): void {
     if (this.authUser && this.authUser.displayName) this.userName = this.authUser.displayName;
     if (this.authUser && this.authUser.email) this.userEmail = this.authUser.email;
+     if (this.authUser && this.authUser.photoURL) this.photoURL = this.authUser.photoURL;
   }
 
   saveEdit() {
     this.loading = true;
-    this.authService.updateUser(this.authUser, this.userName, this?.profilePicURL)
+    this.authService.updateUser(this.authUser, this.userName, this?.photoURL)
       .then( ()=> {
         if (this.userEmail) this.authService.updateUserEmail(this.authUser, this.userEmail)
           .catch((error)=> console.log(error));
