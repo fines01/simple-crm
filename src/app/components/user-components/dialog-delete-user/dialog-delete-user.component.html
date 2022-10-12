@@ -3,9 +3,23 @@
   <h1 mat-dialog-title>{{ dialogTitle }}</h1>
   <p>{{ dialogMessage }}</p>
   <p *ngIf="!showErrorMsg && !showSuccessMsg">This process is final and <b>cannot be undone!</b></p>
-  <!-- add employee name -->
-  <div *ngIf="!showSuccessMsg" mat-dialog-actions>
-    <button class="cancel-btn" mat-button (click)="closeDialog()" cdkFocusInitial>No! Go back</button>
-    <button class="delete-btn" mat-button (click)="deleteUserAccount()">DELETE</button>
-  </div>
+
+  <form action="">
+    <mat-form-field appearance="outline" color="accent" class="width-100">
+        <mat-label>Password</mat-label>
+        <input type="password" [(ngModel)]="userPassword" matInput [disabled]="loading" name="password" #pwInput="ngModel" class="form-control"
+          placeholder="Password" required autocomplete="off">
+        <mat-hint>Enter password to delete your account!</mat-hint>
+        <mat-error *ngIf="pwInput.invalid">Enter your password to delete your account</mat-error>
+    </mat-form-field>
+
+     <div *ngIf="authErrorMessage"  class="error-msg warn">{{ authErrorMessage }}</div>
+
+    <!-- add employee name -->
+    <div *ngIf="!showSuccessMsg" mat-dialog-actions>
+      <button class="cancel-btn" mat-button (click)="closeDialog()" cdkFocusInitial>No! Go back</button>
+      <button class="delete-btn" [disabled]="pwInput.invalid || pwInput.pristine" mat-button (click)="reAuthenticateAndDeleteUser()">DELETE</button>
+    </div>
+  </form>
+
 </div>

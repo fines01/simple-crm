@@ -4,6 +4,7 @@ import * as auth from 'firebase/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import { FirestoreService } from './firestore.service';
+import { reauthenticateWithCredential } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -176,6 +177,16 @@ export class AuthService {
         auth.deleteUser(authUser);
       })
       .catch( (err)=>console.log(err));
+  }
+
+  // re-authenticate user before performing sensitive operations (changing password, changing primary email address, deleting account)
+  // email auth providers
+  reAuthenticateUser(email: string, password: string) {
+    let authUser = this.getAuthUser();
+    let credential = auth.EmailAuthProvider.credential(email,password);
+    //let OAuthCredential
+    if(authUser) return reauthenticateWithCredential(authUser, credential);
+    else return this.signIn(email, password);
   }
 
   async signOut() {

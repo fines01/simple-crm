@@ -22,6 +22,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   userID!: string;
 
   localeDateString!: string;
+  localeTimeString!: string;
+
   currentHour!: number;
   currentMinute!: number;
   currentSecond!: number;
@@ -74,11 +76,18 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   runTimer(now: Date) {
+    let options: any = {
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit'
+    };
+
+    console.log( now.toLocaleDateString(undefined, options))
+
     setInterval( ()=> {
-      this.localeDateString = now.toLocaleDateString();
-      this.currentHour = now.getHours();
-      this.currentMinute = now.getMinutes();
-      this.currentSecond = now.getSeconds();
+      let date = now.toLocaleDateString(undefined, options).split(' ');
+      this.localeDateString = date[0].replace(',','');
+      this.localeTimeString = date[1].replaceAll(':',' : ');
       now = new Date();
       //this.setClock(now)
     }, 1000)

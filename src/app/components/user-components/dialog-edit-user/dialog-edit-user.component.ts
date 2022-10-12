@@ -1,4 +1,4 @@
-import { Component, DoCheck, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, DoCheck, Input, OnInit, SimpleChanges } from '@angular/core';
 import { Location } from '@angular/common';
 import { User } from '@angular/fire/auth';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
@@ -13,14 +13,17 @@ import { DialogDeleteUserComponent } from '../dialog-delete-user/dialog-delete-u
   templateUrl: './dialog-edit-user.component.html',
   styleUrls: ['./dialog-edit-user.component.scss']
 })
-export class DialogEditUserComponent implements OnInit {
+export class DialogEditUserComponent implements OnInit, DoCheck {
 
   authUser!: any;
   user!: User;
   loading = false;
   userName!: string;
   userEmail!: string;
+  userPassword!: string;
   photoURL!: string;
+  emailChanged = false;
+  authErrorMessage!: string | undefined;
 
   constructor( 
     private dialogRef: MatDialogRef<DialogEditUserComponent>,
@@ -42,20 +45,62 @@ export class DialogEditUserComponent implements OnInit {
     })
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+  }
+  
+  ngDoCheck(): void {
+    if (this.userEmail && this.userEmail !== this.authUser.email) this.emailChanged = true;
+    else if (!this.userEmail || this.userEmail === this.authUser.email) this.emailChanged = false;
+  }
+
   saveEdit() {
     this.loading = true;
-    this.authService.updateUser(this.authUser, this.userName, this?.photoURL)
+    this.authService.updateUser(this.authUser, this.userName, this?.photoURL) // remove photoURL
       .then( ()=> {
-        if (this.userEmail) this.authService.updateUserEmail(this.authUser, this.userEmail)
-          .catch((error)=> console.log(error));
-        this.fireService.update(this.getUpdateData(), this.authUser.uid, 'users')
-          .catch((error) => console.log(error));
+        if (this.userEmail && this.emailChanged) this.reAuthenticateAndUpdateEmail();
+        else this.updateDatabase();
       })
-      .catch( (error) => console.log(error))
+      .catch( (error) => console.log('%c'+error,'color: yellow; background-color: indigo'))
+      .finally(()=> this.loading = false);
+  }
+
+  reAuthenticateAndUpdateEmail() {
+    this.authService.reAuthenticateUser(this.authUser.email, this.userPassword)
+      .then( (res)=> this.updateEmail())
+      .catch( (error) => this.authErrorMessage = this.handleAuthErrors(error)); // handle re-auth errors
+  }
+
+  updateEmail() {
+    this.authService.updateUserEmail(this.authUser, this.userEmail)
+      .then ( ()=> this.updateDatabase() )
+      .catch((error)=> console.log('%c'+error,'color: yellow; background-color: indigo'));
+  }
+
+  updateDatabase() {
+    this.fireService.update(this.getUpdateData(), this.authUser.uid, 'users')
+      .then (()=> console.log('user updated: ', this.getUpdateData()))
+      .catch((error) => console.log('%c'+error,'color: orange'))
       .finally( ()=> {
-          this.loading = false;
           this.closeDialog();
       });
+  }
+
+  handleAuthErrors(error: any) {
+    console.log('%c'+error.code +'\n' + error.message, 'color: yellow; background-color: indigo');
+    let  userDataErrorCodes :string[] = ['auth/user-not-found', 'auth/user-disabled','auth/invalid-email'];
+    for (let errCode of userDataErrorCodes) {
+      if (error.code === errCode) {
+        return 'You are not allowed to perform this operation!';
+      }
+    }
+    if (error = 'auth/wrong-password') return 'Wrong password!'
+    if (error = 'auth/requires-recent-login') return 'Please verify the operation with your password';
+    return 'Oops, something went wrong. Please try again later';
+  }
+
+  checkPWRequired() {
+    if (this.userEmail && this.userEmail !== this.authUser.email) return true;
+    return false;
   }
 
   getUpdateData() {
