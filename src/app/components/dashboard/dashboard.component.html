@@ -12,8 +12,10 @@
       <div *ngIf="!user.photoURL" mat-card-avatar class="card-avatar-img" (click)="openEditProfilePicture()"></div>
       <div *ngIf="user.photoURL" mat-card-avatar class="card-avatar-img" (click)="openEditProfilePicture()"
         [ngStyle]="{'background-image': 'url('+ user.photoURL +')'}" alt="Profile picture"></div>
-      <mat-card-title *ngIf="authUser.isAnonymous">Hello, {{ user.displayName ? user.displayName : 'Guest User' }}</mat-card-title>
-      <mat-card-title *ngIf="!authUser.isAnonymous">Hello, {{ user.displayName ? user.displayName : 'User' }}</mat-card-title>
+      <mat-card-title *ngIf="authUser.isAnonymous">Hello, {{ user.displayName ? user.displayName : 'Guest User' }}
+      </mat-card-title>
+      <mat-card-title *ngIf="!authUser.isAnonymous">Hello, {{ user.displayName ? user.displayName : 'User' }}
+      </mat-card-title>
       <mat-card-subtitle *ngIf="!authUser.isAnonymous">Status: {{ user.isAdmin ? 'Admin' : 'Standard user' }}
       </mat-card-subtitle>
       <mat-card-subtitle *ngIf="authUser.isAnonymous">Status: Guest admin</mat-card-subtitle>
@@ -47,11 +49,12 @@
     <mat-card class="width-50 mr-16">
       <mat-card-title class="card-title">Your current tasks</mat-card-title>
       <mat-card-content>
-        <div *ngIf="user.userTasks.length > 0" class="card-detail"> <span
-            class="link" [routerLink]="'/tasks'"><strong>{{ user.userTasks.length - doneTasks.length }}</strong>
+        <div *ngIf="user.userTasks.length > 0" class="card-detail"> <span class="link"
+            [routerLink]="'/tasks'"><strong>{{ user.userTasks.length - doneTasks.length }}</strong>
             tasks</span> are still open
         </div>
-        <div *ngIf="user.userTasks.length === 0" class="card-detail"> You have <span class="link" [routerLink]="'/tasks'"><strong>no
+        <div *ngIf="user.userTasks.length === 0" class="card-detail"> You have <span class="link"
+            [routerLink]="'/tasks'"><strong>no
               tasks.</strong></span>
         </div>
         <div *ngIf="user.userTasks.length > 0" class="card-detail">
@@ -59,6 +62,21 @@
           'Done'
         </div>
       </mat-card-content>
+    </mat-card>
+
+    <mat-card class="width-50">
+      <mat-card-title class="card-title"> Calendar </mat-card-title>
+      <app-calendar></app-calendar>
+    </mat-card>
+
+  </div>
+
+  <div class="d-flex mt-16">
+    
+    <mat-card class="width-50 mr-16">
+      <mat-card-title class="card-title">Messages </mat-card-title>
+      <mat-card-subtitle></mat-card-subtitle>
+      <mat-card-content></mat-card-content>
     </mat-card>
 
     <mat-card class="width-50">
@@ -71,36 +89,22 @@
 
   </div>
 
-  <div class="d-flex mt-16">
-
-    <mat-card class="width-50 mr-16">
-      <mat-card-title class="card-title"> Calendar </mat-card-title>
-      <!-- <mat-card-content></mat-card-content> -->
-      <app-calendar></app-calendar>
-    </mat-card>
-
-    <mat-card class="width-50">
-      <mat-card-title class="card-title">Messages </mat-card-title>
-      <mat-card-subtitle></mat-card-subtitle>
-      <mat-card-content></mat-card-content>
-    </mat-card>
-
-  </div>
-
   <div class="mt-16">
     <mat-card class="">
       <!-- <mat-card-header> -->
-        <mat-card-title class="card-title">Progress </mat-card-title>
-        <!-- </mat-card-header> -->
-        <div *ngIf="user.userTasks.length > 0" class="bar-label">Tasks done: {{ getTasksProgress() }}%</div>
-        <div *ngIf="user.userTasks.length === 0" class="bar-label">You have no tasks. Define some tasks and set your goals!</div>
-        <mat-progress-bar mode="determinate" color="accent" class="user-progress-bar" value="{{ getTasksProgress() }}"></mat-progress-bar>
+      <mat-card-title class="card-title">Progress </mat-card-title>
+      <!-- </mat-card-header> -->
+      <div *ngIf="user.userTasks.length > 0" class="bar-label">Tasks done: {{ getTasksProgress() }}%</div>
+      <div *ngIf="user.userTasks.length === 0" class="bar-label">You have no tasks. Define some tasks and set your
+        goals!</div>
+      <mat-progress-bar mode="determinate" color="accent" class="user-progress-bar" value="{{ getTasksProgress() }}">
+      </mat-progress-bar>
 
-        <div class="bar-label">Notifications handled: 10%</div>
-        <mat-progress-bar mode="determinate" color="" class="user-progress-bar" value="10"></mat-progress-bar>
+      <div class="bar-label">Notifications handled: 10%</div>
+      <mat-progress-bar mode="determinate" color="" class="user-progress-bar" value="10"></mat-progress-bar>
 
-        <div class="bar-label">Messages read: 90%</div>
-         <mat-progress-bar mode="determinate" color="" class="user-progress-bar" value="90"></mat-progress-bar>
+      <div class="bar-label">Messages read: 90%</div>
+      <mat-progress-bar mode="determinate" color="" class="user-progress-bar" value="90"></mat-progress-bar>
     </mat-card>
   </div>
 

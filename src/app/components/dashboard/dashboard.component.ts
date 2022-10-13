@@ -38,13 +38,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
   authStateSubscription!: Subscription;
   userSubscription!: Subscription;
 
-
- 
   constructor(
     private authService: AuthService,
     private fireService: FirestoreService,
     private dialog: MatDialog,
-    private router: Router,
+    // private router: Router,
   ) { }
 
   ngOnInit(): void {
