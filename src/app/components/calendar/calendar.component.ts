@@ -42,21 +42,26 @@ export class CalendarComponent implements OnInit {
     
       this.firstDay.setDate(this.firstDay.getDate()+1);
     }
-    this.state.map( item => {
-      console.log(item);
-    })
+    // this.state.map( item => {
+    //   console.log(item);
+    // })
     //console.log(this.state)
   }
 
   next() {
     this.state = [];
     this.viewDate.setMonth(this.viewDate.getMonth()+1);
-    this.displayMonth = this.months[this.viewDate.getMonth()+1];
+    //this.viewDate.setDate(this.viewDate.getDate())
+
+    console.log(this.viewDate, this.viewDate.getDay()); // correct: weekday of curr day of next month
+
+    this.displayMonth = this.months[this.viewDate.getMonth()];
 
     this.firstDay = new Date(this.viewDate.getFullYear(), this.viewDate.getMonth(), 1);
     this.lastDay = new Date(this.viewDate.getFullYear(), this.viewDate.getMonth() + 1, 0);
     //this.newDate.setMonth(this.viewDate.getMonth()-1);
     this.startDay = new Date(this.viewDate.getFullYear(), this.viewDate.getMonth(), this.lastDay.getDate()-this.viewDate.getDay());
+    // this.startDay = new Date(this.viewDate.getFullYear(), this.viewDate.getMonth(), (this.lastDay.getDate()-this.firstDay.getDate()));
     console.log(this.startDay.getDate());
 
     for(let i=0;i<=this.viewDate.getDay();i++) {
@@ -77,12 +82,16 @@ export class CalendarComponent implements OnInit {
   previous() {
     this.state = [];
     this.viewDate.setMonth(this.viewDate.getMonth()-1);
-    this.displayMonth = this.months[this.viewDate.getMonth()-1];
+
+    console.log(this.viewDate, this.viewDate.getDay());
+
+    this.displayMonth = this.months[this.viewDate.getMonth()];
 
     this.firstDay = new Date(this.viewDate.getFullYear(), this.viewDate.getMonth(), 1);
     this.lastDay = new Date(this.viewDate.getFullYear(), this.viewDate.getMonth() + 1, 0);
     //this.newDate.setMonth(this.viewDate.getMonth()-1);
     this.startDay = new Date(this.viewDate.getFullYear(), this.viewDate.getMonth(), this.lastDay.getDate()-this.viewDate.getDay());    
+    // this.startDay = new Date(this.viewDate.getFullYear(), this.viewDate.getMonth(), (this.lastDay.getDate()-this.firstDay.getDate())-this.viewDate.getDay());
     
     for(let i=0;i<=this.viewDate.getDate();i++) {
         this.state.push(new Date(this.startDay));
@@ -94,9 +103,9 @@ export class CalendarComponent implements OnInit {
       this.firstDay.setDate(this.firstDay.getDate()+1);
     }
 
-    this.state.map( item => {
-      console.log(item);
-    })
+    // this.state.map( item => {
+    //   console.log(item);
+    // })
   }
 
   private correctWeekIndex(date: Date): number {
