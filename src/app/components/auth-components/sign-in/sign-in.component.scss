@@ -16,6 +16,14 @@
     flex-wrap: nowrap;
 }
 
+.o-auth-buttons {
+    justify-content: center;
+    
+    button{
+        margin-bottom: 8px;
+    }
+}
+
 button {
     box-shadow: 0 0 1px 1px rgba(255,255,255,0.13);
 }
