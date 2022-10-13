@@ -34,45 +34,37 @@ export class CalendarComponent implements OnInit {
     }
 
     for(let _item =  this.firstDay.getDate(); _item<=this.lastDay.getDate(); _item++) {
-      
-      //console.log(this.firstDay);
       this.state.push(new Date(this.firstDay));
-      //console.log(this.state);
-      //this.state.push(this.firstDay);
-    
       this.firstDay.setDate(this.firstDay.getDate()+1);
     }
     // this.state.map( item => {
     //   console.log(item);
     // })
-    //console.log(this.state)
+
   }
 
   next() {
-    this.state = [];
+    this.state = [];   
     this.viewDate.setMonth(this.viewDate.getMonth()+1);
-    //this.viewDate.setDate(this.viewDate.getDate())
-
-    console.log(this.viewDate, this.viewDate.getDay()); // correct: weekday of curr day of next month
-
     this.displayMonth = this.months[this.viewDate.getMonth()];
-
+    
     this.firstDay = new Date(this.viewDate.getFullYear(), this.viewDate.getMonth(), 1);
     this.lastDay = new Date(this.viewDate.getFullYear(), this.viewDate.getMonth() + 1, 0);
-    //this.newDate.setMonth(this.viewDate.getMonth()-1);
-    this.startDay = new Date(this.viewDate.getFullYear(), this.viewDate.getMonth(), this.lastDay.getDate()-this.viewDate.getDay());
-    // this.startDay = new Date(this.viewDate.getFullYear(), this.viewDate.getMonth(), (this.lastDay.getDate()-this.firstDay.getDate()));
+
+    this.startDay = new Date(this.viewDate.getFullYear(), this.viewDate.getMonth(),  (this.firstDay.getDate())-this.correctWeekIndex(this.firstDay));
+    
+    console.log(this.viewDate, this.viewDate.getDay(), this.startDay); // correct: weekday of curr day of next month
     console.log(this.startDay.getDate());
 
-    for(let i=0;i<=this.viewDate.getDay();i++) {
-        this.state.push(new Date(this.startDay));
-        this.startDay.setDate(this.startDay.getDate()+1);
+    let calendarDay = this.startDay;
+    let surplusDays = (+this.firstDay - +this.startDay) / (1000 * 60 * 60 * 24);
+    console.log(surplusDays);
+
+    for(let i = 0 ; i < this.lastDay.getDate() + surplusDays ; i++) {
+      this.state.push(new Date(calendarDay));
+      calendarDay.setDate(calendarDay.getDate()+1);
     }
 
-    for(let _item =  this.firstDay.getDate(); _item<=this.lastDay.getDate(); _item++) {
-      this.state.push(new Date(this.firstDay));
-      this.firstDay.setDate(this.firstDay.getDate()+1);
-    }
     //this.state.map( item => {
     //  console.log(item);
     //})
@@ -82,25 +74,20 @@ export class CalendarComponent implements OnInit {
   previous() {
     this.state = [];
     this.viewDate.setMonth(this.viewDate.getMonth()-1);
-
-    console.log(this.viewDate, this.viewDate.getDay());
-
     this.displayMonth = this.months[this.viewDate.getMonth()];
 
     this.firstDay = new Date(this.viewDate.getFullYear(), this.viewDate.getMonth(), 1);
     this.lastDay = new Date(this.viewDate.getFullYear(), this.viewDate.getMonth() + 1, 0);
     //this.newDate.setMonth(this.viewDate.getMonth()-1);
-    this.startDay = new Date(this.viewDate.getFullYear(), this.viewDate.getMonth(), this.lastDay.getDate()-this.viewDate.getDay());    
-    // this.startDay = new Date(this.viewDate.getFullYear(), this.viewDate.getMonth(), (this.lastDay.getDate()-this.firstDay.getDate())-this.viewDate.getDay());
+    this.startDay = new Date(this.viewDate.getFullYear(), this.viewDate.getMonth(),  (this.firstDay.getDate())-this.correctWeekIndex(this.firstDay));
     
-    for(let i=0;i<=this.viewDate.getDate();i++) {
-        this.state.push(new Date(this.startDay));
-        this.startDay.setDate(this.startDay.getDate()+1);
-    }
+    let calendarDay = this.startDay;
+    let surplusDays = (+this.firstDay - +this.startDay) / (1000 * 60 * 60 * 24);
+    console.log(surplusDays);
 
-    for(let _item =  this.firstDay.getDate(); _item<=this.lastDay.getDate(); _item++) {
-      this.state.push(new Date(this.firstDay));
-      this.firstDay.setDate(this.firstDay.getDate()+1);
+    for(let i = 0 ; i < this.lastDay.getDate() + surplusDays ; i++) {
+      this.state.push(new Date(calendarDay));
+      calendarDay.setDate(calendarDay.getDate()+1);
     }
 
     // this.state.map( item => {
