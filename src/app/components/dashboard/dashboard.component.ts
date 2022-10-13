@@ -1,7 +1,8 @@
-import { Component, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { AfterContentInit, Component, DoCheck, OnChanges, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
+import { DataService } from 'src/app/services/data.service';
 import { AuthService } from '../../services/auth.service';
 import { FirestoreService } from '../../services/firestore.service';
 import { DialogEditUserAvatarComponent } from '../user-components/dialog-edit-user-avatar/dialog-edit-user-avatar.component';
@@ -11,7 +12,7 @@ import { DialogEditUserAvatarComponent } from '../user-components/dialog-edit-us
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit, OnDestroy {
+export class DashboardComponent implements OnInit, OnDestroy, DoCheck, AfterContentInit {
 
   @ViewChildren('seconds') secondsHand!:QueryList<HTMLDivElement>; // using ngIf in template results my ViewChild to return undefined
   @ViewChildren('minutes') minuteHand!: HTMLDivElement[];
@@ -29,7 +30,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   currentSecond!: number;
   // months = ['Jan', 'Feb',...]
   doneTasks!: any;
-  unemployedEmployees!: any;
+  unassignedEmployees!: any;
 
   secAnimationDelay!: string;
   minAnimationDelay!: string;
@@ -42,6 +43,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private fireService: FirestoreService,
     private dialog: MatDialog,
+    private dataService: DataService,
     // private router: Router,
   ) { }
 
@@ -50,11 +52,28 @@ export class DashboardComponent implements OnInit, OnDestroy {
     let now = new Date();
     this.setClock(now);
     this.runTimer(now);
+
+    this.subscribeUnassignedEmployees(); // test data service
+    
+  }
+  
+  ngDoCheck(): void {
+    // console.log(this.dataService.allProjects)
+    // console.log(this.dataService.allEmployees)
+  }
+  
+  ngAfterContentInit(): void {
   }
   
   ngOnDestroy(): void {
     if (this.authStateSubscription) this.authStateSubscription.unsubscribe();
     if (this.userSubscription) this.userSubscription.unsubscribe();
+  }
+
+  subscribeUnassignedEmployees() {
+    this.dataService.unassigned$.subscribe( response => {
+      if (response) this.unassignedEmployees = response;
+    })
   }
 
   subscribeAuthState() {

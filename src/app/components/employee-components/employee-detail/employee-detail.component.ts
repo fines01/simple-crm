@@ -3,6 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { DataService } from 'src/app/services/data.service';
 import { FirestoreService } from 'src/app/services/firestore.service';
 import { Employee } from 'src/models/employee.class';
 import { DialogDeleteEmployeeComponent } from '../dialog-delete-employee/dialog-delete-employee.component';
@@ -36,6 +37,7 @@ export class EmployeeDetailComponent implements OnInit, OnDestroy {
     private fireService: FirestoreService,
     private dialog: MatDialog,
     private router: Router,
+    private dataService: DataService,
     ) { }
 
   ngOnInit(): void {
@@ -59,6 +61,11 @@ export class EmployeeDetailComponent implements OnInit, OnDestroy {
       if (this.assignedProjects && this.managedProjects) {
         this.isAssigned = this.assignedProjects.length > 0 || this.managedProjects.length > 0;
     }
+    if (!this.isAssigned) this.dataService.unassignedEmployees.push(this.employee)
+  }
+
+  sendNewData(data: any) {
+    this.dataService.sendUnassignedEmployeeData(data)
   }
 
   subscribeReceivedEmployee() {
@@ -84,7 +91,6 @@ export class EmployeeDetailComponent implements OnInit, OnDestroy {
         if (result) this.getAssignedProjects(result)
         this.isEmployeeAssigned();
       });
-
   }
 
   getAssignedProjects(junctionDocs: any) {
