@@ -65,7 +65,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         if (user) this.authUser = user;
         if (this.authUser) this.subscribeUser();
       });
-    }
+  }
     
   subscribeUser() {
     this.userSubscription = this.fireService.getByID(this.authUser.uid, 'users')
@@ -81,9 +81,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       minute: '2-digit',
       second: '2-digit'
     };
-
-    console.log( now.toLocaleDateString(undefined, options))
-
+    // console.log( now.toLocaleDateString(undefined, options))
     setInterval( ()=> {
       let date = now.toLocaleDateString(undefined, options).split(' ');
       this.localeDateString = date[0].replace(',','');

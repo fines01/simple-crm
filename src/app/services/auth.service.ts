@@ -46,6 +46,7 @@ export class AuthService {
   }
 
   setUpAccount(user: any, username: string) {
+    //let authUser = this.getAuthUser();
     this.updateUser(user, username)
       .then( ()=> {
         this.setUserData(user);
@@ -63,6 +64,11 @@ export class AuthService {
     auth.linkWithCredential(user, credential)
       .then( (usercred)=> {
         if (username) this.updateUser(usercred.user, username);
+        // this.fireService.getByID(user.uid, 'users').subscribe( (user: any)=>{
+        //   if (user)  {
+        //     user.displayName = username;
+        //   }
+        // });
         console.log("Anonymous account upgrade", user, usercred.user);
       })
       .catch( (error) => console.log('%c'+error.message, 'color: yellow; background-color: black'))
@@ -142,15 +148,15 @@ export class AuthService {
       .finally(()=> this.router.navigate(['dashboard']));
   }
 
-  updateUser(user: any, username?: string, profilePic?: string) {
+  updateUser(user: any, username?: string, profilePic?: string) { // todo remove photoURL? (i only store photo in users db)
     return auth.updateProfile(user, {
       displayName: username ? username : user.displayName,
       photoURL: profilePic ? profilePic : user.photoURL
     })
   }
 
-  updateUserEmail( user: any, email: string) {
-    return auth.updateEmail(user, email)
+  updateUserEmail( authUser: any, email: string) {
+    return auth.updateEmail(authUser, email)
       .then( ()=> this.sendVerificationMail());
   }
 

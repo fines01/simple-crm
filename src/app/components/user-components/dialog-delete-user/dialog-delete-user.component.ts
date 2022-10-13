@@ -34,19 +34,21 @@ export class DialogDeleteUserComponent implements OnInit {
   }
 
   closeEditDialog() {
+    console.log(this.matDialogs.getDialogById('mat-dialog-0'))
     this.matDialogs.getDialogById('mat-dialog-0')?.close();
   }
 
   closeDelete() {
-    this.closeEditDialog();
-    setTimeout(()=> {
-      this.closeDialog()
-    },2500);
+    this.matDialogs.closeAll();
+    // this.closeEditDialog();
+    // setTimeout(()=> {
+    //   this.closeDialog()
+    // },2500);
   }
 
   setSuccessDialog() {
     this.dialogTitle = 'Success!';
-    this.dialogMessage = 'Account deleted: ' + this.user.displayName;
+    this.dialogMessage = 'Account deleted: ' + this.user.displayName ? this.user.displayName : 'Guest';
     this.showSuccessMsg = true;
   }
 
@@ -54,6 +56,10 @@ export class DialogDeleteUserComponent implements OnInit {
     this.dialogTitle = 'ooops!';
     this.dialogMessage = 'Something went wrong. Deletion failed.'
     this.showErrorMsg = true;
+  }
+
+  disableDeleteBtn(pwInput?: any) {
+    return pwInput && (pwInput.invalid || pwInput.pristine)
   }
 
   reAuthenticateAndDeleteUser() {

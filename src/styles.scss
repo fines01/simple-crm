@@ -49,6 +49,10 @@ body {
   margin-top: 16px;
 }
 
+.mb-16 {
+  margin-bottom: 16px;
+}
+
 .mt-32 {
   margin-top: 32px;
 }
@@ -226,6 +230,12 @@ body {
   margin-left: 16px
 }
 
+.register-link {
+  font-weight: 900;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 .guest-banner {
   position: relative;
   top: -16px;
@@ -241,11 +251,6 @@ body {
     font-weight: 600;
   }
 
-  .register-link {
-    font-weight: 900;
-    text-decoration: underline;
-    cursor: pointer;
-  }
 
   @media screen and (max-width: 350px) {
     font-size: 12px;

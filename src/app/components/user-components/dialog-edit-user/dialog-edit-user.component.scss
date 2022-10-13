@@ -25,3 +25,24 @@
   font-size: 12px;
   padding-left: 10.5px;
 }
+
+.dialog-container {
+    min-width: 250px;
+}
+
+.label-sm {
+  color: rgba(255, 255, 255, 0.702);
+  margin-bottom: 4px;
+  font-size: 12px;
+}
+
+
+.mb-16 {
+    margin-bottom: 0px;
+    font-size: 12px;
+    
+    h4 {
+        margin-bottom: 16px;
+        font-size: 14px;
+    }
+}

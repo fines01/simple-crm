@@ -3,6 +3,13 @@
   <mat-progress-bar *ngIf="loading" mode="indeterminate" class="progress-bar"></mat-progress-bar>
 
   <h1 mat-dialog-title>User Details</h1>
+  <div *ngIf="authUser.isAnonymous" class="mb-16">
+    <h4 class="warn">Guest Account</h4>
+    <div class="label-sm">Email:</div>
+    No Email provided. You are logged in as a guest. Your data will be deleted on sign-out. 
+    (<span [routerLink]="'/home/sign-up'" class="register-link" (click)="closeDialog()">Register</span> to save your data)
+  </div>
+
   <div *ngIf="authUser" mat-dialog-content>
 
     <!-- TODO change profile picture -->
@@ -13,33 +20,34 @@
     <mat-form-field appearance="outline" color="accent" class="width-100">
       <mat-label>Username</mat-label>
       <input [(ngModel)]="userName" matInput [disabled]="loading" placeholder="Username" name="username"
-        #usrNameInput="ngModel" required maxlength="30" class="form-control">
+        #usrNameInput="ngModel" [required]="!authUser.isAnonymous" maxlength="30" class="form-control">
       <mat-hint *ngIf="usrNameInput.pristine">Username</mat-hint>
       <mat-error *ngIf="usrNameInput.errors && usrNameInput.errors['required']">Please enter a username</mat-error>
     </mat-form-field>
 
-    <mat-form-field appearance="outline" color="accent" class="width-100">
-      <mat-label>Email</mat-label>
-      <input [(ngModel)]="userEmail" matInput [disabled]="loading || authUser.isAnonymous" placeholder="Email"
-        name="email" #emailInput="ngModel" [required]="!authUser.isAnonymous" email maxlength="30" class="form-control">
-      <mat-hint *ngIf="emailInput.pristine">Email</mat-hint>
-      <mat-error *ngIf="emailInput.errors">Please enter a valid email address</mat-error>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" color="accent" class="width-100">
-      <mat-label>Password</mat-label>
-      <input type="password" [(ngModel)]="userPassword" matInput [disabled]="loading || !emailChanged || !emailInput.dirty" name="password" #pwInput="ngModel" class="form-control"
-        placeholder="Password" [required]="emailChanged" autocomplete="off">
-      <mat-hint>Enter password to change your email!</mat-hint>
-      <mat-error *ngIf="emailChanged && emailInput.dirty && pwInput.invalid">Enter password to change email</mat-error>
-    </mat-form-field>
-
-     <div *ngIf="authErrorMessage"  class="error-msg warn">{{ authErrorMessage }}</div>
-
+    <div *ngIf="!authUser.isAnonymous" class="">
+      <mat-form-field appearance="outline" color="accent" class="width-100">
+        <mat-label>Email</mat-label>
+        <input [(ngModel)]="userEmail" matInput [disabled]="loading || authUser.isAnonymous" placeholder="Email"
+          name="email" #emailInput="ngModel" [required]="!authUser.isAnonymous" email maxlength="30" class="form-control">
+        <mat-hint *ngIf="emailInput.pristine">Email</mat-hint>
+        <mat-error *ngIf="emailInput.errors">Please enter a valid email address</mat-error>
+      </mat-form-field>
+  
+      <mat-form-field appearance="outline" color="accent" class="width-100">
+        <mat-label>Password</mat-label>
+        <input type="password" [(ngModel)]="userPassword" matInput [disabled]="loading || !emailChanged || !emailInput.dirty" name="password" #pwInput="ngModel" class="form-control"
+          placeholder="Password" [required]="emailChanged" autocomplete="off">
+        <mat-hint>Enter password to change your email!</mat-hint>
+        <mat-error *ngIf="emailChanged && emailInput && emailInput.dirty && pwInput.invalid">Enter password to change email</mat-error>
+      </mat-form-field>
+      <div *ngIf="authErrorMessage"  class="error-msg warn">{{ authErrorMessage }}</div>
+    </div>
   </div>
+
   <div mat-dialog-actions>
     <button mat-stroked-button (click)="closeDialog()">Cancel</button>
-    <button mat-stroked-button [disabled]="editUserForm.form.invalid" (click)="editUserForm.valid && saveEdit()"
+    <button mat-stroked-button [disabled]="editUserForm.form.invalid || !userName" (click)="editUserForm.valid && saveEdit()"
       cdkFocusInitial>Save</button>
 
     <button mat-stroked-button #tooltip="matTooltip" matTooltip="Delete User" color="warn" class="delete-user-btn"

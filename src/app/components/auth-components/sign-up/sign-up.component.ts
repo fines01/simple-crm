@@ -1,13 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { User } from '@angular/fire/auth';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service'; 
+import { FirestoreService } from 'src/app/services/firestore.service';
 
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.scss']
 })
-export class SignUpComponent implements OnInit {
+export class SignUpComponent implements OnInit, OnDestroy {
 
 
   userEmail!: string;
@@ -15,20 +18,43 @@ export class SignUpComponent implements OnInit {
   userPassword!: string;
   userPasswordConfirmation!: string;
   errorMessage!: string | undefined;
+  userSubscription!: Subscription;
 
   constructor(
     private authService: AuthService,
+    private fireService: FirestoreService,
     private router: Router,
   ) { }
 
   ngOnInit(): void {
+    let authUser = this.authService.getAuthUser();
+    if (authUser && authUser.displayName) this.userName = authUser.displayName;
+  }
+  
+  setUpExistingUserData(authUser: any) {
+    this.userSubscription = this.fireService.getByID(authUser.uid, 'users')
+      .subscribe( (userData: any)=>{
+        if (userData)  {
+          let user = userData;
+          user.displayName = this.userName;
+          user.email = this.userEmail;
+          this.fireService.createOrUpdate(user, authUser.uid, 'users');
+          //this.authService.setUserData(user)
+        }
+      });
+  }
+
+  ngOnDestroy(): void {
+    if (this.userSubscription) this.userSubscription.unsubscribe();
   }
 
   emailSignUp() {
     // If anonyous user: generate credential and link account
     let currentUser = this.authService.getAuthUser();
     if(currentUser && currentUser.isAnonymous) {
-        this.authService.linkAnonymousAccount(this.userEmail, this.userPassword, this.userName); // TODO
+        this.authService.linkAnonymousAccount(this.userEmail, this.userPassword, this.userName);
+        // update email, username in auth & db
+        this.setUpExistingUserData(currentUser);// user already exists (as anonymous user): update user data in db
     }
     else this.authService.signUp(this.userEmail, this.userPassword, this.userName)
       .then((result: any) => {
@@ -46,7 +72,7 @@ export class SignUpComponent implements OnInit {
     return 'Oops, something went wrong. Please try again later';
   }
 
-  // calling googleAuth Api from authService
+  // call googleAuth Api from authService
   googleSignIn() {
     this.authService.googleAuth();
   }
