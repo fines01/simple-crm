@@ -61,7 +61,6 @@ export class EmployeeDetailComponent implements OnInit, OnDestroy {
       if (this.assignedProjects && this.managedProjects) {
         this.isAssigned = this.assignedProjects.length > 0 || this.managedProjects.length > 0;
     }
-    if (!this.isAssigned) this.dataService.unassignedEmployees.push(this.employee)
   }
 
   sendNewData(data: any) {

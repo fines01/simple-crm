@@ -76,6 +76,7 @@ import { ClockComponent } from './components/clock/clock.component';
 import { DialogEditUserAvatarComponent } from './components/user-components/dialog-edit-user-avatar/dialog-edit-user-avatar.component';
 import { DialogDeleteUserComponent } from './components/user-components/dialog-delete-user/dialog-delete-user.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
+import { MessagesComponent } from './components/user-components/messages/messages.component';
 
 
 
@@ -118,7 +119,8 @@ import { CalendarComponent } from './components/calendar/calendar.component';
     ClockComponent,
     DialogEditUserAvatarComponent,
     DialogDeleteUserComponent,
-    CalendarComponent
+    CalendarComponent,
+    MessagesComponent
   ],
   imports: [
     BrowserModule,

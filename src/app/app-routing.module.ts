@@ -14,6 +14,7 @@ import { VerifyEmailComponent } from './components/auth-components/verify-email/
 import { HomeComponent } from './components/home/home.component';
 import { AuthGuard } from './auth.guard';
 import { UserTasksComponent } from './components/task-components/user-tasks/user-tasks.component';
+import { MessagesComponent } from './components/user-components/messages/messages.component';
 
 const routes: Routes = [
   // {path: '404', component: NotFoundComponent} // TODO maybe make 404 page
@@ -31,6 +32,7 @@ const routes: Routes = [
   {path: 'projects', component: ProjectsComponent, canActivate: [AuthGuard]},
   {path: 'project/:id', component: ProjectDetailComponent, canActivate: [AuthGuard]},
   {path: 'tasks', component: UserTasksComponent, canActivate: [AuthGuard]},
+  {path: 'messages', component: MessagesComponent, canActivate: [AuthGuard]},
 
   {path:'**', redirectTo: 'home'},
 ];

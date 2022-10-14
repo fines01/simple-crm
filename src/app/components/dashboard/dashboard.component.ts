@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, DoCheck, OnChanges, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, DoCheck, OnChanges, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
@@ -12,7 +12,7 @@ import { DialogEditUserAvatarComponent } from '../user-components/dialog-edit-us
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit, OnDestroy, DoCheck, AfterContentInit {
+export class DashboardComponent implements OnInit, DoCheck, OnDestroy {
 
   @ViewChildren('seconds') secondsHand!:QueryList<HTMLDivElement>; // using ngIf in template results my ViewChild to return undefined
   @ViewChildren('minutes') minuteHand!: HTMLDivElement[];
@@ -31,6 +31,8 @@ export class DashboardComponent implements OnInit, OnDestroy, DoCheck, AfterCont
   // months = ['Jan', 'Feb',...]
   doneTasks!: any;
   unassignedEmployees!: any;
+  initialAmountNotifications!: number;
+  userMessages!: any[];
 
   secAnimationDelay!: string;
   minAnimationDelay!: string;
@@ -38,6 +40,7 @@ export class DashboardComponent implements OnInit, OnDestroy, DoCheck, AfterCont
 
   authStateSubscription!: Subscription;
   userSubscription!: Subscription;
+  unassignedSubscription!: Subscription;
 
   constructor(
     private authService: AuthService,
@@ -50,29 +53,27 @@ export class DashboardComponent implements OnInit, OnDestroy, DoCheck, AfterCont
   ngOnInit(): void {
     this.subscribeAuthState();
     let now = new Date();
-    this.setClock(now);
     this.runTimer(now);
-
+    // this.unassignedSubscription = 
     this.subscribeUnassignedEmployees(); // test data service
-    
+    this.setInitialNotificationsAmount();
   }
-  
-  ngDoCheck(): void {
-    // console.log(this.dataService.allProjects)
-    // console.log(this.dataService.allEmployees)
-  }
-  
-  ngAfterContentInit(): void {
-  }
-  
+
   ngOnDestroy(): void {
     if (this.authStateSubscription) this.authStateSubscription.unsubscribe();
     if (this.userSubscription) this.userSubscription.unsubscribe();
+    if (this.unassignedSubscription) this.unassignedSubscription.unsubscribe();
+  }
+
+  ngDoCheck(): void {
+    // this.initialAmountNotifications = this.unassignedEmployees.length;
+    // this.getNotoficationsProgress();
   }
 
   subscribeUnassignedEmployees() {
     this.dataService.unassigned$.subscribe( response => {
       if (response) this.unassignedEmployees = response;
+      else this.unassignedEmployees = [];
     })
   }
 
@@ -112,25 +113,23 @@ export class DashboardComponent implements OnInit, OnDestroy, DoCheck, AfterCont
     this.doneTasks = this.userData.userTasks.filter( (task: any)=> task.category === 'Done' )
   }
 
-  // clock
-  setClock(now: Date) {
-    //let now = new Date();
-    let currentYear, currentMonthIndex, currentDay;
-    [currentYear, currentMonthIndex, currentDay] = [now.getFullYear(), now.getMonth(), now.getDate()];
-    let currentDayStart =  new Date(currentYear, currentMonthIndex, currentDay);
-    let secondsToday = Math.round((+now - +currentDayStart) / 1000);
-    let seconds = ((secondsToday / 60) % 1) * 60;
-    let minutes = ((secondsToday / 3600) % 1) * 3600;
-    let hours = ((secondsToday / 43200) %1) * 43200;
-    this.hourAnimationDelay = hours * -1 + 's';
-    this.minAnimationDelay = minutes * -1 + 's';
-    this.secAnimationDelay = seconds * -1 + 's';
-  }
-
   getTasksProgress(): number {
     if (this.doneTasks.length === 0) return 0;
     let percentage = Math.round(this.doneTasks.length * (100/this.userData.userTasks.length));
     return percentage;
+  }
+
+  // getNotoficationsProgress(): number {
+  //   let amountNotifications = this.unassignedEmployees.length;
+  //   if (amountNotifications > this.initialAmountNotifications) this.initialAmountNotifications = amountNotifications;
+  //   let doneNotifications = this.initialAmountNotifications - amountNotifications;
+  //   let percentage = Math.round(doneNotifications * (100 / amountNotifications) );
+  //   return percentage;
+  // }
+
+  setInitialNotificationsAmount() {
+    if(this.unassignedEmployees) this.initialAmountNotifications = this.unassignedEmployees.length; // wait until received (while ! run again?)
+    else this.setInitialNotificationsAmount();
   }
 
   openEditProfilePicture() {

@@ -1,10 +1,44 @@
 
-.month-indicator {
-  color: var(--blue-grey-700);
-  text-align: center;
-  font-weight: 500;
+button {
+  background-color: transparent;
+  background-color: rgba(0,0,0,0.5);
+  font-family: inherit;
+  color: white;
+  border-radius: 4px;
+  border: 1px solid rgb(105, 240, 174, 0.4);
 }
 
+.calendar {
+  min-height: 145px;
+}
+
+.month-indicator {
+  // color: var(--col-accent);
+  text-align: center;
+  font-weight: 500;
+  margin-top: 8px;
+  // margin-bottom: 0px;
+}
+
+.month-buttons {
+  display: flex;
+  justify-content: space-between;
+  
+  button {
+    cursor: pointer;
+    padding: 2px 12px;
+  }
+}
+
+.gray-out {
+  color: gray;
+}
+
+.mark-today {
+  color: var(--col-accent);
+  font-weight: 900;
+  border-color: white;
+}
 
 .day-of-week,
 .date-grid {
@@ -14,21 +48,21 @@
 
 
 .day-of-week {
-  margin-top: 1.25em;
+  margin-top: 8px;
 }
 
 .day-of-week>* {
-  font-size: 0.7em;
-  color: var(--blue-grey-400);
+  font-size: 12px;
+  color: var(--col-accent);
   font-weight: 500;
-  letter-spacing: 0.1em;
+  letter-spacing: 1.6px;
   font-variant: small-caps;
   text-align: center;
 }
 
-/* Dates */
+// Dates
 .date-grid {
-  margin-top: 0.5em;
+  margin-top: 8px;
 }
 
 /* Positioning the first day 
@@ -36,3 +70,17 @@
     grid-column: 6;
   }
   */
+
+  @media screen and (max-width: 335px) {
+    .day-of-week {
+      font-size: 10.5px;
+      letter-spacing: 1.3px;
+    }
+
+    .calendar {
+      button {
+        padding: 0;
+        font-size: 13px;
+      }
+    }
+  }

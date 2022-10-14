@@ -1,20 +1,19 @@
-<button href="" type="button" (click)="previous()" class="">Previous</button>
-{{ displayMonth }} {{ viewDate.getFullYear() }}
-<button href="" type="button" (click)="next()" class="">Next</button>
+<div class="month-buttons">
+  <button href="" type="button" (click)="previous()" class="">Previous</button>
+  <button href="" type="button" (click)="next()" class="">Next</button>
+</div>
 
+<div class="month-indicator">
+  <time datetime="">{{ displayMonth }} {{ viewDate.getFullYear() }}</time>
+</div>
 
-<main>
-  <div class="calendar">
-    <div class="month-indicator">
-      <time datetime=""> </time>
-    </div>
-    <div class="day-of-week">
-      <div *ngFor="let item of weekdays">{{ item }} </div>
-    </div>
-    <div class="date-grid">
-      <button *ngFor="let item of state">
-        <time>{{item.getDate()}}</time>
-      </button>
-    </div>
+<div class="calendar">
+  <div class="day-of-week">
+    <div *ngFor="let item of weekdays">{{ item }} </div>
   </div>
-</main>
+  <div class="date-grid">
+    <button *ngFor="let item of state, let i = index" [ngClass]="{'gray-out' : isSurplusDay(i), 'mark-today': i == todayIndex}"  >
+      <time>{{item.getDate()}}</time>
+    </button>
+  </div>
+</div>
