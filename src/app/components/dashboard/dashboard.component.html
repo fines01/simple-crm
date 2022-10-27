@@ -40,7 +40,7 @@
   </mat-card>
   <div class="d-flex mt-16">
     <mat-card class="width-50 mr-16">
-      <mat-card-title class="card-title">Your current tasks</mat-card-title>
+      <mat-card-title class="card-title c-pointer" [routerLink]="'/tasks'">Your current tasks</mat-card-title>
       <mat-card-content>
         <div *ngIf="user.userTasks.length > 0" class="card-detail"> <span class="link"
             [routerLink]="'/tasks'"><strong>{{ user.userTasks.length - doneTasks.length }}</strong>
@@ -57,7 +57,7 @@
       </mat-card-content>
     </mat-card>
     <mat-card class="width-50">
-      <mat-card-title class="card-title">Messages </mat-card-title>
+      <mat-card-title class="card-title c-pointer" [routerLink]="'/messages'">Messages </mat-card-title>
       <mat-card-subtitle></mat-card-subtitle>
       <mat-card-content>
         <div *ngIf="!userMessages" class="card-detail">You have no unread messages</div>
