@@ -5,6 +5,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import { FirestoreService } from './firestore.service';
 import { reauthenticateWithCredential } from '@angular/fire/auth';
+import { UserTask } from 'src/models/user-task.class';
 
 @Injectable({
   providedIn: 'root'
@@ -51,6 +52,7 @@ export class AuthService {
       .then( ()=> {
         this.setUserData(user);
         this.sendVerificationMail();
+        this.addWelcomeTasks(user);
       });
   }
 
@@ -78,7 +80,9 @@ export class AuthService {
   async anonymousSignIn() {
     await this.afAuth.signInAnonymously()
       .then( (result)=> {
+        // set up anonymous account
         this.setUserData(result.user);
+        this.addWelcomeTasks(result.user);
         this.router.navigate(['dashboard']);
       })
       .catch ( (error)=> console.log('%c'+error, 'color: yellow; background-color: black'));
@@ -162,7 +166,7 @@ export class AuthService {
 
   /* Sets up user data in the Firestore database users collection when signing up | signing in with social auth providers */
   setUserData(user: any) {
-    // create user object (json) --> TODO decide: maybe also make a User class (pro: consistency)
+    // create user object (json) --> TODO decide: User class
     let userData: User = {
       uid: user.uid,
       email: user.email,
@@ -173,6 +177,11 @@ export class AuthService {
       userTasks: user.userTasks ? user.userTasks : [],
     };
     return this.fireService.createOrUpdate(userData, user.uid, 'users');
+  }
+
+  addWelcomeTasks(user: any) {
+    let welcomeTasks = new UserTask().welcomeTasks;
+    this.fireService.update({userTasks:welcomeTasks}, user.uid, 'users');
   }
 
   deleteUser(authUser: any) {

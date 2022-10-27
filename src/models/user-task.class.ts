@@ -8,6 +8,37 @@ export class UserTask implements Task {
     importance: string;
     category: string;
 
+    welcomeTasks = [
+        {
+            title: 'Welcome!',
+            body: 'Welcome to your tasks section. Here you can define what needs to be done and organize your tasks.',
+            urgency: 'not urgent',
+            importance: 'not important',
+            category: 'To Do (Backlog)'
+        },
+        {
+            title: 'Categorize your tasks',
+            body: 'Select one of the given categories for your task according to the current status (e.g. \'Do Next\'), and decide on the urgency and importance',
+            urgency: 'not urgent',
+            importance: 'important',
+            category: 'To Do (Backlog)'
+        },
+        {
+            title: 'Filter your tasks',
+            body: 'Click on the buttons above or select a specific category to filter your tasks accordingly.',
+            urgency: 'urgent',
+            importance: 'not important',
+            category: 'Do Next'
+        },
+        {
+            title: 'I am done',
+            body: 'You can mark done tasks via the category \'Done\' to keep track of your progress and review them later, or just delete them permanently.',
+            urgency: 'urgent',
+            importance: 'important',
+            category: 'Done'
+        },
+    ]
+
     maxBodyLength = 300;
     urgencyOptions: string[] = ['urgent', 'not urgent'];
     importanceOptions: string[] = ['important', 'not important'];

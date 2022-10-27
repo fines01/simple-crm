@@ -60,6 +60,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
       .then((result: any) => {
           if (result) console.log(result, result.user, result.user?.displayName);
           this.authService.setUpAccount(result.user, this.userName);
+          // this.authService.addWelcomeTasks(result.user);
         })
       .catch( (error) => this.errorMessage = this.handleError(error));;
   }
