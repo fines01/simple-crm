@@ -1,4 +1,4 @@
-import { AfterViewInit, ViewChild, Component, OnInit} from '@angular/core';
+import { AfterViewInit, ViewChild, Component, OnInit, OnDestroy} from '@angular/core';
 import { Employee } from 'src/models/employee.class';
 import { MatDialog } from '@angular/material/dialog';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
@@ -8,18 +8,20 @@ import { MatPaginator } from '@angular/material/paginator';
 import { FirestoreService } from 'src/app/services/firestore.service';
 import { DialogAddEmployeeComponent } from '../dialog-add-employee/dialog-add-employee.component';
 import { TableSortService } from 'src/app/services/table-sort.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-employees',
   templateUrl: './employees.component.html',
   styleUrls: ['./employees.component.scss']
 })
-export class EmployeesComponent implements OnInit, AfterViewInit {
+export class EmployeesComponent implements OnInit, AfterViewInit, OnDestroy {
 
   employee: Employee = new Employee();
   allEmployees = [];
   sortedEmployees!: any[];
   displayedColumns: string[] = ['firstName', 'lastName', 'contact', 'email', 'phone', 'department','countryCode'];
+  employeesSubscription!: Subscription;
   dataSource = new MatTableDataSource(this.sortedEmployees);
   
   @ViewChild(MatPaginator) paginator = <MatPaginator>{};
@@ -34,7 +36,7 @@ export class EmployeesComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.fireService.getCollection('employees')
+    this.employeesSubscription = this.fireService.getCollection('employees')
       .subscribe((changes: any) => {
         this.allEmployees = changes;
         this.sortedEmployees ? this.sortedEmployees = this.allEmployees : null;
@@ -48,6 +50,10 @@ export class EmployeesComponent implements OnInit, AfterViewInit {
       // this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     }
+  }
+
+  ngOnDestroy(): void {
+    if (this.employeesSubscription) this.employeesSubscription.unsubscribe();
   }
 
   openDialog() {

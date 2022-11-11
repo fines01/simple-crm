@@ -1,8 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { FirestoreService } from 'src/app/services/firestore.service';
 import { AuthService } from '../../services/auth.service';
 import { DialogEditUserComponent } from '../user-components/dialog-edit-user/dialog-edit-user.component';
 
@@ -44,7 +42,8 @@ export class ToolbarComponent implements OnInit, OnChanges{
   logOut() {
     this.authService.signOut()
       .then( ()=> {
-        this.router.navigate(['home/sign-in']);
+        setTimeout(()=>this.router.navigate(['home/sign-in']),)
+        // this.router.navigate(['home/sign-in']);
       } );
   }
 

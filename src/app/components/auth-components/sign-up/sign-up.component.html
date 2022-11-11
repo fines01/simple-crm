@@ -11,7 +11,7 @@
         <mat-form-field appearance="outline" color="accent" class="width-100">
            <mat-label>Username</mat-label>
            <input type="email" [(ngModel)]="userName" matInput name="username" #emailInput="ngModel" class="form-control"
-             required>
+             required autocomplete="off">
            <mat-hint>Username</mat-hint>
            <mat-error>Please choose a username</mat-error>
          </mat-form-field>
@@ -19,7 +19,7 @@
          <mat-form-field appearance="outline" color="accent" class="width-100">
            <mat-label>Email</mat-label>
            <input type="email" [(ngModel)]="userEmail" matInput name="email" #emailInput="ngModel" class="form-control"
-             email required>
+             email required autocomplete="off">
            <mat-hint>E-Mail</mat-hint>
            <mat-error>Please enter a valid E-Mail address</mat-error>
          </mat-form-field>
@@ -27,7 +27,7 @@
          <mat-form-field appearance="outline" color="accent" class="width-100">
            <mat-label>Password</mat-label>
            <input type="password" [(ngModel)]="userPassword" matInput name="password" #pwInput="ngModel"
-             class="form-control" minlength="6" required>
+             class="form-control" minlength="6" required autocomplete="off">
            <mat-hint>Password</mat-hint>
            <mat-error *ngIf="pwInput.hasError('required')">Please enter your password</mat-error>
            <mat-error *ngIf="pwInput.hasError('minlength')">Password should have min. 6 characters</mat-error>
@@ -36,7 +36,7 @@
          <mat-form-field appearance="outline" color="accent" class="width-100">
            <mat-label>Confirm password</mat-label>
            <input type="password" [(ngModel)]="userPasswordConfirmation" matInput name="passwordConfirmation"
-             #pwConfirmInput="ngModel" class="form-control" required validateEqual="password">
+             #pwConfirmInput="ngModel" class="form-control" required validateEqual="password" autocomplete="off">
            <mat-hint>Password Confirmation</mat-hint>
            <mat-error *ngIf="pwConfirmInput.touched && pwConfirmInput.hasError('validateEqual')">Passwords do not match!</mat-error>
            <mat-error *ngIf="pwConfirmInput.hasError('required')">Please confirm your password</mat-error>

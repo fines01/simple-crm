@@ -1,4 +1,4 @@
-import { AfterViewInit, ViewChild, Component, OnInit, ChangeDetectorRef, HostListener, ElementRef} from '@angular/core';
+import { AfterViewInit, ViewChild, Component, OnInit, ChangeDetectorRef, HostListener, ElementRef, OnDestroy} from '@angular/core';
 import { Client } from 'src/models/client.class';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAddClientComponent } from '../dialog-add-client/dialog-add-client.component';
@@ -8,6 +8,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { FirestoreService } from 'src/app/services/firestore.service';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { TableSortService } from 'src/app/services/table-sort.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-clients',
@@ -15,7 +16,7 @@ import { TableSortService } from 'src/app/services/table-sort.service';
   styleUrls: ['./clients.component.scss']
 })
 
-export class ClientsComponent implements OnInit, AfterViewInit {
+export class ClientsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   
   client: Client = new Client(); // necessary??
@@ -23,6 +24,7 @@ export class ClientsComponent implements OnInit, AfterViewInit {
   sortedClients!: any[];
   displayedColumns: string[] = ['firstName', 'lastName', 'contact', 'email', 'phone', 'address', 'countryCode']; // + index ?
   dataSource = new MatTableDataSource(this.sortedClients);
+  clientsSubscription!: Subscription;
 
   mobileQueryM!: MediaQueryList;
   
@@ -40,7 +42,7 @@ export class ClientsComponent implements OnInit, AfterViewInit {
     }
 
   ngOnInit(): void {
-    this.firesService
+    this.clientsSubscription = this.firesService
       .getCollection('clients')
       .subscribe((changes: any) => {
         this.allClients = changes;
@@ -55,6 +57,10 @@ export class ClientsComponent implements OnInit, AfterViewInit {
       // this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     }
+  }
+
+  ngOnDestroy(): void {
+    if (this.clientsSubscription) this.clientsSubscription.unsubscribe();
   }
 
   private _mobileQueryListener() {

@@ -5,6 +5,7 @@ import { AuthService } from './services/auth.service';
 import { Router, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { FirestoreService } from './services/firestore.service';
+import { DataService } from './services/data.service';
 
 @Component({
   selector: 'app-root',
@@ -31,6 +32,7 @@ export class AppComponent implements OnInit, OnDestroy{
     private authService: AuthService,
     private fireService: FirestoreService,
     changeDetectorRef: ChangeDetectorRef,
+    // private dataService: DataService,
     media: MediaMatcher
     ) {
     this.mobileQuery = media.matchMedia('(max-width: 815px)');
@@ -58,18 +60,20 @@ export class AppComponent implements OnInit, OnDestroy{
 
   subscribeAuthState() {
     this.authStateSubscription = this.authService.getAuthState().subscribe( (authUser) => {
-      console.log(authUser);
+      //console.log(authUser);
       this.authUser = authUser;
       // on auth changes only (login or log out): navigate to resp pages
       if (!authUser) this.router.navigate(['/home/sign-in']);
       if(authUser) this.router.navigate(['dashboard']);
       if(this.authUser)  this.subscribeUser();
+      else if (this.userSubscription && !this.authUser) this.userSubscription.unsubscribe();
     });
   }
 
   subscribeUser() {
     this.userSubscription = this.fireService.getByID(this.authUser.uid,'users').subscribe( (user: any)=> {
       if (user) this.user = user;
+      if (!user && this.userSubscription) this.userSubscription.unsubscribe();
     });
   }
   

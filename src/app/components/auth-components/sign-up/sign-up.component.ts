@@ -12,7 +12,6 @@ import { FirestoreService } from 'src/app/services/firestore.service';
 })
 export class SignUpComponent implements OnInit, OnDestroy {
 
-
   userEmail!: string;
   userName!: string;
   userPassword!: string;
@@ -62,7 +61,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
           this.authService.setUpAccount(result.user, this.userName);
           // this.authService.addWelcomeTasks(result.user);
         })
-      .catch( (error) => this.errorMessage = this.handleError(error));;
+      .catch( (error) => this.errorMessage = this.handleError(error));
   }
 
   handleError(error: any): string {

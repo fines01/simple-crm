@@ -1,6 +1,5 @@
-import { AfterContentInit, AfterViewInit, Component, DoCheck, OnChanges, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { Component, DoCheck, OnChanges, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { DataService } from 'src/app/services/data.service';
 import { AuthService } from '../../services/auth.service';
@@ -71,7 +70,7 @@ export class DashboardComponent implements OnInit, DoCheck, OnDestroy {
   }
 
   subscribeUnassignedEmployees() {
-    this.dataService.unassigned$.subscribe( response => {
+    this.unassignedSubscription = this.dataService.unassigned$.subscribe( response => {
       if (response) this.unassignedEmployees = response;
       else this.unassignedEmployees = [];
     })
@@ -81,7 +80,8 @@ export class DashboardComponent implements OnInit, DoCheck, OnDestroy {
     this.authStateSubscription = this.authService.getAuthState()
       .subscribe( (user) => {
         if (user) this.authUser = user;
-        if (this.authUser) this.subscribeUser();
+        if (this.authUser) this.subscribeUser()
+        else this.userSubscription.unsubscribe();
       });
   }
     
@@ -90,6 +90,7 @@ export class DashboardComponent implements OnInit, DoCheck, OnDestroy {
       .subscribe( (user)=> {
         if (user) this.userData = user;
         if (this.userData) this.getDoneTasks();
+        // if (!user) this.userSubscription.unsubscribe();
       });
   }
 

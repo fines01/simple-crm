@@ -1,7 +1,8 @@
 import { ComponentType } from '@angular/cdk/portal';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { FirestoreService } from 'src/app/services/firestore.service';
 import { Client } from 'src/models/client.class';
 import { DialogDeleteClientComponent } from '../dialog-delete-client/dialog-delete-client.component';
@@ -14,10 +15,11 @@ import { DialogEditClientComponent } from '../dialog-edit-client/dialog-edit-cli
   styleUrls: ['./client-detail.component.scss']
 })
 
-export class ClientDetailComponent implements OnInit {
+export class ClientDetailComponent implements OnInit, OnDestroy {
 
   clientID!: string;
   client = new Client();
+  clientSubscription!: Subscription;
 
   constructor(
     private fireService: FirestoreService,
@@ -34,8 +36,12 @@ export class ClientDetailComponent implements OnInit {
     });
   }
 
+  ngOnDestroy(): void {
+    if (this.clientSubscription) this.clientSubscription.unsubscribe();
+  }
+
   subscribeReceivedClient() {
-    this.fireService.getByID(this.clientID, 'clients')
+    this.clientSubscription = this.fireService.getByID(this.clientID, 'clients')
       .subscribe( (client: any) => {
         if (!this.checkRouteExists(client)) return;
         this.client = new Client(client); // convert retrieved client - JSON from DB in Object

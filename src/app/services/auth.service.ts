@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { FirestoreService } from './firestore.service';
 import { reauthenticateWithCredential } from '@angular/fire/auth';
 import { UserTask } from 'src/models/user-task.class';
+import { Subscription } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,7 @@ import { UserTask } from 'src/models/user-task.class';
 export class AuthService {
 
   userData: any; // save logged in user data
+  authStateSubscription!: Subscription;
 
   constructor(
     private fireService: FirestoreService,
@@ -23,7 +25,7 @@ export class AuthService {
     public ngZone: NgZone, // NgZone service to remove outside scope warning
   ) {
     // Save user data in localstorage when logged in and setting up null when logged out
-    this.afAuth.authState.subscribe((user) => {
+    this.authStateSubscription = this.afAuth.authState.subscribe((user) => {
       if (user) {
         this.userData = user;
         localStorage.setItem('user', JSON.stringify(this.userData));
@@ -37,8 +39,6 @@ export class AuthService {
 
   signIn(email: string, password: string) {
     return auth.signInWithEmailAndPassword(auth.getAuth(),email, password); 
-      // .then( (result)=> console.log('success: email sign in', result)) // this.setUserData(result.user)
-      // .catch((error) =>  console.log('%c'+error.message, 'color: yellow; background-color: black')); // TODO make error messages
   }
 
   // Sign up with email/password
@@ -47,7 +47,6 @@ export class AuthService {
   }
 
   setUpAccount(user: any, username: string) {
-    //let authUser = this.getAuthUser();
     this.updateUser(user, username)
       .then( ()=> {
         this.setUserData(user);
@@ -66,11 +65,6 @@ export class AuthService {
     auth.linkWithCredential(user, credential)
       .then( (usercred)=> {
         if (username) this.updateUser(usercred.user, username);
-        // this.fireService.getByID(user.uid, 'users').subscribe( (user: any)=>{
-        //   if (user)  {
-        //     user.displayName = username;
-        //   }
-        // });
         console.log("Anonymous account upgrade", user, usercred.user);
       })
       .catch( (error) => console.log('%c'+error.message, 'color: yellow; background-color: black'))

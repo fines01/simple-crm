@@ -1,4 +1,4 @@
-import { Component, DoCheck, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, DoCheck, Input, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { Location } from '@angular/common';
 import { User } from '@angular/fire/auth';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
@@ -7,13 +7,14 @@ import { AuthService } from 'src/app/services/auth.service';
 import { FirestoreService } from 'src/app/services/firestore.service';
 import { DialogEditUserAvatarComponent } from '../dialog-edit-user-avatar/dialog-edit-user-avatar.component';
 import { DialogDeleteUserComponent } from '../dialog-delete-user/dialog-delete-user.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-dialog-edit-user',
   templateUrl: './dialog-edit-user.component.html',
   styleUrls: ['./dialog-edit-user.component.scss']
 })
-export class DialogEditUserComponent implements OnInit, DoCheck {
+export class DialogEditUserComponent implements OnInit, DoCheck, OnDestroy {
 
   authUser!: any;
   user!: User;
@@ -24,6 +25,7 @@ export class DialogEditUserComponent implements OnInit, DoCheck {
   photoURL!: string;
   emailChanged = false;
   authErrorMessage!: string | undefined;
+  sub!: Subscription;
 
   constructor( 
     private dialogRef: MatDialogRef<DialogEditUserComponent>,
@@ -39,18 +41,19 @@ export class DialogEditUserComponent implements OnInit, DoCheck {
     if (this.authUser && this.authUser.email) this.userEmail = this.authUser.email;
     //(this.user && this.user.photoURL) ? this.photoURL = this.user.photoURL : this.photoURL = 'https://picsum.photos/1200/200?grayscale';
 
-    this.fireService.getByID(this.authUser.uid, 'users').subscribe((user: any)=>{
+    this.sub = this.fireService.getByID(this.authUser.uid, 'users').subscribe((user: any)=>{
       if (user) this.user = user; 
       (this.user && this.user.photoURL) ? this.photoURL = this.user.photoURL : this.photoURL = 'https://picsum.photos/1200/200?grayscale';
     })
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-  }
-  
   ngDoCheck(): void {
     if (this.userEmail && this.userEmail !== this.authUser.email) this.emailChanged = true;
     else if (!this.userEmail || this.userEmail === this.authUser.email) this.emailChanged = false;
+  }
+
+  ngOnDestroy(): void {
+    if (this.sub) this.sub.unsubscribe()
   }
 
   saveEdit() {
@@ -78,7 +81,7 @@ export class DialogEditUserComponent implements OnInit, DoCheck {
 
   updateDatabase() {
     this.fireService.update(this.getUpdateData(), this.authUser.uid, 'users')
-      .then (()=> console.log('user updated: ', this.getUpdateData()))
+      //.then (()=> console.log('user updated: ', this.getUpdateData()))
       .catch((error) => console.log('%c'+error,'color: orange'))
       .finally( ()=> {
           this.closeDialog();
