@@ -32,9 +32,9 @@ export class DataService {
   projects$ = this.projects.asObservable();
   
   constructor(private fireService: FirestoreService, private authService: AuthService) { 
-    // this.subscribeAllEmployees();
-    // this.subscribeAllProjects();
-    // this.subscribeEmployeeProjectJunctions();
+    this.subscribeAllEmployees();
+    this.subscribeAllProjects();
+    this.subscribeEmployeeProjectJunctions();
   }
   
   sendUnassignedEmployeeData(data: any) {
@@ -88,6 +88,7 @@ export class DataService {
     this.unassignedEmployees = this.allEmployees.filter( (employee: any) => {
       return (managerIDs.indexOf(employee.objID) === -1) && (assignedIDs.indexOf(employee.objID) === -1);
     });
+    console.log(this.unassignedEmployees);
     this.unassigned.next(this.unassignedEmployees);
   }
 

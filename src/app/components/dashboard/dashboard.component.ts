@@ -53,8 +53,7 @@ export class DashboardComponent implements OnInit, DoCheck, OnDestroy {
     this.subscribeAuthState();
     let now = new Date();
     this.runTimer(now);
-    // this.unassignedSubscription = 
-    this.subscribeUnassignedEmployees(); // test data service
+    this.subscribeUnassignedEmployees();
     this.setInitialNotificationsAmount();
   }
 
@@ -73,7 +72,7 @@ export class DashboardComponent implements OnInit, DoCheck, OnDestroy {
     this.unassignedSubscription = this.dataService.unassigned$.subscribe( response => {
       if (response) this.unassignedEmployees = response;
       else this.unassignedEmployees = [];
-    })
+    });
   }
 
   subscribeAuthState() {
